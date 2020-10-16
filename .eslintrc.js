@@ -18,5 +18,9 @@ module.exports = {
         endOfLine: 'auto'
       }
     ]
+  },
+  globals: {
+    'jQuery': true,
+    '$': true
   }
 }

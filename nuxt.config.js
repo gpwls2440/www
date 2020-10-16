@@ -1,3 +1,4 @@
+const webpack = require("webpack")
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -10,7 +11,10 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [{ src: '~/plugins/vee-validate.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/vee-validate.js', ssr: false },
+    { src: '~/plugins/bxslider.js', ssr: false }
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -32,11 +36,17 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+      })
+    ],
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: "eslint-loader",
           exclude: /(node_modules)/
