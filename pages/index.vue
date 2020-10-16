@@ -1,20 +1,29 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <h2>{{ id }}</h2>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { testApi } from '../api/testApi'
 
 export default {
+  data() {
+    return {
+      userid: '1',
+      id: ''
+    }
+  },
   created() {
     this.apitest()
   },
   methods: {
     apitest() {
-      axios.get('https://jsonplaceholder.typicode.com/todos/1').then((res) => {
-        console.log(res.data)
+      const vm = this
+      testApi(vm.userid).then(res => {
+        vm.id = res.data.id
       })
-    },
-  },
+    }
+  }
 }
 </script>
