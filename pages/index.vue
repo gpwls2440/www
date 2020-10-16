@@ -7,6 +7,7 @@
       <li style="list-style: none"><img src="~assets/images/img3.jpg" /></li>
     </ul>
     <h2>{{ id }}</h2>
+    <h2>FilterNum: {{ num | commaFilter }}</h2>
   </div>
 </template>
 
@@ -17,7 +18,8 @@ export default {
   data() {
     return {
       userid: '1',
-      id: ''
+      id: '',
+      num: '100000000.0000'
     }
   },
   created() {
