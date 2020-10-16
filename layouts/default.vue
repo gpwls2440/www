@@ -13,7 +13,7 @@ import Footer from '../components/MainFooter'
 export default {
   components: {
     Header,
-    Footer,
-  },
+    Footer
+  }
 }
 </script>

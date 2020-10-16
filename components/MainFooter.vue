@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'MainFeader',
+  name: 'MainFeader'
 }
 </script>
