@@ -1,21 +1,20 @@
 <template>
   <div id="app">
-    <PieChart></PieChart>
-    <BarChart></BarChart>
+    <PieChart style="width: 600px"></PieChart>
   </div>
 </template>
 
 <script>
 import PieChart from './pieChart'
-import BarChart from './barChart'
+
 export default {
   components: {
-    PieChart,
-    BarChart
+    PieChart
   },
   data() {
     return {}
-  }
+  },
+  methods: {}
 }
 </script>
 

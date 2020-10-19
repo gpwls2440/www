@@ -1,5 +1,6 @@
-const webpack = require("webpack")
+const webpack = require('webpack')
 export default {
+  mode: 'universal',
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'www',
@@ -11,12 +12,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-    { src: '~/plugins/vee-validate.js', ssr: false },
-    { src: '~/plugins/bxslider.js', ssr: false },
-    { src: '~/plugins/highcharts-vue.js', ssr: false },
-    { src: '~/plugins/filter.js' }
-  ],
+  plugins: [{ src: '~/plugins/vee-validate.js', ssr: false }, { src: '~/plugins/bxslider.js', ssr: false }, { src: '~/plugins/highcharts-vue.js', ssr: false }, { src: '~/plugins/filter.js' }],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -50,7 +46,7 @@ export default {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
+          loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
       }

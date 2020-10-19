@@ -1,14 +1,17 @@
 <script>
-import { Doughnut } from 'vue-chartjs'
+import { Pie } from 'vue-chartjs'
 
 export default {
-  extends: Doughnut,
+  extends: Pie,
   data() {
     return {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        hoverBorderWidth: 20
+        hoverBorderWidth: 20,
+        legend: {
+          position: 'right'
+        }
       },
       chartData: {
         hoverBackgroundColor: 'red',
