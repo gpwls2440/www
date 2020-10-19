@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <pie-chart :data="chartData" :options="chartOptions"></pie-chart>
-    <bar-chart :data="chartData" :options="chartOptions"></bar-chart>
+    <PieChart></PieChart>
+    <BarChart></BarChart>
   </div>
 </template>
 
@@ -12,6 +12,9 @@ export default {
   components: {
     PieChart,
     BarChart
+  },
+  data() {
+    return {}
   }
 }
 </script>

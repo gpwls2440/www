@@ -15,7 +15,7 @@ export default {
     { src: '~/plugins/vee-validate.js', ssr: false },
     { src: '~/plugins/bxslider.js', ssr: false },
     { src: '~/plugins/highcharts-vue.js', ssr: false },
-    { src: '~/plugins/filter.js', ssr: false }
+    { src: '~/plugins/filter.js' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
