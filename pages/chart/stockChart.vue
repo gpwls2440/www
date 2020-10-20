@@ -16,6 +16,7 @@ export default {
         },
         series: [
           {
+            type: 'candlestick',
             name: 'AAPL',
             data: [10, 20, 10, 23, 65, 121, 44, 66, 98, 30, 32, 56, 25, 12, 53],
             dataGrouping: {

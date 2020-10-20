@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <router-link to="/chart">차트</router-link>
+    <router-link to="/keyword">키워드</router-link>
     <ul class="bxslider">
       <li style="list-style: none"><img src="~assets/images/img1.jpg" /></li>
       <li style="list-style: none"><img src="~assets/images/img2.jpg" /></li>

@@ -18,7 +18,9 @@ export default {
     { src: '~/plugins/highcharts-vue.js', ssr: false },
     { src: '~/plugins/filter.js' },
     { src: '~/plugins/chartjs-plugin-datalabels.js', ssr: false },
-    { src: '~/plugins/trading-vue-js.js', ssr: false }
+    { src: '~/plugins/trading-vue-js.js', ssr: false },
+    { src: '~/plugins/amcharts.js', ssr: false },
+    { src: '~/plugins/anychart.js', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
