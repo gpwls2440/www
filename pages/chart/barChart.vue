@@ -2,23 +2,64 @@
 import { Bar } from 'vue-chartjs'
 
 export default {
+  name: 'BarChart',
   extends: Bar,
   data() {
     return {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        hoverBorderWidth: 20
+        hoverBorderWidth: 20,
+        legend: {
+          position: 'right'
+        },
+        title: {
+          display: true,
+          text: '감자=수입 (천달러($))',
+          fontColor: '#000',
+          fontSize: 15,
+          fontFamily: 'Arial'
+        }
       },
       chartData: {
-        hoverBackgroundColor: 'red',
         hoverBorderWidth: 10,
-        labels: ['Green', 'Red', 'Blue'],
+        labels: ['2016', '2017', '2018', '2019', '2020'],
         datasets: [
           {
-            label: 'Data One',
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF'],
-            data: [1, 10, 5]
+            label: '미국',
+            backgroundColor: '#30A9DE',
+            borderColor: '#30A9DE',
+            data: [9154, 12354, 5456, 460, 5511]
+          },
+          {
+            label: '호주',
+            backgroundColor: '#EFDC05',
+            borderColor: '#EFDC05',
+            data: [1151, 25451, 38441, 4844, 9525]
+          },
+          {
+            label: '중국',
+            backgroundColor: '#E53A40',
+            borderColor: '#E53A40',
+            data: [5411, 45412, 21313, 4450, 5987]
+          },
+          {
+            label: '베트남',
+            backgroundColor: '#DDA0DD',
+            borderColor: '#DDA0DD',
+            data: [411, 8542, 1123, 5224, 2525]
+          },
+          {
+            label: '벨기에',
+            backgroundColor: '#2EC4B6',
+            borderColor: '#2EC4B6',
+            data: [461, 2504, 3210, 8444, 5520]
+          },
+          {
+            label: '스페인',
+            backgroundColor: '#84B1DE',
+            borderColor: '#84B1DE',
+            data: []
           }
         ]
       }

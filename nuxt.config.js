@@ -9,10 +9,17 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['@/assets/css/base.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [{ src: '~/plugins/vee-validate.js', ssr: false }, { src: '~/plugins/bxslider.js', ssr: false }, { src: '~/plugins/highcharts-vue.js', ssr: false }, { src: '~/plugins/filter.js' }],
+  plugins: [
+    { src: '~/plugins/vee-validate.js', ssr: false },
+    { src: '~/plugins/bxslider.js', ssr: false },
+    { src: '~/plugins/highcharts-vue.js', ssr: false },
+    { src: '~/plugins/filter.js' },
+    { src: '~/plugins/chartjs-plugin-datalabels.js', ssr: false },
+    { src: '~/plugins/trading-vue-js.js', ssr: false }
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
