@@ -59,6 +59,15 @@ export default {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    postcss: {
+      plugins: {
+        'postcss-preset-env': {
+          autoprefixer: {
+            grid: true
+          }
+        }
+      }
+    }  
   }
 }
