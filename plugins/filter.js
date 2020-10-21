@@ -17,3 +17,19 @@ Vue.filter('commaFilter', function (value) {
     return '0'
   }
 })
+
+Vue.filter('yyyymmddFilter', function (value) {
+  if (value && value.length >= 8) {
+    return `${value.substring(0, 4)}-${value.substring(4, 6)}-${value.substring(6, 8)}`
+  } else {
+    return value
+  }
+})
+
+Vue.filter('hhmmssFilter', function (value) {
+  if (value && value.length >= 6) {
+    return `${value.substring(0, 2)}:${value.substring(2, 4)}:${value.substring(4, 6)}`
+  } else {
+    return value
+  }
+})
