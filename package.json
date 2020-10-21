@@ -10,7 +10,8 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
     "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest"
+    "test": "jest",
+    "browserslist": "browserslist"
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.8",
@@ -44,5 +45,10 @@
     "jest": "^26.5.0",
     "prettier": "^2.1.2",
     "vue-jest": "^3.0.4"
-  }
+  },
+  "browserslist": [
+    "last 2 version",
+    "android >= 4.4",
+    "IE >= 10"
+  ]
 }
