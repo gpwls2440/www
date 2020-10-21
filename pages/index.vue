@@ -2,11 +2,14 @@
   <div class="container">
     <router-link to="/chart">차트</router-link>
     <router-link to="/keyword">키워드</router-link>
-    <ul class="bxslider">
-      <li style="list-style: none"><img src="~assets/images/img1.jpg" /></li>
-      <li style="list-style: none"><img src="~assets/images/img2.jpg" /></li>
-      <li style="list-style: none"><img src="~assets/images/img3.jpg" /></li>
-    </ul>
+    <router-link to="/date">날짜</router-link>
+    <div id="edd" style="visibility: hidden; opacity: 0">
+      <ul class="bxslider">
+        <li style="list-style: none"><img src="~assets/images/img1.jpg" /></li>
+        <li style="list-style: none"><img src="~assets/images/img2.jpg" /></li>
+        <li style="list-style: none"><img src="~assets/images/img3.jpg" /></li>
+      </ul>
+    </div>
     <h2>{{ id }}</h2>
     <h2>FilterNum: {{ num | commaFilter }}</h2>
   </div>
@@ -31,7 +34,10 @@ export default {
       auto: true,
       speed: 300,
       mode: 'horizontal',
-      pager: false
+      pager: false,
+      onSliderLoad() {
+        $('#edd').css('visibility', 'visible').animate({ opacity: 1 })
+      }
     })
   },
   methods: {
