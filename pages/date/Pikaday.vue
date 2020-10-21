@@ -1,12 +1,15 @@
 <template>
-  <vue-pikaday v-model="now" placeholder="Pick a date" />
+  <vue-pikaday v-model="now" :options="options" placeholder="Pick a date" />
 </template>
 
 <script>
 export default {
   data() {
     return {
-      now: null
+      now: null,
+      options: {
+        format: 'YYYY/MM/DD'
+      }
     }
   },
   methods: {}
