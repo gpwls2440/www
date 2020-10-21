@@ -29,7 +29,8 @@
     "nuxt": "^2.14.6",
     "trading-vue-js": "^0.8.0",
     "vee-validate": "^3.0.0",
-    "vue-chartjs": "^3.5.1"
+    "vue-chartjs": "^3.5.1",
+    "vue-spinner": "^1.0.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

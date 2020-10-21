@@ -23,7 +23,10 @@ export default {
     return {
       userid: '1',
       id: '',
-      num: '100000000.0000'
+      num: '100000000.0000',
+      color: '#cc181e',
+      size: '45px',
+      loading: true
     }
   },
   created() {
