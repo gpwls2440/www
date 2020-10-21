@@ -1,5 +1,11 @@
 import Vue from 'vue'
 
+Vue.directive('focus', {
+  inserted(el) {
+    el.focus()
+  }
+})
+
 Vue.filter('commaFilter', function (value) {
   if (value) {
     if (typeof value === 'number') {
