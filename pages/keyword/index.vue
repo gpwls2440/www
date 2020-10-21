@@ -1,12 +1,18 @@
 <template>
   <div id="app">
     <div id="chartdiv"></div>
+    <AnyChart></AnyChart>
   </div>
 </template>
 
 <script>
+import AnyChart from './AnyChart'
+
 export default {
   name: 'WordCloud',
+  components: {
+    AnyChart
+  },
   data() {
     return {}
   },
