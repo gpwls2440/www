@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <div></div>
-    <SankeyChart></SankeyChart>
+    <HighCandleChart></HighCandleChart>
   </div>
 </template>
 
 <script>
-import SankeyChart from './SankeyChart'
+import HighCandleChart from './HighCandleChart'
 
 export default {
   components: {
-    SankeyChart
+    HighCandleChart
   },
   data() {
     return {}
