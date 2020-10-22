@@ -8,7 +8,9 @@ export default {
     return {
       now: null,
       options: {
-        format: 'YYYY/MM/DD'
+        format: 'YYYY/MM/DD',
+        minDate: this.$moment().toDate(),
+        maxDate: this.$moment().add(7, 'days').toDate()
       }
     }
   },

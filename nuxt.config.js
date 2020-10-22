@@ -21,7 +21,8 @@ export default {
     { src: '~/plugins/trading-vue-js.js', ssr: false },
     { src: '~/plugins/amcharts.js', ssr: false },
     { src: '~/plugins/anychart.js', ssr: false },
-    { src: '~/plugins/pikaday.js', ssr: false }
+    { src: '~/plugins/pikaday.js', ssr: false },
+    { src: '~/plugins/vue-moment.js' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
