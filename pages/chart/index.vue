@@ -4,6 +4,7 @@
       <PieChart style="width: 500px; height: 500px"></PieChart>
       <BarChart style="width: 500px; height: 500px"></BarChart>
       <MapChart style="width: 1000px; height: 500px"></MapChart>
+      <SankeyChart style="width: 1000px; height: 500px"></SankeyChart>
     </div>
   </div>
 </template>
@@ -12,12 +13,14 @@
 import PieChart from './PieChart'
 import BarChart from './BarChart'
 import MapChart from './MapChart'
+import SankeyChart from './SankeyChart'
 
 export default {
   components: {
     PieChart,
     BarChart,
-    MapChart
+    MapChart,
+    SankeyChart
   },
   data() {
     return {}
