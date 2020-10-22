@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 export default {
-  ssr : true,
+  ssr: true,
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'www',
@@ -22,7 +22,8 @@ export default {
     { src: '~/plugins/amcharts.js', ssr: false },
     { src: '~/plugins/anychart.js', ssr: false },
     { src: '~/plugins/pikaday.js', ssr: false },
-    { src: '~/plugins/vue-moment.js' }
+    { src: '~/plugins/vue-moment.js' },
+    { src: '~/plugins/vue-fusioncharts.js', ssr: false }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -69,6 +70,6 @@ export default {
           }
         }
       }
-    }  
+    }
   }
 }
