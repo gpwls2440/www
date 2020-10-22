@@ -2,15 +2,21 @@
   <div id="app">
     <div></div>
     <HighCandleChart></HighCandleChart>
+    <FusionCandleChart></FusionCandleChart>
+    <AmCandleChart></AmCandleChart>
   </div>
 </template>
 
 <script>
-import HighCandleChart from './HighCandleChart'
+import HighCandleChart from './candleChart/HighCandleChart'
+import FusionCandleChart from './candleChart/FusionCandleChart'
+import AmCandleChart from './candleChart/AmCandleChart'
 
 export default {
   components: {
-    HighCandleChart
+    HighCandleChart,
+    FusionCandleChart,
+    AmCandleChart
   },
   data() {
     return {}

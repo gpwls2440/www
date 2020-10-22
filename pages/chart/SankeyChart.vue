@@ -19,7 +19,8 @@ export default {
           nodelabelposition: 'right',
           nodeLabelFontColor: '#000',
           nodeWidth: '50',
-          theme: 'gammel'
+          theme: 'gammel',
+          nodeLabelBorderPadding: '5'
           // orientation: 'horizontal'
           // linkalpha: 30,
           // linkhoveralpha: 60,
