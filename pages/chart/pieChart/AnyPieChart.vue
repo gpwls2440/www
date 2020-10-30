@@ -22,7 +22,9 @@ export default {
     const chart = anychart.pie(data)
 
     // set the chart title
-    chart.title('AnyChart')
+    chart.title('감자=수입 14,020(만달러($)/비중%) 2015.01~2020.09 (AnyChart)')
+    chart.title().fontSize(12)
+    chart.title().fontColor('#000')
 
     // adjust legend
     const legend = chart.legend()

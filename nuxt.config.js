@@ -15,13 +15,13 @@ export default {
   plugins: [
     { src: '~/plugins/vee-validate.js', mode: 'client' },
     { src: '~/plugins/bxslider.js', mode: 'client' },
-    { src: '~/plugins/highcharts-vue.js',  mode: 'client' },
+    { src: '~/plugins/highcharts-vue.js', mode: 'client' },
     { src: '~/plugins/filter.js' },
     { src: '~/plugins/chartjs-plugin-datalabels.js', mode: 'client' },
     { src: '~/plugins/trading-vue-js.js', mode: 'client' },
     { src: '~/plugins/amcharts.js', mode: 'client' },
     { src: '~/plugins/anychart.js', mode: 'client' },
-    { src: '~/plugins/pikaday.js', mode: 'client'},
+    { src: '~/plugins/pikaday.js', mode: 'client' },
     { src: '~/plugins/vue-moment.js' },
     { src: '~/plugins/vue-fusioncharts.js', mode: 'client' }
   ],
