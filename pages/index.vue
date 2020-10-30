@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <router-link to="/chart/piechart">파이차트</router-link>
     <router-link to="/chart">차트</router-link>
     <router-link to="/chart/trade">trade 차트</router-link>
     <router-link to="/keyword">키워드</router-link>
