@@ -1,22 +1,24 @@
 <template>
   <div id="app">
-    <div></div>
+    <div>
+      <router-link to="/chart/trade/machart">이동평균선 차트</router-link>
+    </div>
     <HighCandleChart></HighCandleChart>
     <FusionCandleChart></FusionCandleChart>
-    <AmCandleChart></AmCandleChart>
+    <AnyCandleChart></AnyCandleChart>
   </div>
 </template>
 
 <script>
 import HighCandleChart from './candleChart/HighCandleChart'
 import FusionCandleChart from './candleChart/FusionCandleChart'
-import AmCandleChart from './candleChart/AmCandleChart'
+import AnyCandleChart from './candleChart/AnyCandleChart'
 
 export default {
   components: {
     HighCandleChart,
     FusionCandleChart,
-    AmCandleChart
+    AnyCandleChart
   },
   data() {
     return {}
