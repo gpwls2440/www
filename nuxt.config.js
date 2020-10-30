@@ -13,17 +13,17 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    { src: '~/plugins/vee-validate.js', ssr: false },
-    { src: '~/plugins/bxslider.js', ssr: false },
-    { src: '~/plugins/highcharts-vue.js', ssr: false },
+    { src: '~/plugins/vee-validate.js', mode: 'client' },
+    { src: '~/plugins/bxslider.js', mode: 'client' },
+    { src: '~/plugins/highcharts-vue.js',  mode: 'client' },
     { src: '~/plugins/filter.js' },
-    { src: '~/plugins/chartjs-plugin-datalabels.js', ssr: false },
-    { src: '~/plugins/trading-vue-js.js', ssr: false },
-    { src: '~/plugins/amcharts.js', ssr: false },
-    { src: '~/plugins/anychart.js', ssr: false },
-    { src: '~/plugins/pikaday.js', ssr: false },
+    { src: '~/plugins/chartjs-plugin-datalabels.js', mode: 'client' },
+    { src: '~/plugins/trading-vue-js.js', mode: 'client' },
+    { src: '~/plugins/amcharts.js', mode: 'client' },
+    { src: '~/plugins/anychart.js', mode: 'client' },
+    { src: '~/plugins/pikaday.js', mode: 'client'},
     { src: '~/plugins/vue-moment.js' },
-    { src: '~/plugins/vue-fusioncharts.js', ssr: false }
+    { src: '~/plugins/vue-fusioncharts.js', mode: 'client' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
