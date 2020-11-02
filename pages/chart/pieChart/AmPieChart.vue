@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <div id="chartdiv"></div>
-  </div>
+  <div id="chartdiv"></div>
 </template>
 
 <script>
@@ -62,10 +60,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#chartdiv {
-  width: 100%;
-  height: 350px;
-}
-</style>
