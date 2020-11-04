@@ -1,26 +1,26 @@
 <template>
   <div id="app">
     <div>
-      <PieChart style="width: 500px; height: 500px"></PieChart>
-      <BarChart style="width: 500px; height: 500px"></BarChart>
-      <MapChart style="width: 1000px; height: 500px"></MapChart>
+      <MapChart style="width: 800px; height: 500px"></MapChart>
       <SankeyChart style="width: 1000px; height: 500px"></SankeyChart>
+      <BubbleChart style="width: 500px; height: 500px"></BubbleChart>
+      <HighBubbleChart style="width: 500px; height: 500px"></HighBubbleChart>
     </div>
   </div>
 </template>
 
 <script>
-import PieChart from './PieChart'
-import BarChart from './BarChart'
 import MapChart from './MapChart'
 import SankeyChart from './SankeyChart'
+import BubbleChart from './BubbleChart'
+import HighBubbleChart from './HighBubbleChart'
 
 export default {
   components: {
-    PieChart,
-    BarChart,
     MapChart,
-    SankeyChart
+    SankeyChart,
+    BubbleChart,
+    HighBubbleChart
   },
   data() {
     return {}
