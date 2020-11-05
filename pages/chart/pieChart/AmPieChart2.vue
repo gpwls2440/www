@@ -1,5 +1,5 @@
 <template>
-  <div id="chartdiv"></div>
+  <div id="chartdiv2"></div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
   mounted() {
     const { am4core, am4charts } = this.$am4core()
     // Create chart instance
-    const chart = am4core.create('chartdiv', am4charts.PieChart3D)
+    const chart = am4core.create('chartdiv2', am4charts.PieChart3D)
     // chart.hiddenState.properties.opacity = 0 // this creates initial fade-in
 
     chart.legend = new am4charts.Legend()
@@ -19,6 +19,8 @@ export default {
     chart.legend.fontSize = 12
 
     chart.radius = am4core.percent(80)
+
+    chart.fontSize = 12
 
     chart.data = [
       {
@@ -51,13 +53,12 @@ export default {
     series.dataFields.value = 'litres'
     series.dataFields.category = 'country'
 
-    series.labels.template.disabled = true
+    series.ticks.template.disabled = true
+    series.alignLabels = false
+    series.labels.template.text = `{value.percent.formatNumber('#.0')}%`
+    series.labels.template.radius = am4core.percent(-40)
+    // series.labels.template.relativeRotation = 90
+    series.labels.template.fill = am4core.color('white')
   }
 }
 </script>
-<style scoped>
-#chartdiv {
-  width: 530px;
-  height: 450px;
-}
-</style>

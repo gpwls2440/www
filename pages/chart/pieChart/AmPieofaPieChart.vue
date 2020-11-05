@@ -1,5 +1,5 @@
 <template>
-  <div id="chartdiv"></div>
+  <div id="chartdiv3"></div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
   mounted() {
     const { am4core, am4charts } = this.$am4core()
 
-    const container = am4core.create('chartdiv', am4core.Container)
+    const container = am4core.create('chartdiv3', am4core.Container)
     container.width = am4core.percent(100)
     container.height = am4core.percent(100)
     container.layout = 'horizontal'
@@ -187,10 +187,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#chartdiv {
-  width: 50%;
-  height: 300px;
-}
-</style>

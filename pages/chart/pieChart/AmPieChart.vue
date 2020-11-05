@@ -15,33 +15,28 @@ export default {
     chart.data = [
       {
         country: '서울가락',
-        litres: 501.9,
-        color: am4core.color('#64b5f6')
+        litres: 501.9
+        // color: am4core.color('#64b5f6')
       },
       {
         country: '대구북부',
-        litres: 301.9,
-        color: am4core.color('#1976d2')
+        litres: 301.9
       },
       {
         country: '광주서부',
-        litres: 201.1,
-        color: am4core.color('#ef6c00')
+        litres: 201.1
       },
       {
         country: '구리도매',
-        litres: 165.8,
-        color: am4core.color('#ffd54f')
+        litres: 165.8
       },
       {
         country: '광주각화',
-        litres: 161.1,
-        color: am4core.color('#455a64')
+        litres: 161.1
       },
       {
         country: '서울강서',
-        litres: 145.8,
-        color: am4core.color('#96a6a6')
+        litres: 145.8
       }
     ]
 
@@ -56,7 +51,7 @@ export default {
     // chart.legend.maxHeight = 110
 
     chart.fontSize = 12
-    chart.radius = am4core.percent(50)
+    chart.radius = am4core.percent(45)
   }
 }
 </script>
