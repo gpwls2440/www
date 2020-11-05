@@ -25,7 +25,21 @@
         <li style="list-style: none"><img src="~assets/images/img3.jpg" /></li>
       </ul>
     </div>
-    <h2>{{ id }}</h2>
+    <table>
+      <tr v-for="(item, idx) in list" :key="idx">
+        <td>{{ item.s_dept_cd }}</td>
+        <td>{{ item.s_dept_nm }}</td>
+        <td>{{ item.s_dept_tp }}</td>
+        <td>{{ item.s_dept_bsns_tp }}</td>
+        <td>{{ item.s_clnt_cd }}</td>
+        <td>{{ item.s_budgt_mngr_yn }}</td>
+        <td>{{ item.s_budgt_grp_nm_1 }}</td>
+        <td>{{ item.s_budgt_grp_nm_2 }}</td>
+        <td>{{ item.s_use_yn }}</td>
+        <td>{{ item.s_upd_wrk_id }}</td>
+        <td>{{ item.s_upd_wrk_dtm }}</td>
+      </tr>
+    </table>
     <h2>FilterNum: {{ num | commaFilter }}</h2>
   </div>
 </template>
@@ -37,11 +51,11 @@ export default {
   data() {
     return {
       userid: '1',
-      id: '',
       num: '100000000.0000',
       color: '#cc181e',
       size: '45px',
-      loading: true
+      loading: true,
+      list: []
     }
   },
   created() {
@@ -61,8 +75,8 @@ export default {
   methods: {
     apitest() {
       const vm = this
-      testApi(vm.userid).then(res => {
-        vm.id = res.data.id
+      testApi().then(res => {
+        vm.list = res.data.list
       })
     }
   }

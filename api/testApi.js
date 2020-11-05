@@ -1,7 +1,5 @@
-import { axiosPost } from './config'
+import { axiosGet } from './config'
 
-export const testApi = userId => {
-  return axiosPost('/posts', {
-    user_id: userId
-  })
+export const testApi = () => {
+  return axiosGet('/test', {})
 }
