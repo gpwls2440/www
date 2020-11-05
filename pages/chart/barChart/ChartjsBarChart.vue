@@ -19,6 +19,34 @@ export default {
           fontColor: '#000',
           fontSize: 15,
           fontFamily: 'Arial'
+        },
+        tooltips: {
+          callbacks: {
+            label(tooltipItem, data) {
+              const value = data.datasets[0].data[tooltipItem.index]
+              if (parseInt(value) >= 1000) {
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'
+              } else {
+                return value + '원'
+              }
+            }
+          } // end callbacks:
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                callback(value, index, values) {
+                  if (parseInt(value) >= 1000) {
+                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                  } else {
+                    return value
+                  }
+                }
+              }
+            }
+          ]
         }
       },
       chartData: {
