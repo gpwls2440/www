@@ -1,0 +1,13 @@
+#certLogin {
+  display: none;
+}
+#customBtn:hover {
+  cursor: pointer;
+}
+span.icon {
+  background: url('../images/ico_log2.png') transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: top;
+  width: 70px;
+  height: 61px;
+}

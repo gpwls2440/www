@@ -1,0 +1,275 @@
+.chart_top {
+  height: 26px;
+  padding-top: 5px;
+  background: #464658;
+  font-size: 13px;
+  color: #8b90a6;
+  font-size: 14px;
+}
+
+.won_price {
+  font-size: 11px !important;
+  color: #aaa !important;
+  padding-left: 10px;
+}
+.won_price.small {
+  font-size: 10px !important;
+  color: #aaa !important;
+  padding-left: 0px;
+}
+.won_price span {
+  color: #999 !important;
+  font-size: 11px !important;
+  padding-left: 5px;
+}
+.won_price.small span {
+  color: #999 !important;
+  font-size: 10px !important;
+  padding-left: 5px;
+}
+
+.tab_table_con {
+  height: 305px;
+  overflow: auto;
+}
+
+.wc_area_btn {
+  padding-bottom: 20px;
+}
+.wc_area {
+  width: 225px;
+  height: 222px;
+  background: #3b3b4b;
+  border: 1px solid #464658;
+  padding: 15px 0px 15px 19px;
+  z-index: 10;
+  position: absolute;
+  left: -1px;
+  top: 30px;
+  display: none;
+}
+.wc_area.active {
+  display: block;
+}
+.wc_area li {
+  line-height: 25px;
+  cursor: pointer;
+}
+.wc_area li {
+  font-size: 14px;
+  color: #fff;
+}
+.wc_area li:hover {
+  text-decoration: underline;
+}
+.wc_area li span {
+  color: #8b90a6;
+}
+
+.white {
+  color: #fff;
+}
+.mb30 {
+  margin-bottom: 30px;
+}
+
+.table_type_h2 li.center .t1 {
+  color: #fff;
+}
+
+.askLi {
+  border-top: 1px #555 solid;
+  margin-bottom: 3px;
+}
+.askLi:first-child {
+  border-top: 0px;
+}
+
+.bidLi {
+  border-bottom: 1px #555 solid;
+  padding-bottom: 7px;
+}
+
+.blue {
+  color: #3c9dfe !important;
+}
+.red {
+  color: #e4292b !important;
+}
+
+.ico {
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0 2px;
+  width: 9px;
+  height: 17px;
+  background: url('/assets/img/002/ico_0.png');
+}
+.ico_up {
+  background: url('/assets/img/002/ico_up.png');
+}
+.ico_down {
+  background: url('/assets/img/002/ico_down.png');
+}
+
+#right_section .bot .ex_price1 .price_w1 input[type='text'] {
+  height: 28px;
+  margin-top: 3px;
+}
+
+.miniBtn_area {
+  display: inline-block;
+  float: right;
+}
+.miniBtn {
+  padding: 1px 10px;
+  cursor: pointer;
+  font-size: 0.8em;
+  border: 1px #4d4d5c solid;
+  background: #464658;
+  color: #fff;
+}
+.miniBtn:hover,
+.miniBtn.on {
+  border: 1px #000 solid;
+  background: #fff;
+  color: #000;
+}
+
+.miniBtn1 {
+  padding: 0px;
+  cursor: pointer;
+  font-size: 0em;
+  width: 25px;
+  height: 25px;
+  border: 1px #4d4d5c solid;
+  background-color: #464658;
+}
+.miniBtn1:hover {
+  border: 1px #000 solid;
+  background-color: #fff;
+  color: #000;
+}
+.miniBtn1.plus {
+  background-image: url('/assets/img/icon_plus_w.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 9px 9px;
+}
+.miniBtn1.minus {
+  background-image: url('/assets/img/icon_minus_w.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 9px 9px;
+}
+.miniBtn1.plus:hover {
+  background-image: url('/assets/img/icon_plus.png');
+}
+.miniBtn1.minus:hover {
+  background-image: url('/assets/img/icon_minus.png');
+}
+
+#right_section .ex_price3 .btn_c1 {
+  color: #fff;
+}
+
+.table_type_h2 li .c.red,
+.table_type_h2 li .c.blue {
+  font-weight: bold;
+}
+.table_type_h2 li .l {
+  color: #fff;
+}
+
+.topInfo {
+  float: right;
+  margin-right: 20px;
+  font-size: 0.8em;
+  line-height: 22px;
+}
+.topSpan {
+  margin-left: 5px;
+}
+.minWidth {
+  display: none;
+}
+.minWidth1 {
+  display: none;
+}
+
+.warning {
+  background: url('/assets/img/icon_pkmark.png') no-repeat;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
+  cursor: pointer;
+}
+[data-tooltip-text]:hover:after {
+  top: 130%;
+  left: -120px;
+  opacity: 1;
+}
+
+@media all and (min-width: 1250px) {
+  .minWidth {
+    display: inline-block;
+  }
+  .minWidth1 {
+    display: none;
+  }
+}
+
+@media all and (min-width: 1350px) {
+  .minWidth {
+    display: inline-block;
+  }
+  .minWidth1 {
+    display: inline-block;
+  }
+}
+
+@media all and (min-width: 1560px) {
+  .topInfo {
+    font-size: 1em;
+    line-height: 25px;
+  }
+  .topSpan {
+    margin-left: 15px;
+  }
+  .minWidth {
+    display: inline-block;
+  }
+  .minWidth1 {
+    display: inline-block;
+  }
+}
+
+#modiInfoBuy {
+  display: none;
+  position: absolute;
+  margin-top: 0px;
+  border: 2px red solid;
+  width: 265px;
+  height: 30px;
+  line-height: 30px;
+  z-index: 999;
+  background: red;
+  color: #fff;
+  text-align: center;
+}
+
+#modiInfoSell {
+  display: none;
+  position: absolute;
+  margin-top: 0px;
+  border: 2px red solid;
+  width: 265px;
+  height: 30px;
+  line-height: 30px;
+  z-index: 999;
+  background: red;
+  color: #fff;
+  text-align: center;
+}

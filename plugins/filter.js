@@ -32,10 +32,46 @@ Vue.filter('yyyymmddFilter', function (value) {
   }
 })
 
-Vue.filter('hhmmssFilter', function (value) {
+Vue.filter('hhmmssFilter', function (value, index) {
   if (value && value.length >= 6) {
     return `${value.substring(0, 2)}:${value.substring(2, 4)}:${value.substring(4, 6)}`
   } else {
+    return value
+  }
+})
+
+Vue.filter('askbidHeight', function (value, index) {
+  const centerH = 53
+  const itemH = 26
+
+  const topH = $('#right_section .top').height()
+
+  let count = (Number(topH) - Number(centerH)) / 2 / itemH
+  const countString = count + ''
+  let sosu = 0
+  if (countString.includes('.')) {
+    sosu = Number('0.' + countString.split('.')[1])
+  }
+
+  count = Math.floor(count)
+
+  let askcount = 10 - count
+  let bidcount = count - 1
+
+  const abs = sosu - 0.5
+
+  if (abs > 0) {
+    askcount = 9 - count
+  }
+
+  if (Math.abs(abs) > 0.2) {
+    bidcount = count
+  }
+  if (value.dealType === 'ask') {
+    if (Number(index) > askcount) {
+      return value
+    }
+  } else if (Number(index) < bidcount) {
     return value
   }
 })
