@@ -1,0 +1,130 @@
+.won_price1 {
+  font-size: 11px !important;
+  padding-left: 0px;
+}
+.won_price {
+  font-size: 11px !important;
+  color: #666 !important;
+  padding-left: 10px;
+}
+.won_price.small {
+  font-size: 10px !important;
+  color: #666 !important;
+  padding-left: 0px;
+}
+.won_price span {
+  color: #999 !important;
+  font-size: 11px !important;
+  padding-left: 5px;
+}
+.won_price.small span {
+  color: #999 !important;
+  font-size: 10px !important;
+  padding-left: 5px;
+}
+.line2 {
+  line-height: 18px !important;
+}
+.ex_table_type5 table td {
+  padding: 0 15px 0 15px;
+}
+
+.exchange_Left .search {
+  border-right: 1px #cdd2e9 solid;
+  width: 306px;
+}
+.exchange_Left .search input[type='text'] {
+  width: 210px;
+}
+
+.coinList tr.active,
+.coinList tr:hover {
+  background: #f7f7f7;
+}
+
+.ex_table_type5 {
+  height: 880px;
+}
+.ex_con3 {
+  height: 390px;
+}
+
+.ex_table_type1 table td.f_red a {
+  color: #e4292b;
+}
+.ex_table_type1 table td.f_blue a {
+  color: #2c5ac1;
+}
+/*.ex_table_type1 {height:35vw !important;}*/
+
+.coinList tr {
+  cursor: pointer;
+}
+
+.chartMask {
+  position: absolute;
+  left: 0;
+  top: 183px;
+  width: 100%;
+  height: 395px;
+}
+
+.ex_table_type5 table td.empty {
+  border-bottom: 0px;
+}
+
+.mCustomScrollbar {
+  overflow: auto;
+}
+
+#modiInfoBuy {
+  display: none;
+  position: absolute;
+  margin-top: 0px;
+  border: 2px red solid;
+  width: 240px;
+  height: 30px;
+  line-height: 30px;
+  z-index: 999;
+  background: red;
+  color: #fff;
+  text-align: center;
+}
+
+#modiInfoSell {
+  display: none;
+  position: absolute;
+  margin-top: 0px;
+  border: 2px red solid;
+  width: 240px;
+  height: 30px;
+  line-height: 30px;
+  z-index: 999;
+  background: red;
+  color: #fff;
+  text-align: center;
+}
+#connectError {
+  display: none;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  border: 2px red solid;
+  width: 300px;
+  height: 100px;
+  padding: 20px;
+  z-index: 999;
+  background: red;
+  color: #fff;
+  text-align: center;
+}
+
+.warning {
+  background: url('/assets/img/icon_pkmark.png') no-repeat;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
+  cursor: pointer;
+}

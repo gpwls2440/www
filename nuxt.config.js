@@ -1,29 +1,25 @@
-const webpack = require('webpack')
+import webpack from 'webpack'
 export default {
   ssr: true,
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'www',
+    title: `{{$t ('mainInfo01')}} {{$t ('mainInfo02')}}`,
     meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: '' }],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['@/assets/css/base.css'],
+  css: ['@/assets/css/base.css', '@/assets/css/design.css', '@/assets/css/design_h.css', '@/assets/css/layout.css', '@/assets/css/custom.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '~/plugins/vee-validate.js', mode: 'client' },
     { src: '~/plugins/bxslider.js', mode: 'client' },
-    { src: '~/plugins/highcharts-vue.js', mode: 'client' },
     { src: '~/plugins/filter.js' },
-    { src: '~/plugins/chartjs-plugin-datalabels.js', mode: 'client' },
-    { src: '~/plugins/trading-vue-js.js', mode: 'client' },
     { src: '~/plugins/amcharts.js', mode: 'client' },
-    { src: '~/plugins/anychart.js', mode: 'client' },
     { src: '~/plugins/pikaday.js', mode: 'client' },
     { src: '~/plugins/vue-moment.js' },
-    { src: '~/plugins/vue-fusioncharts.js', mode: 'client' }
+    { src: '~/plugins/i18n.js' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -45,6 +41,7 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    vendor: ['vue-i18n'],
     plugins: [
       new webpack.ProvidePlugin({
         $: 'jquery',

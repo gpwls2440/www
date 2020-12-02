@@ -1,0 +1,6 @@
+.pane-legend-line span{font-size:10px}
+.pane-legend-line.apply-overflow-tooltip.main,
+.main .pane-legend-icon-container{display:none !important}
+/*
+.pane-legend-line.pane-legend-wrap.study{display:none !important}
+*/

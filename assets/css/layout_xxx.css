@@ -1,0 +1,155 @@
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 100;
+  src: url('../fonts/notosans/NotoSansKR-Thin.woff2') format('woff2'),
+       url('../fonts/notosans/NotoSansKR-Thin.woff') format('woff'),
+       url('../fonts/notosans/NotoSansKR-Thin.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/notosans/NotoSansKR-Light.woff2') format('woff2'),
+       url('../fonts/notosans/NotoSansKR-Light.woff') format('woff'),
+       url('../fonts/notosans/NotoSansKR-Light.otf') format('opentype');
+}
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 400; 
+   src: url('../fonts/notosans/NotoSansKR-Regular.woff2') format('woff2'),
+        url('../fonts/notosans/NotoSansKR-Regular.woff') format('woff'),
+        url('../fonts/notosans/NotoSansKR-Regular.otf') format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 500;
+   src: url('../fonts/notosans/NotoSansKR-Medium.woff2') format('woff2'),
+        url('../fonts/notosans/NotoSansKR-Medium.woff') format('woff'),
+        url('../fonts/notosans/NotoSansKR-Medium.otf') format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 700;
+   src: url('../fonts/notosans/NotoSansKR-Bold.woff2') format('woff2'),
+        url('../fonts/notosans/NotoSansKR-Bold.woff') format('woff'),
+        url('../fonts/notosans/NotoSansKR-Bold.otf') format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 900;
+   src: url('../fonts/notosans/NotoSansKR-Black.woff2') format('woff2'),
+        url('../fonts/notosans/NotoSansKR-Black.woff') format('woff'),
+        url('../fonts/notosans/NotoSansKR-Black.otf') format('opentype');
+}
+
+
+
+*{margin:0;padding:0}
+html, body {width:100%; height:100%;}
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, radio, select, p, button {margin:0; padding:0}
+body, h1, h2, h3, h4, th, td, input, select, textarea {font-family:'Noto Sans KR',Dotum,Helvetica,AppleGothic, sans-serif; font-size:12px; color:#555; font-weight:normal;}
+p, a, span {font-family:'Noto Sans KR',Dotum,Helvetica,AppleGothic, sans-serif;}
+strong {font-family:'Noto Sans KR',Dotum,Helvetica,AppleGothic, sans-serif; font-weight:bold;}
+a {text-decoration:none; color:#555}
+a:hover {text-decoration:none}
+table {border-collapse:collapse; border-spacing:0;}
+caption, legend {width:0; height:0; text-indent:-9999em; line-height:0; font-size:0}
+img, button, iframe {vertical-align:top; font-size:0; line-height:0; margin:0; padding:0; border:0;}
+fieldset {vertical-align:top; margin:0; padding:0; border:0;}
+ul, ol, li {list-style:none}
+hr {display:none}
+em, address {font-style:normal}
+button, label, input[type="image"] {cursor:pointer}
+input,  select {vertical-align:middle;}
+label {vertical-align:top;}
+.hidden {position:absolute; left:-99999px; top:-99999px; text-indent:-99999em; height:0; width:0}
+
+/*셀렉트*/
+.select-style {
+				border:1px solid #cdd2e9;
+				overflow: hidden;
+				background: #fff url("../img/select_arrow.png") no-repeat 100% 50%;
+				display:inline-block;
+				vertical-align:middle;
+		}
+
+.select-style select {
+		padding: 0 8px;
+		width: 100%;
+		height:34px;
+		border: none;
+		box-shadow: none;
+		background: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		-ms-appearance: none;
+		-o-appearance: none;
+		appearance: none;
+		font-size:14px;
+}
+
+select::-ms-expand{
+	display: none;
+}
+
+.select-style2 {
+				border-right:none;
+				overflow: hidden;
+				background: #fff url("../img/select.gif") no-repeat 93% 50%;
+				display:inline-block;
+				vertical-align:middle;
+		}
+
+.select-style2 select {
+		padding: 5px 25px 5px 8px;
+		width: 100%;
+		border: none;
+		box-shadow: none;
+		background: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		-ms-appearance: none;
+		-o-appearance: none;
+		appearance: none;
+		font-size:14px;
+		vertical-align:top;
+		text-align:right
+}
+
+select::-ms-expand{
+	display: none;
+}
+/*셀렉트*/
+
+
+button {cursor:pointer;}
+input:-ms-input-placeholder {color:#8b90a6;}
+
+input[type=radio]:not(old){
+  width   : 16px;
+  margin  : 0;
+  padding : 0;
+  opacity : 0;
+}
+
+input[type=radio]:not(old) + label{
+  display      : inline-block;
+  margin-left  : -22px;
+  padding-left : 24px;
+  background   : url('../img/checks.png') no-repeat 0 0;
+  line-height  : 24px;
+}
+
+input[type=radio]:not(old):checked + label{
+  background-position : 0 -24px;
+}
