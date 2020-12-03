@@ -1,868 +1,923 @@
 {
-  "coinExchange": "거래소",
-  "acct.delegate": "대표계좌번호",
-  "acct.in": "입금",
-  "acct.in.price": "입금금액",
-  "acct.name": "계좌명",
-  "acct.no": "계좌번호",
-  "acct.out": "출금",
-  "acct.out.price": "출금금액",
-  "acct.unit": "통화",
-  "acct.sub": "서브계좌번호",
-  "acct.open.date": "개설일",
-  "ams.content": "사고내용",
-  "ams.hist": "사고이력",
-  "ams.manage": "사고관리",
-  "ams.accident.secu_level": "보안등급",
-  "ams.accident.acct_status": "계좌상태",
-  "ams.service_type": "서비스유형",
-  "ams.won.withdraw": "원화출금",
-  "ams.coin.withdraw": "코인출금",
-  "ams.order": "주문",
-  "ams.login": "로그인",
-  "ams.phone.init": "핸드폰 초기화",
-  "ams.pwd.err.ent": "접속비번 오류횟수",
-  "ams.acdnt.reg": "사고등록",
-  "ams.reg": "등록",
-  "ams.login.restriction": "로그인제한",
-  "ams.acct.acdnt.hist": "계좌사고이력",
-  "ams.acdnt.reg.date": "사고등록일",
-  "ams.acdnt.ter.date": "사고해지일",
-  "asst.avrg_buy_prc": "평균매입가",
-  "asst.balance": "예수금",
-  "asst.blc_bln": "블록체인잔고",
-  "asst.bln": "잔고",
-  "asst.buy_amt": "매입금액",
-  "asst.buy.amt": "매도금액",
-  "asst.buy.amt.all": "총 매수금액",
-  "asst.buy.fee": "매수수수료",
-  "asst.coin_buy_amt": "코인매입금",
-  "asst.coin_vltn_amt": "코인평가금",
-  "asst.com_bln": "회사잔고",
-  "asst.memb.com_bln": "회원사잔고",
-  "asst.cust_bln": "고객잔고",
-  "asst.fee_rt.inquery": "수수료율 조회",
-  "asst.order.hist.detail": "주문내역 상세",
-  "asst.out_wait_qnt": "출금대기수량",
-  "asst.prls_rt": "손익률",
-  "asst.prls.amt": "손익금액",
-  "asst.prls.amt.all": "총 손익금액",
-  "asst.psbl_amt": "사용가능금",
-  "asst.rmn_qnt": "보유수량",
-  "asst.rmn_rlim": "보유비중",
-  "asst.sell_psbl_qnt": "매도가능수량",
-  "asst.sell.amt": "매수금액",
-  "asst.sell.amt.all": "총 매도금액",
-  "asst.sell.fee": "매도수수료",
-  "asst.sellbuy.dt": "매매일자",
-  "asst.state": "자산현황",
-  "asst.tot_assets_vltn_amt": "총 자산평가금액",
-  "asst.tot_balance": "총 원화예수금",
-  "asst.tot_coin_buy_amt": "총 코인매입금",
-  "asst.tot_coin_vltn_amt": "총 코인평가금",
-  "asst.tot_coin_vltn_amt": "총 코인평가금액",
-  "asst.tot_deposit": "총 예수금",
-  "asst.tot_engg_amt": "총 약정금액",
-  "asst.tot_psbl_amt": "총 사용가능금",
-  "asst.tot_rmn_qnt": "총보유수량",
-  "asst.tot_vltn_assets": "총 평가자산",
-  "asst.tot_vltn_prls": "총 평가손익",
-  "asst.trade_fee_rt": "매매수수료율",
-  "asst.vltn_amt": "평가금액",
-  "asst.vltn_prls": "평가손익",
-  "asst.lock_qnt": "Lock 물량",
-  "atm.coin.io.list": "코인 입출금 내역",
-  "atm.inout.cnt": "횟수",
-  "atm.inout.coin.amt": "코인 입출금액",
-  "atm.inout.sum": "합산금액",
-  "atm.inout.time.more": "회 이상",
-  "atm.inout.won.amt": "원화 입출금액",
-  "atm.inout.won.more": "원 이상",
-  "atm.out.accmlt.cnt": "누적 입출금 횟수",
-  "atm.out.accmlt.price": "누적 입출금 금액",
-  "atm.out.acct.alert": "이상 거래계좌로 의심됩니다.",
-  "atm.out.cnf": "출금승인",
-  "atm.out.msg": "다음금액을 출금합니다.",
-  "atm.won.exc.acctno": "거래소계좌",
-  "atm.won.in.acctno": "입금계좌",
-  "atm.won.io.list": "원화 입출금 내역",
-  "atm.wonin.amt": "예약금액",
-  "atm.wonin.idcard": "신분증",
-  "atm.wonin.in.acctno": "입금계좌번호",
-  "atm.wonin.in.banknm": "입금은행명",
-  "atm.wonin.in.amt": "입금금액",
-  "atm.wonin.in.date": "입금일시",
-  "atm.wonin.in.holdernm": "예금주",
-  "atm.wonin.in.list": "입금내역",
-  "atm.wonin.inout.certi": "입출금 증명서",
-  "atm.wonin.input.brief": "입력적요",
-  "atm.wonin.make.brief": "생성적요",
-  "atm.wonin.err.gb": "오류구분",
-  "atm.wonin.detail": "상세내역",
-  "atm.wonin.err.code": "에러코드",
-  "atm.wonin.bank.code": "은행코드",
-  "atm.wonin.target.chk": "대상고객 확인",
-  "atm.wonin.info.chk": "입금정보 확인",
-  "atm.wonin.proc.gb": "처리구분",
-  "atm.wonin.ref.balance": "잔고반영",
-  "atm.wonin.ret.input": "반환정보 입력",
-  "atm.wonin.msg1": "완료 : 입금예약과 입금 리스트 일치 원장반영",
-  "atm.wonin.msg2": "진행중 : 입금예약내역과 입금내역이 일치하지 않음<br> 고객확인에 필요한 서류를 첨부하고 저장 시 완료로 자동 변경 및 입금금액만큼 원장 반영처리",
-  "atm.wonin.msg3": "예약 : 입금예약 내역은 있으나 입금한 내역이 없을 때",
-  "atm.wonin.review.verify": "검토확인",
-  "atm.wonin.rsv.date": "예약일시",
-  "atm.wonin.self.photo": "신분증을 들고있는 본인사진",
-  "atm.wonin.code": "입금코드",
-  "atm.wonin.rsv.list": "입금예약내역",
-  "atm.wonin.cnk.msg": "금액이 다릅니다. 저장하시겠습니까?",
-  "atm.wonin.sel.apply": "입금확인신청자를 선택해주세요.",
-  "atm.wonin.ret": "반환",
-  "atm.wonin.ret.amt": "금액",
-  "atm.wonin.ret.bank": "은행명",
-  "atm.wonin.ret.acctno": "은행계좌번호",
-  "atm.wonin.ret.resn": "사유",
-  "atm.wonin.ret.fileattch": "파일첨부",
-  "atm.wonin.ret.confirm": "반환하시겠습니까?",
-  "atm.wonin.apply.attach": "파일첨부",
-  "atm.wonin.apply.idCard": "1.신분증",
-  "atm.wonin.apply.selfPhoto": "2.신분증을든 본인사진",
-  "atm.wonin.apply.in.certi": "3.입금확인서",
-  "atm.wonin.apply.rejectReson": "거부사유",
-  "atm.wonin.apply.chg.success": "성공하였습니다.",
-  "atm.wonin.apply.chg.fail": "실패하였습니다.",
-  "atm.wonin.apply.reject.msg": "거부처리 하시겠습니까?",
-  "atm.wonin.charger": "처리자",
-  "atm.wonin.charge.date": "처리일시",
-  "atm.wonin.apply.usr": "입금확인신청 검색",
-  "atm.wonin.approval.title": "원화입금 승인",
-  "atm.wonin.approval.msg": "다음 금액을 입금합니다.",
-  "atm.wonin.approval.suc": "정상처리 되었습니다.",
-  "atm.wonin.code.search": "입금코드 검색",
-  "atm.wonin.adm.apprl": "관리자 승인",
-  "atm.wonin.adm.apprl.save": "관리자 승인 저장",
-  "atm.wonin.req.save": "입금확인신청 저장",
-  "atm.wonin.save.confirm": "저장하시겠습니까?",
-  "atm.wonin.sel.adm.info": "관리자 승인정보를 먼저 선택해주세요.",
-  "atm.wonin.diff.comment": "적요가 다릅니다.",
-  "atm.wonin.diff.amt": "금액이 다릅니다.",
-  "atm.coin.in.approval.title": "코인입금 승인",
-  "atm.coin.in.approval.msg": "다음 수량을 입금합니다.",
-  "atm.coin.in.return": "반환",
-  "atm.coin.in.return.cnf.title": "코인입금 반환",
-  "atm.coin.in.return.cnf.msg": "다음 코인을 반환합니다.",
-  "atm.coin.in.addr": "주소",
-  "atm.coin.in.return.addr.input": "주소입력",
-  "atm.coin.in.return.addr.chk": "주소확인",
-  "atm.coin.in.return.fee": "출금 수수료",
-  "atm.coin.in.amt": "수량",
-  "atm.coin.in.return.required": "주소확인은 필수 입니다.",
-  "atm.coin.in.return.totamt": "총 수량",
-  "atm.coin.in.return.amt": "반환 수량",
-  "atm.coin.in.return.addr": "반환 된 지갑주소",
-  "atm.coin.in.return.charger": "처리자",
-  "atm.coin.in.return.suc": "반환 가능한 주소입니다.",
-  "atm.wonin.etc.resn": "사유",
-  "atm.wonin.etc.confirm": "처리하시겠습니까?",
-  "atm.wonin.etc.input": "정보입력",
-  "atm.wonout.cancel.resn.tit": "출금취소사유",
-  "atm.wonout.cancel.resn": "취소사유",
-  "atm.wonout.confirm.tit": "원화출금을 승인하시겠습니까?",
-  "atm.wonout.cancel.tit": "원화출금을 취소하시겠습니까?",
-  "atm.wonout.compl.tit": "원화출금을 완료하시겠습니까?",
-  "atm.wonout.acctno": "거래소 계좌",
-  "atm.wonout.confirm": "출금승인",
-  "atm.wonout.cancel": "출금거절",
-  "atm.wonout.compl": "출금완료",
-  "atm.wonout.acct.holder.nm": "예금주명",
-  "atm.out.approval.amt": "출금승인금액",
-  "atm.in.approval.amt": "입금승인금액",
-  "atm.amt.chg": "금액변경",
-  "atm.wonout.amt": "출금금액",
-  "atm.wonout.proc.amt": "출금처리금액",
-  "atm.set.approve.amt": "승인금액 설정",
-  "atm.won.deposit": "원화입금",
-  "atm.hist.mng": "히스토리 관리",
-  "atm.item": "항목",
-  "atm.existing": "기존",
-  "atm.wonout.trade.ident": "IP(국가)",
-  "atm.wonout.confirm.all.tit": "원화출금을 승인/거절 하시겠습니까?",
-  "atm.wonout.cancel.msg.tit": "원화출금을 거절하고 고객에게 아래와 같은 문자를 발송 하시겠습니까?",
-  "atm.wonout.foreign.ip.warn": "외국 IP를 통한 신청입니다. 특별한 주의를 요함.",
-  "atm.out.accmlt.w.cnt": "최근 {w} 주일 누적 입출금 횟수",
-  "atm.out.accmlt.w.price": "최근 {w} 주일 누적 입출금 금액",
-  "atm.out.woncoin.sum": "원화, 코인 합산",
-  "atm.out.resn": "승인/거절 사유",
-  "atm.out.acct.hist": "계좌이력",
-  "atm.out.appr.resn": "승인 검토 내용",
-  "atm.out.reject.resn": "거절 검토 및 문자 발송 내용",
-  "atm.coinout.amt": "코인금액",
-  "atm.coinout.krw": "KRW 금액",
-  "atm.coinout.confirm.all.tit": "코인출금을 승인/거절 하시겠습니까?",
-  "atm.coinout.cancel.msg.tit": "코인출금을 거절하고 고객에게 아래와 같은 문자를 발송 하시겠습니까?",
-  "atm.coinout.confirm.tit": "코인출금을 승인하시겠습니까?",
-  "atm.out.confirm.pop.btn": "승인/거절",
-  "bank.acct.no": "은행계좌",
-  "bank.name": "은행명",
-  "coin.addr.state": "코인주소록 등록현황",
-  "coin.all": "전체 코인",
-  "coin.base.id": "기준코인ID",
-  "coin.bch": "비트코인캐쉬",
-  "coin.btc": "비트코인",
-  "coin.btg": "비트코인골드",
-  "coin.charger": "처리자",
-  "coin.cntr.addr": "컨트랙트주소",
-  "coin.confrm.cnt": "최종컨펌수",
-  "coin.dec.pt": "유효소수점",
-  "coin.digit": "코인 자릿수",
-  "coin.down.range": "하방호가범위",
-  "coin.etc": "이더리움클래식",
-  "coin.eth": "이더리움",
-  "coin.first.issue": "최초발행",
-  "coin.gaslimit": "가스리미트",
-  "coin.id": "코인ID",
-  "coin.in.wallet.addr": "입금지갑주소",
-  "coin.inout.wallet": "보낸 지갑/받는 지갑",
-  "coin.last.blk": "최종블럭",
-  "coin.last.blk.hash": "최종블럭해쉬",
-  "coin.ltc": "라이트코인",
-  "coin.name": "코인명",
-  "coin.order.prc.min": "최소주문금액",
-  "coin.order.qnt.min": "최소주문수량",
-  "coin.siga.amt": "시가총액",
-  "coin.stat.standard.p": "※ 코인평가금액은 전일 시세기준 원화 추정 평가금액입니다.",
-  "coin.tot_rmn_qnt": "총보유수량",
-  "coin.type": "코인 Type",
-  "coin.up.range": "상방호가범위",
-  "coin.url": "코인 URL",
-  "coin.xrp": "리플",
-  "coin.blk.cycle": "블록생성주기",
-  "coin.reward": "채굴보상량",
-  "coin.issue.limit": "총발행한도",
-  "coin.proto": "협의프로토콜",
-  "coin.wtp": "백서",
-  "coin.summary.c.error": "등록할 코인이 더 있습니다.(총{cnt})",
-  "coin.summary.c.error2": "상장대기중인 코인이 없습니다.",
-  "coin.in.txid": "트랜잭션 아이디",
-  "coin.out.limit_s": "출금제한시작시간",
-  "coin.out.limit_e": "출금제한종료시간",
-  "coin.ieo": "IEO 여부",
-  "coin.real.block.info.url": "실제 블록 정보 URL",
-  "coin.exchange.send.yn": "거래소 전송 여부",
-  "coin.min.residual": "최소잔량",
-  "coin.withdraw.final.confirm.cnt": "출금 최종 컴펌수",
-  "coin.normal.block.diff": "정상 블록 차이",
-  "coin.com.timeout": "코인별 통신 타임아웃",
-  "com.add": "추가",
-  "com.all": "전체",
-  "com.app.date": "적용일",
-  "com.app.period": "적용기간",
-  "com.apply.dt": "신청일시",
-  "com.approval": "승인",
-  "com.attachfile": "첨부파일",
-  "com.cancel": "취소",
-  "com.chg": "수정",
-  "com.chg.dt": "변경일",
-  "com.chg.id": "변경자ID",
-  "com.close": "닫기",
-  "com.cncs_prc": "체결가격",
-  "com.cncs_qnt": "체결수량",
-  "com.cnt.input": "해당내용을 입력하세요",
-  "com.comment": "적요",
-  "com.confirm": "확인",
-  "com.create.time": "생성 시간",
-  "com.daily": "일별",
-  "com.date": "날짜",
-  "com.delete": "삭제",
-  "com.delete.msg": "삭제 하시겠습니까?",
-  "com.detail": "상세",
-  "com.dir.input": "직접입력",
-  "com.down": "다운로드",
-  "com.dt": "일자",
-  "com.dtt": "일시",
-  "com.edit": "추가/수정",
-  "com.email": "이메일",
-  "com.email.p": "이메일을 입력해주세요.",
-  "com.end.dt": "종료일",
-  "com.excel": "엑셀다운로드",
-  "com.exp.dt": "만료일",
-  "com.fee": "수수료",
-  "com.fee_calc": "환산수수료",
-  "com.fee_calc_krw": "환산금액(원)",
-  "com.fee_profit": "수수료수익",
-  "com.fee.all": "총 수수료",
-  "com.fee.gb": "수수료구분",
-  "com.fee.net": "Net 수수료",
-  "com.fee.sum": "수수료 합산",
-  "com.fee.user": "수수료(유저)",
-  "com.fin.dt": "완료일시",
-  "com.gb": "구분",
-  "com.go.login": "로그인으로 이동",
-  "com.hello1": "{nm}님, 안녕하세요.",
-  "com.hello2": "{nm}님, 좋은 하루되세요.",
-  "com.hello3": "{nm}님, 힘내세요.",
-  "com.hpno": "휴대폰번호",
-  "com.hpno.p": "- 없이 숫자만 입력해주세요.",
-  "com.inout": "입출금",
-  "com.inquery": "조회",
-  "com.lang.en": "ENG",
-  "com.lang.ko": "KOR",
-  "com.level": "등급",
-  "com.level.chg": "등급변경",
-  "com.listing.dt": "상장일",
-  "com.manager": "담당자",
-  "com.market": "마켓",
-  "com.month": "{m}개월",
-  "com.monthly": "월별",
-  "com.net.id": "네트워크ID",
-  "com.new.reg": "신규등록",
-  "com.no": "번호",
-  "com.nodata": "결과가 없습니다.",
-  "com.oneweek": "일주일",
-  "com.open.dt": "개설일",
-  "com.order.dt": "주문일시",
-  "com.order.media": "주문매체",
-  "com.order.no": "주문번호",
-  "com.order.no.org": "원주문번호",
-  "com.order.prc": "주문가격",
-  "com.order.qnt": "주문수량",
-  "com.order.state": "주문상태",
-  "com.order.type": "주문유형",
-  "com.period": "기간",
-  "com.pre": "이전",
-  "com.price": "금액",
-  "com.proc.fin.msg": "처리완료 되었습니다.",
-  "com.proc.state": "처리상태",
-  "com.proc.fail.msg": "처리실패 되었습니다.",
-  "com.r_cncs_qnt": "미체결수량",
-  "com.reg.dt": "등록일",
-  "com.reg.id": "등록자ID",
-  "com.reg.ur": "등록자",
-  "com.request": "신청",
-  "com.requied": "* 항목은 필수 입력항목입니다.",
-  "com.save": "저장",
-  "com.search.detail": "상세조회",
-  "com.search.word": "검색어",
-  "com.sel.nodata": "선택된 데이터가 없습니다.",
-  "com.sellnbuy": "매도/매수",
-  "com.stat.standard.p": "※ 전일 AM12 기준 데이터입니다.",
-  "com.state": "상태",
-  "com.stoplisting.dt": "상장폐지일",
-  "com.str.dt": "시작일",
-  "com.sum": "합산",
-  "com.termination": "해지",
-  "com.title": "제목",
-  "com.today": "당일",
-  "com.trans": "거래",
-  "com.trans.stat": "거래상태",
-  "com.type": "유형",
-  "com.unit.won": "단위 : 원(KRW)",
-  "com.vi.list": "목록보기",
-  "com.won": "원화",
-  "com.worker": "작업자",
-  "com.email.sending": "E-MAIL 발송",
-  "com.inout.acct": "입출금계좌",
-  "com.confirm.success": "승인완료",
-  "com.confirm.fail": "승인실패",
-  "com.yesterday": "전일",
-  "com.quantity": "수량",
-  "com.reject": "거부",
-  "com.blank": "별도의 입력값이 없으면 0을 입력하세요.",
-  "com.lang": "언어",
-  "com.mod.date": "수정일",
-  "com.mod.user": "수정자",
-  "com.unit.won2": "원",
-  "com.conc.dt": "체결일시",
-  "com.cnt": "건",
-  "com.set": "설정",
-  "com.charger": "처리자",
-  "com.complete": "완료",
-  "com.limit.byte": "한글최대 : {field1}자, 영어 + 숫자 최대 : {field2}자",
-  "com.tot": "합계",
-  "com.reg": "등록",
-  "cs.emr.cnt": "내용",
-  "cs.minwon.cont": "민원신청서에 작성된 내용을 붙여넣기 합니다.",
-  "cs.minwon.opinion": "검토의견",
-  "cs.minwon.calloff.file.attach": "취하파일첨부",
-  "cs.noti.file.attch": "파일첨부",
-  "cs.noti.imp.ordr.msg": "해당 우선순위의 중요공지가 있으니 확인 바랍니다.",
-  "cs.noti.imt": "중요공지",
-  "cs.noti.trans.flag": "전송여부",
-  "cs.noti.wirte": "글쓰기",
-  "cs.scrt.grade.addr": "거주지증명서",
-  "cs.scrt.grade.id.card": "본인신분증",
-  "cs.scrt.grade.proc.dt": "처리일자",
-  "cs.scrt.grade.proc.gb": "처리구분",
-  "cs.scrt.grade.refuse.res": "거부사유",
-  "cs.scrt.grade.self.photo": "본인사진",
-  "cs.writer": "민원인",
-  "cs.writer_email": "작성자 / 이메일",
-  "cs.minwon.save.msg": "저장하셨습니까? 저장된 데이터가 발송됩니다.",
-  "cs.comp.out": "완료된출금",
-  "cs.comp.out.text": "이미 출금이 완료되었습니다.",
-  "cs.comp.cancel": "출금을 취소합니다.",
-  "cs.out.req.text": "출금되지 않아 재출금 요청합니다.",
-  "cs.out.req": "출금요청",
-  "cs.minwon.opinion.sending": "송부의견",
-  "cs.mail.tmpl.cate.id": "카테고리ID",
-  "cs.mail.name": "템플릿명",
-  "cs.mail.hf.use.yn": "헤더-푸터 사용여부",
-  "cs.mail.tmpl.preview": "미리보기",
-  "cs.mail.tmpl.subject": "메일제목",
-  "cs.mail.tmpl.title": "메일내용 상단 타이틀",
-  "cs.mail.tmpl.content": "메일내용",
-  "cs.mail.tmpl.val": "메일변수",
-  "cs.mail.tmpl.suc": "정상처리 되었습니다.",
-  "cs.mail.tmpl.key.dup": "중복 데이터 입니다.",
-  "cs.mail.tmpl.limit.byte": "한글최대 : {field1}자, 영어 + 숫자 최대 : {field2}자",
-  "cs.mail.tmpl.form.msg": "영문(대문자)1 + 숫자5 자리로 입력해주세요.",
-  "cs.mail.tmpl.var.msg": "앞1자리는 항상 $로 입력해주세요. $ + 영문(대문자)",
-  "cs.mail.tmpl.var.ex": "적용 예",
-  "cs.mail.tmpl.var.title": "타이틀",
-  "cs.mail.tmpl.var.id": "사용자 ID",
-  "cs.mail.tmpl.var.datetime": "시간",
-  "cs.mail.tmpl.var.media.type": "매체",
-  "cs.mail.tmpl.var.symbol": "코인심볼",
-  "cs.mail.tmpl.var.coin.name": "코인이름",
-  "cs.mail.tmpl.var.amt": "금액",
-  "cs.mail.tmpl.var.qty": "수량",
-  "cs.mail.tmpl.var.gb": "구분",
-  "cs.mail.tmpl.var.bank": "은행",
-  "cs.mail.snd.reqtime": "요청시간",
-  "cs.mail.snd.strtime": "시작시간",
-  "cs.mail.snd.endtime": "종료시간",
-  "cs.mail.snd.cnt": "이메일 개수",
-  "cs.mail.snd.suc": "정상처리 되었습니다.",
-  "cs.mail.snd.step1": "템플릿 선택",
-  "cs.mail.snd.step2": "발송대상 등록/ 발송 요청",
-  "cs.mail.snd.input.tmpl": "Form ID 또는 메일명을 입력해주세요.",
-  "cs.mail.snd.next": "다음",
-  "cs.mail.snd.batch.reg": "일괄등록",
-  "cs.mail.snd.indivi.reg": "개별등록",
-  "cs.mail.snd.excel.batch.reg": "엑셀 일괄등록",
-  "cs.mail.snd.excel.form.down": "엑셀양식 다운로드",
-  "cs.mail.snd.excel.form.warning": "엑셀 양식은 변경이 될 수 있으니 매번 새로 다운로드 받는 것을 권장 드립니다.",
-  "cs.mail.snd.usr.search": "회원정보 조회",
-  "cs.mail.snd.usr.search.placeholder": "회원ID/이름",
-  "cs.mail.snd.mail.input.direct": "Email 직접입력",
-  "cs.mail.snd.date": "발송일시",
-  "cs.mail.snd.direct": "즉시",
-  "cs.mail.snd.reserve": "예약",
-  "cs.mail.snd.list": "메일 리스트",
-  "cs.mail.snd.list.msg": "더블 클릭시 등록된 템플릿 변수를 확인 하실수 있습니다.",
-  "cs.mail.snd.list.tot": "총 {field} 명",
-  "cs.mail.snd.back": "뒤로가기",
-  "cs.mail.snd": "메일발송",
-  "cs.mail.snd.file.sel.no": "선택된 파일이 없습니다.",
-  "cs.mail.snd.msg.bat.init": "일괄등록 하시겠습니까? 이전 데이터는 초기화 됩니다.",
-  "cs.mail.snd.target.no": "발송대상을 먼저 등록해주세요.",
-  "cs.mail.snd.step.init.msg": "데이터가 초기화 됩니다. 이동 하시겠습니까?",
-  "cs.mail.snd.sel.tmpl": "템플릿을 먼저 선택해주세요.",
-  "cs.mail.snd.tab.chg.init": "데이터가 초기화 됩니다. 변경 하시겠습니까?",
-  "cs.mail.snd.word.no.save": "저장된 템플릿 변수가 없습니다.",
-  "cs.mail.snd.tmpl.word.manage": "템플릿 변수 관리",
-  "cs.mail.snd.reset": "초기화",
-  "cs.mail.snd.confirm.del": "삭제 하시겠습니까?",
-  "cs.mail.snd.confirm.reset": "초기화 하시겠습니까?",
-  "cs.mail.snd.au.reg": "전체회원",
-  "cs.mail.snd.confirm.receipt": "수신동의 여부",
-  "cs.mail.snd.match.info": "$ID 매칭 정보",
-  "cs.mail.snd.def": "동의",
-  "cs.mail.snd.undef": "미동의",
-  "cs.mail.snd.user.nm": "회원명",
-  "cs.msg.content": "내용",
-  "cs.msg.rcvnum": "수신번호",
-  "cs.msg.snd.time": "전송시간",
-  "cs.msg.req.time": "요청시간",
-  "cs.msg.bat.reg": "일괄등록",
-  "cs.msg.indivi.reg": "개별등록",
-  "cs.msg.form.down": "엑셀양식 다운로드",
-  "cs.msg.mem.search": "회원정보조회",
-  "cs.msg.mem.search.placeholder": "회원ID/이름",
-  "cs.msg.direct.input": "직접입력",
-  "cs.msg.hpno": "휴대폰번호",
-  "cs.msg.ur.name": "고객명",
-  "cs.msg.add": "추가",
-  "cs.msg.snd.type": "전송타입",
-  "cs.msg.short": "단문",
-  "cs.msg.long": "장문",
-  "cs.msg.snd.date": "발송일시",
-  "cs.msg.snd.direct": "즉시",
-  "cs.msg.snd.reserve": "예약",
-  "cs.msg.warn1": "고객명은 한글 최대{field1} 글자({field2}byte) 입니다.",
-  "cs.msg.warn2": "{field1} 변수 사용시에는 고객명을 필수로 넣어주셔야 합니다.",
-  "cs.msg.warn3": "전송 메시지 최대 사이즈 초과(SMS: {field1}byte, LMS: {field2}byte)로 전송이 불가능할수 있습니다.",
-  "cs.msg.snd.msg": "전송메시지",
-  "cs.msg.preview": "미리보기",
-  "cs.msg.target.list": "발송대상 리스트",
-  "cs.msg.target.list.tot": "총 {field} 명",
-  "cs.msg.snd.ok": "전송가능",
-  "cs.msg.snd.no": "전송불가능",
-  "cs.msg.reset": "초기화",
-  "cs.msg.snd.proc": "발송",
-  "cs.msg.data.init": "데이터가 초기화 됩니다. 변경 하시겠습니까?",
-  "cs.msg.no.file.sel": "선택된 파일이 없습니다.",
-  "cs.msg.bat.init": "일괄등록 하시겠습니까? 이전 데이터는 초기화 됩니다.",
-  "cs.msg.target.no": "발송대상을 먼저 등록해주세요.",
-  "cs.msg.snd.confirm": "발송 하시겠습니까?",
-  "cs.msg.snd.succ": "정상처리 되었습니다.",
-  "cs.msg.del.confirm": "삭제 하시겠습니까?",
-  "cs.msg.init.confirm": "초기화 하시겠습니까?",
-  "cs.msg.send.target": "발송대상",
-  "cs.msg.send.agree.usr": "수신동의 회원",
-  "cs.msg.send.all.usr": "전체회원",
-  "cs.cur.deposit.acct": "현재 입금계좌",
-  "cs.new.deposit.acct": "등록 입금계좌",
-  "cs.acct.chg.hist": "계좌 변경 현황",
-  "cs.won.deposit.acct.reg": "원화입금계좌가 등록되었습니다.",
-  "cs.won.deposit.acct.chg": "원화입금계좌가 변경되었습니다.",
-  "cs.ref.date": "기준일자",
-  "cs.reinquiry": "재조회",
-  "cs.krw.deposit.chk": "원화입금확인",
-  "cs.app.krw.deposit.chk": "원화입금확인 신청",
-  "cs.withdral.approval.krw": "원화출금승인",
-  "cs.withdral.approval.coin": "코인출금승인",
-  "cs.otp.init": "OTP 초기화",
-  "cs.hpno.init": "휴대폰 초기화",
-  "cs.acct.pwd.init": "계좌비밀번호 초기화",
-  "cs.miinwon.state": "민원접수현황",
-  "cs.chg.scrt.rating": "보안등급변경",
-  "cs.krw.deposit.approval": "원화입금승인",
-  "cs.coin.deposit.approval": "코인입금승인",
-  "cs.company.name": "업체명",
-  "cs.chg": "변경",
-  "cs.add.corp.acct": "법인계좌추가",
-  "cs.new.deposit.acct2": "신규입금계좌",
-  "cs.chg.deposit.acct": "원화입금계좌변경",
-  "cs.deposit.type.text": "업체별 최소 1개는 등록되어야 합니다.",
-  "cs.won.deposit.process": "원화출금처리",
-  "cs.event.thumb.img": "썸네일 이미지",
-  "cs.evt.view": "조회수",
-  "cs.evt.date": "작성일",
-  "cs.evt.comment.enb": "댓글사용",
-  "cs.evt.comment.impression": "댓글노출",
-  "cs.evt.text": "이벤트 작성 또는 수정시 본문에 포함된 이미지(HTML에디터 내 이미지)는 화면에 보이지 않습니다. 상세화면에서 확인해주세요.",
-  "cs.evt.comment": "댓글",
-  "cs.evt.email": "이메일",
-  "cs.evt.contents": "내용",
-  "cs.evt.author.date": "작성자/작성일",
-  "inb.call.cont": "통화내용",
-  "inb.etc": "비고",
-  "inb.hist": "Inbound 이력",
-  "info.out.cancel": "출금취소",
-  "info.out.cancel.msg": "코인 출금을 취소하시겠습니까?",
-  "info.out.cancel.success": "코인 출금이 취소되었습니다.",
-  "info.out.cancel.fail": "코인 출금 취소가 실패 하였습니다.",
-  "info.lock.xls.upload": "엑셀업로드",
-  "info.lock.sel.chg": "선택변경",
-  "info.lock.sel.del": "선택삭제",
-  "info.lock.cancel.date": "해제일",
-  "info.lock.plz.selitem": "항목을 선택해주세요.",
-  "info.lock.proc.result": "처리결과",
-  "info.lock.proc.step1": "진행중",
-  "info.lock.batch.chg": "일괄변경",
-  "info.lock.evt.type": "이벤트타입",
-  "info.lock.attach.file": "파일첨부",
-  "info.lock.excel.form": "엑셀양식 다운로드",
-  "info.lock.sel.down": "실패건 다운로드(선택)",
-  "info.lock.reset": "초기화",
-  "info.lock.file.required": "파일은 필수 입니다.",
-  "info.lock.excel.upload.confirm": "{field} 개의 계좌를 저장하시겠습니까?",
-  "info.lock.type.all": "전체타입",
-  "info.lock.grp.nm": "그룹명",
-  "info.lock.grp.chg": "그룹수정",
-  "info.lock.limit.byte": "한글최대 : {field1}자, 영어 + 숫자 최대 : {field2}자",
-  "info.lock.grp.reg": "그룹생성",
-  "info.lock.grp.acct.comp": "출금계좌",
-  "info.lock.acct.reg": "코인 Lock 계좌등록",
-  "info.lock.acct.reg.msg": "엑셀 양식에 맞춰 작성 후 파일을 선택해서 업로드 해주세요.",
-  "info.lock.acct.xls.target": "엑셀업로드 대상자",
-  "info.lock.grp.reg.first": "그룹을 먼저 생성해주세요.",
-  "info.lock.grp.sel": "그룹선택",
-  "info.lock.grp.sel.first": "그룹을 먼저 선택해주세요.",
-  "info.lock.qnt": "코인 Lock 수량",
-  "info.lock.del.cnf": "삭제 하시겠습니까?",
-  "info.lock.file.chk.msg": "동일한 그룹아이디, 엑셀파일명으로 등록된 내역이 존재합니다.\n(중복확인기간 : 1일)\n업로드 하시겠습니까?",
-  "info.lockAcct.list": "출금 계좌 리스트",
-  "info.lockAcct.reg": "계좌등록",
-  "info.lockAcct.alias": "계좌별칭",
-  "info.lockAcct.charger": "처리자",
-  "info.lockAcct.del.hist": "출금 계좌 삭제 이력",
-  "info.lockAcct.del.date": "삭제일",
-  "info.lockAcct.del.cnf": "아래의 계좌를 삭제 하시겠습니까?",
-  "info.user.search.min": "최소 세자리는 입력해주세요.",
-  "info.lock.user.cnt": "고객수",
-  "info.lock.coin.tot": "코인수량합",
-  "info.lock.msg1": "관리자가 임의로 특정회원에게 코인을 지급할 수 있습니다.(코인Lock, 코인 Airdrop 동시가능)",
-  "info.lock.msg2": "타입이 Airdrop이면 해제일을 기준으로 잔고에 반영됩니다.(별도의 Lock을 하지 않음)",
-  "info.lock.msg3": "실제 적용 시점은 매시 정각에 자동 반영 됩니다.(ex. 오후 3시 50분 등록 -> 오후 4시에 잔고반영)",
-  "info.acct.tr.hist": "계좌 거래이력",
-  "info.acct.wallet": "계좌/지갑",
-  "info.acct.nationality": "국적",
-  "leave.direct_leave": "직권탈퇴",
-  "leave.direct_leave.reason": "직권탈퇴 사유",
-  "leave.enter.customer_info": "고객정보를 입력하세요",
-  "leave.delete.text": "직권탈퇴시 고객의 모든 정보는 삭제됩니다. 직권탈퇴 하시겠습니까?",
-  "leave.text1": "아래의 사유로 직권탈퇴 불가",
-  "leave.text2": "사유: 잔고존재",
-  "leave.text3": "사유: 주문내역 존재",
-  "leave.text4": "사유: 회원정보 저장중 실패",
-  "leave.text5": "DB 에러코드 발생",
-  "leave.text6": "탈퇴처리 되었습니다.",
-  "main.daily.status": "일일현황",
-  "main.media.agreement.status": "매체약정현황",
-  "main.stat.standard.p": "※ 전일 AM12 기준 데이터",
-  "main.asst.status": "자산현황",
-  "main.tot_assets_vltn_amt": "총 자산평가금액",
-  "main.tot_balance": "총 원화예수금",
-  "main.tot_coin_vltn_amt": "총 코인평가금액",
-  "main.conn.cnt": "접속자수",
-  "main.conn.media": "매체",
-  "main.conn.net": "순접속자",
-  "main.abn_deals": "이상거래",
-  "main.count_abn": "횟수이상",
-  "main.amt_abn": "금액이상",
-  "main.count_amt_abn": "횟수&금액 이상",
-  "main.main.stat.standard.p": "※ 코인평가금액은 전일 시세기준 원화 추정 평가금액입니다.",
-  "main.acct_locked_status": "계좌잠금상태",
-  "main.state": "상태",
-  "main.secu.level": "보안등급",
-  "main.joined_number": "가입수",
-  "main.withdrawal _number": "탈퇴수",
-  "main.variation": "증감",
-  "main.trader.cnt": "거래자수",
-  "main.signup.cnt": "회원가입현황",
-  "main.acct_pwd.err.cnt": "계좌비밀번호 오류건",
-  "main.access_pwd.err.cnt": "접속비밀번호 5회 오류건",
-  "main.generation.time": "생성시간",
-  "main.user.secu.level.cnt": "회원 보안등급 현황",
-  "main.user.cnt": "이용자수",
-  "main.user.leave.cnt": "총 탈퇴자수",
-  "market.agree": "약정",
-  "market.agree.price": "약정금액",
-  "market.agree.price.chg": "변경 약정금액",
-  "market.agree.price.cur": "현재 약정금액",
-  "market.billion": "억",
-  "market.billion.won": "억원",
-  "market.coin.new.reg": "코인신규등록",
-  "market.coino.fee.msg1": "거래수수료는 블록체인 전산망에 납부되는 거래수수료입니다.",
-  "market.coino.fee.msg2": "거래수수료는 출금수수료를 넘을 수 없습니다.",
-  "market.coino.out.fee": "출금수수료",
-  "market.coino.out.fee.percent": "출금수수료 대비",
-  "market.coino.trans.coin.fee": "코인별 거래수수료",
-  "market.coino.trans.fee": "거래수수료",
-  "market.coino.trans.fee.chg": "거래수수료 변경",
-  "market.coino.trans.fee.chg.msg": "거래수수료를 변경합니다.",
-  "market.coino.trans.fee.hist": "거래수수료 변경이력",
-  "market.day_tot_engg_amt": "전일 합산약정금액",
-  "market.day_tot_trade_amt": "전일 합산매매수수료",
-  "market.dscss.batch.sucess": "일괄 변경되었습니다.",
-  "market.dscss.cancel.msg1": "협의수수료를 해지하시면 기본 수수료율이 적용됩니다.",
-  "market.dscss.cancel.msg2": "해지 수수료 적용은 해지 처리 후 바로 적용됩니다.",
-  "market.dscss.cancel.msg3": "계좌의 협의 수수료가 해지됩니다.",
-  "market.dscss.cancel.success": "협의 수수료가 해지되었습니다.",
-  "market.dscss.confirm.msg": "아래 내용으로 수수료를 변경하시겠습니까?",
-  "market.dscss.confirm.sucess": "변경 되었습니다.",
-  "market.dscss.fee.batch.cancel": "협의 수수료 일괄해지",
-  "market.dscss.fee.batch.cng": "협의수수료 일괄변경",
-  "market.dscss.fee.confirm": "협의수수료 변경확인",
-  "market.dscss.fee.input.sucess": "신규 협의 수수료가 등록되었습니다.",
-  "market.dscss.fee.new.reg": "협의수수료 신규 등록",
-  "market.dscss.fee.rate.chg.msg": "계좌의 수수료율이 다음과 같이 변경됩니다.",
-  "market.dscss.fee.rate.reg.msg": "계좌의 수수료율이 다음과 같이 등록됩니다.",
-  "market.dscss.fee.sel.acct": "계좌가 선택되었습니다.",
-  "market.dscss.limit.price.msg": "한도금액을 설정하면 해당 금액만큼 수수료 소진 후 기본수수료 적용을 받습니다.",
-  "market.dscss.sel.acct.list": "선택계좌리스트",
-  "market.dscss.acct.chg.msg": "계좌를 변경하시겠습니까?",
-  "market.fee.chg": "수수로변경",
-  "market.fee.chg.success": "수수료가 변경되었습니다.",
-  "market.fee.grade.chg.msg": "등급 수수료를 다음과 같이 변경하시겠습니까?",
-  "market.fee.hist": "수수료 변경이력",
-  "market.fee.name": "수수료명",
-  "market.fee.new": "수수료 신규 등록",
-  "market.fee.new.reg.msg": "신규 수수료를 등록하시겠습니까?",
-  "market.fee.rate": "수수료율",
-  "market.fee.rate.chg": "변경 수수료율",
-  "market.fee.rate.cur": "현재 수수료율",
-  "market.grade.fee": "등급별 수수료",
-  "market.grade.fee.input": "변경할 등급 수수료를 입력해주세요.",
-  "market.id": "마켓ID",
-  "market.limit.price": "한도금액",
-  "market.media.fee": "매체별 수수료 ",
-  "market.mon_tot_engg_amt": "전월 총약정금액",
-  "market.mon_tot_trade_amt": "전월 총매매수수료",
-  "market.sel.cancel": "선택해지",
-  "market.sel.chg": "선택변경",
-  "market.trade_fee": "매매수수료",
-  "market.type.fee": "체결 종류별 수수료",
-  "market.wallet.addr.flag1": "잔돈지갑 추가",
-  "market.wallet.addr.flag2": "잔돈지갑 삭제",
-  "market.wallet.addr.msg.flag1": "잔돈지갑을 추가합니다.",
-  "market.wallet.addr.msg.flag2": "잔돈지갑을 삭제합니다.",
-  "market.wallet.addr.sucess.flag1": "잔돈지갑이 추가 되었습니다.",
-  "market.wallet.addr.sucess.flag2": "잔돈지갑이 삭제 되었습니다.",
-  "market.wallet.all.list": "전체 지갑리스트",
-  "market.wallet.sel.addr": "주소를 선택하세요.",
-  "market.wallet.small.change.list": "잔돈 지갑리스트",
-  "market.agree.bankNm": "약정은행명",
-  "market.blacklist.acct": "계정",
-  "market.blacklist.regist.date": "등록일자",
-  "market.blacklist.manager": "관리자",
-  "market.blacklist.wallet.address": "지갑주소",
-  "market.blacklist.text1": "아래 사항을 입력하세요.",
-  "market.blacklist.text2": "다음과 같이 등록됩니다.",
-  "market.blacklist.text3": "등록되었습니다.",
-  "market.blacklist.text4": "해당 내용을 확인하세요",
-  "market.blacklist.text5": "삭제되었습니다.",
-  "market.stoploss.oper.acct": "운용계좌",
-  "market.stoploss.loss.amt": "손실금액",
-  "market.stoploss.loss.ratio": "손실비율",
-  "market.stoploss.oper.period": "운용기간",
-  "market.stoploss.oper.rights.info": "운용권 정보",
-  "market.stoploss.warning1": "경고 1단계",
-  "market.stoploss.warning2": "경고 2단계",
-  "market.stoploss.warning3": "경고 3단계",
-  "market.stoploss.attachments": "첨부파일",
-  "market.stoploss.balance.info": "잔고정보",
-  "market.stoploss.operator.info": "운용자 정보",
-  "market.stoploss.customer.info": "고객정보",
-  "market.stoploss.text1": "시작일은 금일 이전으로 설정 할 수 없습니다.",
-  "market.stoploss.text2": "종료일은 시작일 이전으로 설정 할 수 없습니다.",
-  "market.stoploss.text3": "경고 1단계가 손실비율보다 작아햐합니다.",
-  "market.stoploss.text4": "경고 2단계가 손실비율보다 작아햐합니다.",
-  "market.stoploss.text5": "경고 3단계가 손실비율보다 작아햐합니다.",
-  "market.stoploss.text6": "대기상태로 설정할 경우 운용기간 시작일이 금일 이후여야 합니다.",
-  "market.stoploss.text7": "입력에 실패하였습니다.",
-  "market.stoploss.text8": "예수금이 없는 계좌입니다.",
-  "market.stoploss.text9": "조회에 실패하였습니다.",
-  "market.stoploss.text10": "계좌예수금 이하로 입력해주세요.",
-  "market.stoploss.text11": "해당 운용계좌는 현재 등록되어 신규 등록이 불가능합니다.",
-  "market.stoploss.standard.amt": "기준금액",
-  "market.coin.wallet.info": "코인 지갑 정보",
-  "market.coin.text": "이더리움 계열은 필수항목입니다.",
-  "market.coin.text1": "해당 코인 ID는 현재 등록되어 신규 등록이 불가능합니다",
-  "market.curr.time": "현재시점",
-  "market.period.category": "기간구분",
-  "market.auto.ur.name": "고객명",
-  "market.auto.reg.dt": "등록일시",
-  "market.auto.cancel.dt": "해지일시",
-  "market.auto.cancel.ur": "해지자",
-  "market.auto.cancel": "해지",
-  "market.auto.reg.tit": "자동승인계좌 등록",
-  "market.auto.cancel.tit": "자동승인계좌 해지",
-  "market.auto.detail.tit": "자동승인계좌 등록/해지 상세",
-  "market.auto.search.qry.txt": "이메일 / 계좌번호",
-  "market.auto.reg.resn": "등록사유",
-  "market.auto.cancel.resn": "해지사유",
-  "market.auto.reg.acct.chk": "계좌번호를 확인해주세요.",
-  "setting.freq.menu": "자주가는 메뉴",
-  "setting.io.profile.auto.target": "자동승인출금대상",
-  "setting.io.profile.base.amt": "금액기준",
-  "setting.io.profile.won.less": "원 이하",
-  "setting.io.profile.withdrawal.delay": "지연출금여부",
-  "setting.io.profile.withdrawal.delay.tm": "지연출금시간",
-  "setting.io.profile.min": "분",
-  "setting.io.profile.withdrawal.direct": "자동승인계좌 바로출금 적용 여부",
-  "setting.io.profile.adm.cnf": "관리자승인 제외 여부",
-  "setting.io.profile.msg1": "원화환산기준 : 코인 출금 요청시 시세를 적용",
-  "setting.io.profile.msg2": "바로출금은 지연출금 및 관리자승인을 거치지 않고 바로 출금 하는것을 의미함",
-  "setting.io.profile.confirm.msg": "저장 하시겠습니까?",
-  "trade.fee.p": "※ 거래수수료는 블록체인 전산망에 납부되는 거래수수료입니다.",
-  "trade.fee.p2": "※ 환산금액은 전일 시세기준 원화 추정 평가금액입니다.",
-  "stats.purchase.fee.sum": "매수 수수료합",
-  "stats.selling.fee.sum": "매도 수수료합",
-  "stats.transaction.amt": "거래금액",
-  "stats.unit.price": "단가",
-  "stats.normal.amt": "정상금액",
-  "stats.settle.amt": "정산금액",
-  "stats.baln.won": "원화환산 잔고현황",
-  "stats.lp.baln": "LP 잔고",
-  "stats.comp.baln": "회사 법인잔고",
-  "stats.fee.walt": "수수료 지갑",
-  "stats.won.text": "원화환산 기준가: 각 코인별 전일 종가 / 원단위 절사",
-  "stats.coin.asst": "코인 자산현황",
-  "stats.refer.status": "추천인 현황",
-  "stats.refer.code": "추천인 코드",
-  "stats.refer.member.code": "추천 회원수",
-  "stats.refer.memb": "추천회원",
-  "stats.refers": "추천인수",
-  "stats.recomm.date": "추천일자",
-  "stats.refer": "추천인",
-  "stats.memb.info": "회원 기본정보",
-  "stats.memb.name": "이름(회사명/대표자명)",
-  "stats.refer.email": "추천인 이메일",
-  "stats.refer.name": "추천인명",
-  "stats.withdrawal.memb": "탈퇴회원",
-  "user.addr": "주소",
-  "user.admin.id": "관리자 아이디",
-  "user.admin.id.p": "로그인시 사용할 관리자ID를 넣어주세요",
-  "user.admin.name": "이름",
-  "user.admin.name.p": "이름을 입력해주세요",
-  "user.admin.otp": "OTP코드",
-  "user.admin.pw": "관리자 비밀번호",
-  "user.admin.pw.p": "영문자, 숫자, 특수문자를 조합한 10자리 이상",
-  "user.admin.pw2": "비밀번호 재입력",
-  "user.admin.pw2.p": "확인을 위해 비밀번호를 다시 입력해주세요.",
-  "user.admin.reg": "관리자 가입",
-  "user.birthday": "생년월일",
-  "user.bizno": "사업자등록번호",
-  "user.ceo.name": "대표자명",
-  "user.comp.phone": "대표전화",
-  "user.comp.name": "회사명",
-  "user.conn.cnt": "총 접속자수",
-  "user.conn.dt": "접속일",
-  "user.conn.dt.last": "마지막접속일",
-  "user.conn.hist": "접속이력",
-  "user.conn.hist.recent": "최근 접속이력",
-  "user.conn.ip": "접속IP",
-  "user.conn.loc": "접속위치",
-  "user.conn.media": "매체",
-  "user.conn.net": "순접속자",
-  "user.conn.net.cnt": "총 순접속자수",
-  "user.contact": "연락처",
-  "user.copr.cnt": "법인회원수",
-  "user.corp": "법인회원",
-  "user.corp.leave": "법인탈퇴",
-  "user.corp.reg": "법인가입",
-  "user.count": "사람수",
-  "user.email": "이메일",
-  "user.ex.leave": "탈퇴회원제외",
-  "user.gb": "회원구분",
-  "user.gender": "성별",
-  "user.hpno": "핸드폰번호",
-  "user.indi": "개인회원",
-  "user.indi.cnt": "개인회원수",
-  "user.indi.leave": "개인탈퇴",
-  "user.indi.reg": "개인가입",
-  "user.leave.dt": "탈퇴일",
-  "user.leave.yesterday": "전일탈퇴자수",
-  "user.name": "이름",
-  "user.nick": "닉네임",
-  "user.nosee.period": "미접속기간",
-  "user.reg.done": "가입이 완료되었습니다.",
-  "user.reg.dt": "가입일",
-  "user.reg.otp.txt": "로그인시 사용할 OTP Key를 {adminId}님의 Google OTP 어플리케이션에 등록하세요.",
-  "user.reg.status": "회원가입현황",
-  "user.reg.yesterday": "전일가입자수",
-  "user.search.min.p": "최소 3 자리 이상 입력하십시오.",
-  "user.search.p": "이메일(LIKE가능) / 계좌번호(- 제외)",
-  "user.search.p2": "이름(회사명)/이메일",
-  "user.secu.level": "보안등급",
-  "user.sum": "회원합산",
-  "user.telno": "전화번호",
-  "user.tot.cnt": "총회원수",
-  "user.admin.base.info": "기본정보",
-  "user.admin.pw.chg": "비밀번호 변경",
-  "user.prcy.fg": "개인정보 취급여부",
-  "user.admin.pw.chg.dt": "비밀번호 변경일",
-  "user.admin.pw3": "이전 비밀번호",
-  "user.admin.pw4": "새로운 비밀번호",
-  "user.admin.pw5": "새로운 비밀번호 재입력",
-  "user.dept": "부서",
-  "user.admin.pw4.msg": "이전 비밀번호와 다르게 입력해주세요.",
-  "user.pwd.chg.txt": "관리자 패스워드는 3개월에 한번씩 변경이 되어야 합니다. <br>최종 변경일 : {dt}",
-  "user.local": "국내",
-  "user.frgnr": "외국인",
-  "walt.copy.addr": "주소복사",
-  "walt.name": "지갑명",
-  "walt.out.wallet.addr": "출금지갑주소"
+  "coinExchange":"거래소",
+  "kdexChart":"KDEX차트",
+  "proChart":"프로차트",
+  "liveChart":"라이브차트",
+  "talk":"톡",
+  "investmentStatus":"투자현황",
+  "walletManagement":"개인통합지갑",
+  "usageGuide":"이용안내",
+  "customerservice":"고객센터",
+  "kdainfo":"KDA 정보",
+  "login":"로그인",
+  "logout":"로그아웃",
+  "signup":"회원가입",
+  "prochart":"프로차트",
+  "bitcoin":"비트코인",
+  "24hrchange":"전일대비",
+  "high":"고가",
+  "low":"저가",
+  "volume":"거래량",
+  "total":"거래대금",
+  "candlechart":"캔들차트",
+  "orders":"일반호가",
+  "bid":"매수",
+  "ask":"매도",
+  "kdatokenstatus":"KDA Token 현황",
+  "luckypoolrank":"Lucky Pool 순위",
+  "projectdevote":"Project DeVote",
+  "applytrading":"모의채굴 참여신청",
+  "more":"자세히",
+  "BTC":"비트코인",
+  "BCH":"비트코인캐시",
+  "ETH":"이더리움",
+  "DASH":"대시",
+  "LTC":"라이트코인",
+  "ETC":"이더리움클래식",
+  "XRP":"리플",
+  "XMR":"모네로",
+  "QTUM":"퀀텀",
+  "ZEC":"제트캐시",
+  "BTG":"비트코인 골드",
+  "EOS":"이오스",
+  "BCC":"비트커넥트",
+  "ADA":"에이다",
+  "TRX":"트론",
+  "KDP":"KDEX포인트",
+  "KDA":"KDA",
+  "DPN":"Dipnet",
+  "FNK":"펀키페이",
+  "MCVW":"MCV-W",
+  "MCVCAP":"MCV-CAP",
+  "BTR":"비트리치",
+  "totalamount":"총액",
+  "KDMP":"KDA mall 포인트",
+  "520":"오이공",
+  "EYEAL":"아이알코인",
+  "METAC":"메타캐시",
+  "AGO":"알지오",
+  "SLT":"스톤라이팅",
+  "COOP":"쿱",
+  "VVC":"비바체인",
+  "MPC":"Nose Co",
+  "CSC":"CS Coin",
+  "EDIEN":"EDIEN",
+  "KOC":"KORN Coin",
+  "STC":"SKY TOJI",
+  "availableamount":"주문가능",
+  "bidamount":"매수수량",
+  "askamount":"매도수량",
+  "bidprice":"매수가격",
+  "askprice":"매도가격",
+  "ordertotal":"주문총액",
+  "minamount":"최소주문금액",
+  "fee":"수수료",
+  "tradehistory":"거래내역",
+  "openorders":"미체결",
+  "coinname":"코인명",
+  "date":"날짜",
+  "tradeamount":"거래수량",
+  "tradeprice":"거래단가",
+  "matchinghistory":"체결내역",
+  "coinpost":"코인소셜",
+  "coinexplanation":"코인설명",
+  "matchingtime":"체결시간",
+  "matchingprice":"체결가격",
+  "matchingamount":"체결량",
+  "matchingtotal":"체결금액",
+  "52whigh":"52주 최고",
+  "52wlow":"52주 최저",
+  "closingprice":"전일종가",
+  "todayhigh":"당일고가",
+  "todaylow":"당일저가",
+  "reset":"초기화",
+  "simbolsearch":"심볼검색",
+  "alarmsetting":"알림설정",
+  "favorites":"즐겨찾기",
+  "lastprice":"현재가",
+  "notice":"공지사항",
+  "termsofuse":"이용약관",
+  "privacy":"개인정보취급방침",
+  "support":"고객센터",
+  "accounts":"계정관리",
+  "remit":"해외송금Cross",
+  "consulting":"가상화페추적컨설팅",
+  "fees":"수수료안내",
+  "joinus":"채용안내",
+  "chattingroom":"실시간채팅",
+  "wallet":"지갑",
+  "event":"이벤트",
+  "press":"보도자료",
+  "informationuse":"이용안내",
+  "cosmosICO":"코스모스ICO",
+  "ethetcdao":"이더리움/ETC/DAO",
+  "maxaskamount":"매도가능",
+  "asktotal":"거래총액",
+  "minaskamount":"최소거래금액",
+  "orderdate":"주문시간",
+  "type":"구분",
+  "orderprice":"주문가격",
+  "orderamount":"주문량",
+  "unfinishedamount":"미체결",
+  "lately24h":"최근 24시간",
+  "won":"원",
+  "depthChart":"누적주문량",
+  "SearchCoin":"코인명 검색",
+  90101:시스템이 준비되지 않았습니다 주문을 실행할 수 없습니다
+  TB : 매수체결
+  TS : 매도체결
+  TI : 매매입금
+  TO : 매매출금
+  SI : 전송입금
+  SO : 전송출금
+  EI : 교환입금
+  EO : 교환출금
+  PI : 포인트입금
+  PO : 포인트출금
+  CI : 현금입금
+  CO : 현금출금
+  DI : 대체입금
+  DO : 대체출금
+  XI : 기타입금
+  XO : 기타출금
+  KI : 토큰입금
+  KO : 토큰출금
+  90101:시스템이 준비되지 않았습니다. 주문을 실행할 수 없습니다
+  90102:시스템이 사용 중입니다. 잠시 후 주문을 실행하십시오
+  90103:시스템 오류가 발생했습니다. 주문을 실행할 수 없습니다
+  90201:주문수신 순서 에러.
+  90202:호가구분이 잘못되었습니다.
+  90203:매매구분이 잘못되었습니다.
+  90204:주문유형이 잘못되었습니다.
+  90205:유효시간이 잘못되었습니다.
+  90206:체결조건이 잘못되었습니다.
+  90207:주문수량이 잘못되었습니다.
+  90208:주문가격이 잘못되었습니다.
+  90209:조건가격이 잘못되었습니다.
+  "90210":"주문구분이 잘못되었습니다",
+  90211:원주문수량이 잘못되었습니다.
+  90212:주문번호가 잘못되었습니다.
+  90213:원주문번호가 잘못되었습니다.
+  99991:시스템 오류가 발생하였습니다.
+  99999:공통 모듈 호출시 에러.
+  10004:계좌 번호를 입력하십시오 .
+  10007:기본수수료 적용여부를 확인하세요.
+  10018:원주문내역 접수전입니다.
+  10019:원주문내역 처리중입니다.
+  10022:이 주문은 이미 거부되었습니다.
+  10023:취소 할 수량이 남아 있지 않습니다.
+  10024:주문 수량을 확인하십시오. 주문 수량이 보유수량보다 많습니다.
+  10025:주문 수량을 입력하십시오.
+  10026:정정할 주문잔량이 없습니다.
+  10027:정정수량을 입력하세요.
+  10028:정정수량이 주문잔량을 초과하였습니다.
+  10029:정정가격이 원주문가격과 같습니다.
+  10034:주문수량을 확인하세요.
+  10039:주문가능 금액이 부족합니다.
+  10041:주문가격을 확인하세요.
+  10042:조건가격을 확인하세요.
+  10044:가격조건을 확인하세요.
+  10045:체결조건을 확인하세요.
+  10059:주문구분을 확인하세요.
+  10060:매매구분을 확인하세요.
+  10067:거래불가능한 상품입니다.
+  10068:종목코드를 확인하세요.
+  10069:종목코드가 존재하지 않습니다.
+  10082:주문가능수량이 부족합니다.
+  "10145":"계약번호를 입력하세요",
+  10188:암호화폐 출금 제한 계좌입니다.
+  10216:장마감되었습니다. 신규주문불가!!
+  10218:암호화폐 주문제한 계좌입니다.
+  10221:현재가에 조건가격을 설정할 수 없습니다.
+  10232:동시호가 주문제한시간입니다. 주문불가.
+  10244:보내는 주소가 잘못되었습니다.
+  10301:전송가능수량이 부족합니다.
+  10302:블럭체인 전송이 실패하였습니다.
+  10303:고객지갑 교환가능가능수량이 부족합니다.
+  10304:당사지갑 교환가능가능수량이 부족합니다.
+  10305:전송지갑주소를 확인하세요.
+  10306:이미 저장된 주소입니다.
+  10307:KDEX포인트잔액이 부족합니다. 충전 후 출금하세요.
+  10308:최소 ETH 보유수량이 부족합니다.
+  10309:해당코인의 지갑을 먼저 생성하세요.
+  20001:Instrument 코드가 등록되어 있지 않습니다.
+  20002:회원아이디가 존재하지 않습니다..
+  20003:로그인 암호가 일치하지 않습니다.
+  20004:현재 접속 아이디로는 요청하신 서비스를 이용할 수 없습니다.
+  20005:아이디를 입력하세요.
+  20006:비밀번호를 입력하세요.
+  20007:사용자명을 입력하세요.
+  20008:이메일주소를 입력하세요.
+  20010:존재하지 않는 이메일주소 입니다.
+  20011:시스템 준비중입니다.
+  20012:인증번호를 확인하세요.
+  20013:인증번호 입력시간이 초과되었습니다.
+  70001:코드를 입력하십시오.
+  70002:이름을 입력하십시오.
+  70003:유형을 입력하십시오.
+  70004:번호를 입력하십시오.
+  70005:이름을 입력하십시오.
+ 70010:접근 수준을 입력하십시오.
+  70012:고객코드를 등록하세요.
+  70013:이름을 입려하십시오.
+  70014:번호를 입력하십시오.
+  70015:이름을 입력하십시오.
+  70019:고객정보가 등록되어 있지않습니다. 수정불가.
+  70021:This is new client user code.
+  70023:Please input calander name.
+  70024:Please input calander type.
+  70026:There is no calendar you have selected in database.
+  70027:This calendar is already in use. Cannot remove it.
+  70028:This calendar is already registerd.
+  70045:이 코드는 이미 사용 중입니다. 이 코드를 삭제할 수 없습니다.
+  70046:마켓코드를 입력하세요.
+  70047:마켓이름을 확인하세요.
+  70048:이 코드는 올바르지 않습니다. 데이터베이스에 등록되지 않았습니다.
+  70052:통화 이름을 입력하십시오.
+  70059:이 코드가 올바르지 않습니다. 데이터베이스에 등록되지 않았습니다.
+  70071:이메일주소를 입력하세요.
+  70078:이미 사용중인 고객ID입니다. 사용불가!!
+  70086:회사코드를 입력하세요.
+  70087:회사명을 입력하세요.
+  70088:사업장코드를 입력하세요.
+  70089:사업장명을 입력하세요.
+  70101:해당 이메일은 이미 사용중입니다.
+  70102:해당 사용자ID가 존재하지 않습니다.
+  80001:계좌 번호가 올바르지 않습니다. 데이터베이스에 등록되지 않았습니다.
+  80010:통화를 입력하십시오.
+  80027:지갑비밀번호를 입력하세요.
+
+  80028:기기 등록은 ID당 5대의 기기 등록이 가능합니다.
+  80029:변경 될 기기에 프라이빗 키가 없습니다.
+  80030:메인 디바이스로만 프라이빗 키를 받을 수 있습니다.
+  80031:출금가능 금액이 부족합니다.
+  80032:출금 제한 계좌입니다.
+  80033:환전이 불가능합니다.
+  80034:최초 입금 후 72시간 후에 출금이 가능합니다.
+  80035:KDA 거래소 상장 후 이용이 가능한 서비스입니다.
+  80036:72시간 후에 이용이 가능한 서비스입니다.
+  80037:입금신청 미승인건이 존재합니다. 입금신청 불가.
+  80038:서비스 준비중입니다.
+
+  70081:출금신청 미승인건이 존재합니다. 출금신청 불가.
+
+  50001:거래를 취소하였습니다.
+  50002:전송을 취소하였습니다.
+  50003:교환을 취소하였습니다.
+
+  50101:거래주문이 등록되었습니다.
+  50102:전송요청을 완료 하였습니다. 
+  50103:교환요청을 완료 하였습니다.
+  50104:기기사용 중지가 되였습니다.
+  50105:메인 디바이스 변경이 되었습니다.
+  50106:지갑 Private Key를 전송하였습니다.
+
+  "marketstatus":"시장현황",
+  "1st":"1차",
+  "last":"마지막",
+  "possible":"가능",
+  "quantityretained":"보유수량",
+  "purchasequantity":"구매량",
+  "salesvolume":"판매량",
+  "accumulated":"누적",
+  "cancel":"취소",
+  "price":"가격",
+  "quantity":"수량",
+  "amount":"가격",
+  "time":"시간",
+  "designatedamount":"지정가",
+  "marketprice":"시장가",
+  "market":"마켓",
+  "tradingclassification":"거래구분",
+  "or":"또는",
+  "isrequired":"이 필요합니다.",
+  "request":"1:1 문의",
+  "certification":"인증센터",
+  "contactus":"제휴문의",
+  "unsubscribe":"회원탈퇴방법",
+  "faq":"자주하는 질문",
+  "search":"검색",
+  "previous":"이전",
+  "next":"다음",
+  // nopostsfound:검색된 게시물이 없습니다.
+  "inquiry":"문의 중",
+  "answercompleted":"답변 완료",
+  "contact":"연락처",
+  "requestcategory":"문의 항목",
+  "requestcontents":"문의 내용",
+  "answercontents":"답변 내용",
+  "level01":"LEVEL 01. 회원가입",
+  "level02":"LEVEL 02. 앱인증",
+  "level03":"LEVEL 03. 실명·계좌인증",
+  "authenticationmethod":"인증방법",
+  "authority":"권한",
+  "appverification":"앱인증",
+  "authority1":"거래불가능",
+  "authority2": "지갑생성, Private key 생성, 코인거래만 가능",
+  "authority3":"모든 거래(원화 입금 및 출금 모든 코인거래 가능)",
+  "accountauthentication":"실명인증 및 계좌인증",
+  "writing":"글쓰기",
+  "name":"이름",
+  "contacthelp":"연락처를 입력하세요.",
+  "title":"제목",
+  "titlehelp":"제목을 입력하세요.",
+  "submit":"제출하기",
+  "contentshelp":"문의 내용을 입력하세요.",
+  "submitted":"처리 되었습니다.",
+  "usageInquiry":"이용문의",
+  "accountAuthenticationErrorInquiry":"계정인증오류 문의",
+  "changeAccountInformationInquiry":"계정정보변경 문의",
+  "depositWithdrawalInquiry":"입출금 문의",
+  "hackingVoiceFishingInquiry":"해킹 및 보이스피싱 문의",
+  "corporateMembershipInquiry":"기업회원 문의",
+  "investigationsFinancialInstitutionsInquiry":"수사 및 금융기관 문의",
+  "personalWalletRelatedInquiry":"개인지갑관련 문의",
+  "appRelatedInquiry":"앱관련 문의",
+  "listedExchangeInquiry":"상장 문의",
+  "exchangeInquiry":"거래소 문의",
+  "foreignExchangeInquiry":"해외거래소 문의",
+  ETC.:기타
+  "nameCertification":"실명인증",
+  lev2Ment:모바일 기기에서 KDEX 앱 설치 후 로그인 하시면 앱인증이 완료됩니다.
+  lev2Ment2:앱인증 후 인증가능합니다.
+  lev3Ment:실명인증 후 인증가능합니다.
+
+  "retainedcoin":"보유코인",
+  "returnoninvestment":"투자손익",
+  "PurchasePrice":"매수금액",
+  "evaluationamount":"평가금액",
+  "profitorloss":"평가손익",
+  "profitrate":"수익률",
+  "obtained":"보유",
+  "totalassets":"총보유자산",
+  "averagepurchaseprice":"매수평균가",
+  "averageprice":"평균가",
+  "modified":"수정됨",
+  "modify":"수정",
+  "order":"주문",
+  nothavecoin:보유코인이 없습니다.
+  averageprofit/lossbydate:일자별 평균손익
+  averageprofit/lossbyitem:종목별 평균손익
+  "signedquantity":"체결수량",
+  "unsignedquantity":"미체결수량",
+  "checkperiod":"조회기간",
+  "today":"당일",
+  "week":"주일",
+  "month":"개월",
+  "year":"년",
+  historywillbe:영업일 기준으로 내역이 조회됩니다.
+  "tradeprice":"거래가격",
+  "trademoney":"거래금액",
+  "transferfee":"전송수수료",
+  "transactionfee":"거래수수료",
+  "profitandloss":"손익",
+  "purchaseamount":"매입금액",
+  mycoin01:매수평균가, 평가금액, 평가손익, 수익률은 모두 KRW로 환산한 추정값으로 참고용입니다.
+  "informationsub1":"회원가입 및 인증 안내",
+  "informationsub2":"거래이용방법",
+  "informationsub3":"개인통합지갑 이용안내",
+  "informationsub4":"원화입출금 이용안내",
+  informationsub1Msg01:www.kdex.io에서 회원가입
+  informationsub1Msg02:앱스토어, 안드로이드마켓에서 KDEX 검색 후 앱 다운로드
+  informationsub1Msg03:2펙트 인증( 모바일 푸시 발송 (6자리 인증번호) ) → 확인 후 입력 → 로그인
+  informationsub1Msg04:푸시를 못받는 경우 (모바일 - 알림확인에서 확인가능), (KDEX App 설치 후 App에서 로그인시 Level 2로 전환)
+  informationsub1Msg05:회원가입 후 첫 로그인 후 Level 2로 전환(KDEX 개인통합전자지갑 자동 생성)
+  informationsub1Msg06:거래 발생시 등록된 App으로 승인요청 → App에서 승인 후 거래 가능
+  "informationsub1Msg07":"로그인 후 거래 가능",
+  "informationsub1Msg08":"인증관리 페이지에서 실명인증과 계좌인증",
+  "classification":"구분",
+  informationsub2Msg01:KRW(원화)로 암호화폐를 매수/매도 할 수 있습니다.
+  informationsub2Msg02:BTC 마켓 : BTC(비트코인)로 다른 암호화폐를 매수/매도 할 수 있습니다.
+  informationsub2Msg03:매매대상이 되는 암호화폐 가격은 BTC로 결정되며, KRW 환산가격(BTC 기준 가격 x BTC/KRW 현재가)이 참고용으로 함께 표시됩니다.
+  informationsub2Msg04:ETH 마켓 : ETH(이더리움)로 다른 암호화폐를 매수/매도 할 수 있습니다.
+  informationsub2Msg05:매매대상이 되는 암호화폐 가격은 ETH로 결정되며, KRW 환산가격(ETH 기준 가격 x ETH/KRW 현재가)이 참고용으로 함께 표시됩니다.
+  "basedDailyTransactionData":"일별 거래 데이터 기준",
+  informationsub2Msg06:KDEX는 UTC(협정세계시)를 기준으로 일별 데이터를 계산합니다.
+  informationsub2Msg07:전일대비 등락률 : UTC 기준 0시(=한국시간 오전 9시) 종가 대비 당일 종가(혹은 현재가) 등락률
+  informationsub2Msg08:거래대금 : 최근 24시간 동안의 누적 거래대금
+  informationsub2Msg09:캔들차트 및 깊이차트 일봉 : UTC 기준 0시부터 24시간(혹은 현재시점) 동안의 시가/고가/저가/종가
+  "informationsub2Msg10":"Closed Beta Open 동안에는 거래수수료 무료",
+  "informationsub2Msg11":"거래 발생시 개인전자지갑 전송수수료",
+  "blockChainNetworkTransmissionCharges":"블록체인 네트워크 전송료 부과",
+  informationsub2Msg12:개인전자지갑 입금/출금 전송수수료
+  informationsub2Msg13:KDEX거래소에서 발생하는 모든 암호화폐 입출금은 블록체인네트워크를 이용하여 개인전자지갑으로 실제로 암호화폐를 전송하기 때문에 모든 암호화폐 입출금에 전송 수수료가 발생합니다.
+  "check":"확인",
+  "exchange":"교환",
+  "tokenclose":"토큰닫기",
+  "tokenopen":"토큰보기",
+  "myassets":"나의 자산 현황",
+  tokendescription:토큰의 경우에는 보유 수량만 확인 가능하며, 원화가치로 변환표시되지 않습니다.
+  selectyourwallet:지갑을 선택하세요.
+  "refresh":"새로고침",
+  "assets":"보유자산",
+  "transferablequantity":"전송가능 수량",
+  "send":"보내기",
+  "receive":"받기",
+  "withdraw":"출금",
+  "deposit":"입금",
+  "customtokenmanagement":"커스텀 토큰 관리",
+  "charge":"충전",
+  nowalletdepositdetails:지갑 입출금 내역이 없습니다.
+  "totalpaymentassets":"총 결제자산",
+  walletsettlement1:저희 거래소의 지갑서비스를 통해 결제된 내역입니다.
+  walletsettlement2:결제서비스는 추후 서비스 제공 예정입니다.
+  "sender":"보내는 지갑",
+  "receiver":"받는지갑",
+  "chooseYourWalletToExchange":"교환받을 지갑을 선택하세요",
+  "exchangeFee":"교환수수료",
+  "estimatedTransferFee":"예상 전송 수수료",
+  "close":"닫기",
+  "withdrawableQuantity":"출금 가능 수량",
+  transferFeeETH:전송시 ETH 가 전송수수료로 사용됩니다.
+  "transportAddress":"전송주소",
+  enterYourWithdrawalAddress:출금주소를 입력해 주세요.
+  "addressBook":"주소록",
+  noSavedContacts:저장된 주소록이 없습니다.
+  "addContacts":"주소록 추가하기",
+  "enterTheNameOfTheWalletAddressToAdd":"추가할 지갑주소 이름을 입력하세요",
+  "myWallet":"내지갑",
+  enterWalletAddressToAdd:추가할 지갑주소를 입력하세요.
+  "add":"추가",
+  "transferQuantity":"전송수량",
+  "transmissionSpeed":"전송속도",
+  "max":"최대",
+  "transferFee":"전송수수료",
+  "totalQuantity":"총 수량",
+  "myIncomingAddress":"내 입금주소",
+  "blockChainNetwork":"블록체인 네트워크",
+  "connectingBlockChainNetwork":"블록체인 네트워크연결하기",
+  "copyAddress":"주소복사",
+  "searchTokenName":"토큰명검색",
+  "things":"개",
+  "tokenSymbol":"토큰심볼",
+  "open":"보기",
+  "apply":"적용",
+  "pointCharging":"KDEX 포인트 충전",
+  "myCoinWallet":"내 코인 지갑",
+  "selectWalletExchangePoints":"포인트로 교환할 지갑을 선택하세요.",
+  "pointsToBeCharged":"충전될 포인트",
+  "minimumChargingPoint":"최소 충전 포인트",
+  "coinExchageMsg01":"원화 교환은 서비스 준비중입니다."
+  coinExchageMsg02:포인트 교환은 서비스 준비중입니다.
+  coinExchageMsg03:토큰 교환은 서비스 준비중입니다.
+  clipboardMsg01:클립보드에 복사되었습니다. Ctrl + V 로 붙여넣기 하세요.
+  clipboardMsg02:복사가 실패하였습니다. 다시 시도해 주세요.
+  clipboardMsg03:이 브라우저는 지원하지 않습니다.
+  qrOpenMSg01:QR 스캔 기능은 크롬브라우져에서만 지원합니다.
+
+
+  "address01":"(주)KDEX  서울특별시 성동구 성수일로 48 거영빌딩 3층"
+  "CEO":"대표이사 염기호",
+  "companyRegistrationNumber":"사업자등록번호",
+  reportCompany:통신판매업신고 제2018-서울성동-1733호
+  "email":"이메일",
+  "mainContactUs01":"고객 응대 맟 상담은 현재 이메일로만 가능하오니 ",
+  mainContactUs02:로 상담 부탁드립니다.
+  "mainInfo01":"세계최초 블록체인 개인지갑기반 ",
+  "mainInfo02":"분산형 탈중앙 거래소",
+  "mainInfo03":"세계 최초 거래소내 개인통합전자지갑",
+  mainInfo04:플랫폼 서비스(ICO,AirDrop 통합지원)
+  "mainInfo05":"암호화폐 자산을 안전하게 보호하고",
+  "mainInfo06":"편리하게 관리할 수 있는 세계 최초 올인원 거래소",
+
+  "min":"최소",
+  orderMarketPrice:시장가격으로 주문합니다.
+  "betaOpenPeriod":"베타오픈기간",
+
+  mainslide1_1:전송수수료보상토큰
+  mainslide1_2:크다!
+  mainslide1_3:직접 참여하고 선택하는 신개념 토큰
+  mainslide1_4:참여 할 수록 혜택이 크다!
+
+  mainslide2_1:개인통합지갑
+  mainslide2_2:단 하나의 통합지갑으로
+  mainslide2_3:모든 암호화페를 관리하고 거래하는
+  mainslide2_4:블록체인 개인지갑기반
+  mainslide2_5:의 거래소
+
+  mainmobile_1:편리하고 강력한
+  mainmobile_2:모바일 거래소
+  mainmobile_3:pc속 거래소가 그대로 녹아든 kdex 모바일 어플리케이션 출시!
+  mainmobile_4:이제 언제 어디서나 pc와 똑같은 모바일 서비스를 받아보세요.
+  mainmobile_5:실시간 암호화폐 동향 분석
+  mainmobile_6:실시간 암호화폐의 동향과 정보를 확인하고
+  mainmobile_7:이를 한눈에 파악하여 투자전력을 수립할 수 있는
+  mainmobile_8:실시간 차트를 제공합니다.
+  mainmobile_9:간편한 암호화폐 관리
+  mainmobile_10:App에서도 개인통합지갑이 지원되며 언제 어디서든
+  mainmobile_11:신속하고 간편하게 개인지갑 내 암호화폐의 거래 및 관리가 가능합니다.
+
+  maininfomation_1:kdex는 순수 블록체인기반의
+  maininfomation_2:안정적인 거래소입니다.
+  maininfomation_3:블록체인기반거래 기술 특허출원
+  maininfomation_4:암호화폐 거래 및 보관을 편리하고 안전하게 개인지갑으로 관리하고 싶으세요?
+  maininfomation_5:세계최초 개인별
+  maininfomation_6:블록체인지갑
+  maininfomation_7:세계 최초의 DB방식이 아닌
+  maininfomation_8:탈중앙 블록체인거래소
+  maininfomation_9:개인 통합 전자지갑
+  maininfomation_10:플랫폼 서비스
+  maininfomation_11:모든거래를 네트워크와
+  maininfomation_12:분리된 물리적 형태의
+  maininfomation_13:암호화지갑으로 거래
+  maininfomation_14:자산관리의
+  maininfomation_15:안전성 및 편의성
+  maininfomation_16:private key 분실시
+  maininfomation_17:정상적인 절차를 따라
+  maininfomation_18:본인 또는 가족이 암호화폐를
+  maininfomation_19:찾을 수 있도록 서비스 시스템 구축
+  maininfomation_20:다양한 가상화폐의
+  maininfomation_21:빠른 입출금
+  maininfomation_22:다양한 암호화폐 거래로
+  maininfomation_23:초보자도 신속하고 편리한 거래
+
+  customerUnsubscribeNum1Msg1:회원 탈퇴 신청이 불가능한 사유.
+  customerUnsubscribeNum1Msg2:아래의 사항중 하나 이상 해당할 경우 회원 탈퇴가 불가능합니다.
+  customerUnsubscribeNum1Msg3:KRW 잔액이 남아 있으면 회원탈퇴가 불가능합니다.
+  customerUnsubscribeNum1Msg4:KDEX 개인통합전자지갑에 암호화폐 잔액이 남아 있으면 회원탈퇴가 불가능합니다.
+  customerUnsubscribeNum1Msg5:진행중인 거래가 있는 경우 회원탈퇴가 불가능합니다.
+
+  customerUnsubscribeNum2Msg1:회원탈퇴 시 케이덱스에 등록된 회원님의 개인정보는 모두 삭제되며 복구되지 않습니다.
+  customerUnsubscribeNum2Msg2:단, 관계법령에 따라 회사가 보관하여야 하는 정보는 일정 기간 보관됩니다.
+
+  "customerUnsubscribeNum3Msg1":"회원 탈퇴 요청 방법",
+  customerUnsubscribeNum3Msg2:아래 양식에 따라 케이덱스 고객센터로 이메일을 보내주세요.
+  customerUnsubscribeNum3Msg3:케이덱스에 인증한 이메일 주소와 같은 이메일로 발송해 주셔야 합니다.
+  "customerUnsubscribeNum3Msg4":"이메일 보낼 주소",
+  "customerUnsubscribeNum3Msg5":"이메일 제목",
+  "customerUnsubscribeNum3Msg6":"회원탈퇴 요청",
+  "customerUnsubscribeNum3Msg7":"이메일 본문 필수입력",
+  customerUnsubscribeNum3Msg8:닉네임, 아이디, 연락처
+
+  "customerUnsubscribeNum4Msg1":"회원 탈퇴 후 개인통합전자지갑의 Private Key 요청",
+  customerUnsubscribeNum4Msg2:신분증, 거래소에 등록된 핸드폰, Private Key를 저장할 매체를 소지하시고 케이덱스 고객센터를 직접 방문하여 수령하실 수 있습니다.
+
+  "postLoginTransactions":"로그인 후 거래",
+  "simulated":"모의채굴현황",
+  "simulatedsub1":"총모의채굴량 ",
+  "preCollection":"사전채굴현황",
+  "preCollectionsub1":"총사전채굴량",
+  "miningCompletion":"채굴 완료",
+  "kdaTotal":"총",
+  kdaInfoMsg1:1주차 Buy-Back 수량
+  "whitePaper":"백서 다운로드",
+  "yesterdayStatus":"어제현황",
+  "marketPrice":"시세",
+  "exchangeKRW":"KRW로 환산",
+  "basePrice":"기준가",
+  "tenThousand":"만",
+  "todayStatus":"오늘현황",
+
+  #마이페이지
+  "membershipInformationManagement":"회원정보관리",
+  "authenticationManagement":"인증관리",
+  "accessInformation":"접속정보",
+  "deviceManagement":"디바이스관리",
+  "basicMemberInformation":"기본회원정보",
+  "nickname":"이름",
+  "ID":"아이디",
+  "editYourPassword":"비밀번호 수정",
+  "currentPassword":"현재 비밀번호",
+  enterYourCurrentPassword:현재 비밀번호 입력하세요.
+  "newPassword":"신규 비밀번호",
+  enterYourNewPassword:새로운 비밀번호를 입력해주세요.
+  passwordGuide:영문대문자, 영문소문자, 숫자, 특수문자 각 2개 이상 포함하여 8자리 이상의 비밀번호를 입력하세요.
+  "confirmPassword":"비밀번호 확인",
+  enterYourPasswordAgain:변경하실 비밀번호를 다시 한번 입력헤주세요.
+  enterSamePassword:동일한 비밀번호를 다시 한번 입력해주세요!
+  "changePassword":"비밀번호 변경",
+  "membershipRegistrationEmail":"회원가입 인증 ",
+  differentCurrentPassword:현재 비밀번호와 다릅니다. 비밀번호를 확인하세요.
+  confirmNewPassword:새로운 비밀번호를 확인해 주세요.
+  passwordChanged:비밀번호가 변경되었습니다.
+  Between8And20Digits:영문대소문자, 숫자 혼합하여 8~20자리 이내로 입력하세요.
+  securePassword:안전한 비밀번호 입니다.
+  twoPasswordsMatch:입력한 두 비밀번호가 일치합니다.
+  twoPasswordsNotMatch:입력한 두 비밀번호가 일치하지 않습니다.
+  "authenticationCompleted":"인증완료",
+  "unauthorized":"미인증",
+  "accessTime":"접속시간",
+  "accessType":"접속구분",
+  "accessPlatform":"접속플렛폼",
+  "useOfServices":"서비스이용",
+  "deviceDisabled":"기기사용중지",
+  changeMainDeviceMsg:PRIVATE KEY키가 없는 디바이스는 메인기기로 변경이 불가합니다.
+  "changeMainDevice":"메인기기로 변경",
+  "listDisabledDevices":"사용중지된 디바이스 목록",
+  "delete":"삭제",
+  "mainDevice":"메인기기 ",
+  "copySuggestedLink":"추천링크 복사",
+  "withdrawalAccount":"출금계좌",
+  "accountAuthentication":"계좌인증",
+  PriceEditConfirmBoxMsg01:보유코인의 매수평균가를 수정하시는 경우, 보유코인 화면에 '수정됨' 표시가 노출됩니다. 수정 이후 추가 매수/입금 시, 수정값 기준으로 계산되오니 유의하시기 바랍니다. ‘수정됨’ 표시는 해당 코인의 거래 청산시 (전량 매도, 출금 등) 사라집니다.
+  "ConfirmationRevisionBuyingAverage":"매수평균가 수정확인",
+  PriceEditConfirmBoxMsg02:보유코인의 매수평균가가 수정하지 않은 매수평균가로 복구됩니다. 초기화 하신경우, 보유코인 화면에 '수정됨' 표시가 사라집니다. 초기화 이후에도, 원하시는 시점에 언제나 매수평균가를 수정하실 수 있습니다.
+  "InitializationConfirmation":"매수평균가 초기화 확인",
+  "DeactivateDevice":"기기사용중지 확인",
+  DeactivateDeviceMsg:기기 사용중지를 하시면 해당디바이스에서 KDEX 앱 접속이 불가합니다. 사용중지를 요청하시겠습니까?
+  DeactivateDeviceMsgReq:메인디바이스로 사용중지 요청이 전송되었습니다. 메인디바이스에서 승인 후 처리됩니다.
+  "register":"등록",
+  SyncMobile:동기화는 모바일에서 가능합니다.
+  "NoMainDevice":"메인기기가 없습니다",
+  RequestChangeMainDevice:메인 디바이스변경을 요청하시겠습니까?
+  "ConfirmMaindeviceChange":"메인디바이스 변경 확인",
+  ConfirmMaindeviceChangeMsg:현재 메인디바이스로 메인디바이스 변경 요청이 전송되었습니다. 메인디바이스에서 승인 후 처리됩니다.
+  disabledListDevices:사용중지된 목록에서 삭제하시겠습니까? 목록에서 삭제된 디바이스는 언제든 KDEX 앱으로 로그인이 가능하게 됩니다.
+  "ChkDisabledListDevices":"사용중지된 목록 삭제 확인",
+  RemovedDeviceList:사용중기 기기 목록에서 삭제되었습니다.
+
+  #로그인
+  "easyLogin":"간편로그인",
+  hello1:안녕하세요. 반갑습니다.
+  "password":"비밀번호",
+  "kakaotalk":"카카오톡",
+  "findEmail":"이메일찾기",
+  "findPassword":"비밀번호찾기",
+  notYetMember:아직 회원이 아니신가요?
+  "enterVerificationNumber":"모바일로 전송된 6자리 인증번호를 입력해 주세요",
+  "certificationNumberInput":"인증번호 입력",
+  "resendCertificationNumber":"인증번호 재발송",
+  loginMsg01:로그인 되었습니다.
+  "loginMsg02":"거래를 하시려면 모바일 에서 로그인 해 주세요",
+  "loginMsg03":"모바일로 전송된 인증번호를 입력해 주세요",
+  loginMsg04:인증번호가 재발송 되었습니다.
+  loginMsg05:푸시전송이 실패하였습니다. KDEX앱의 알림화면에서 인증번호를 확인해주세요.
+  loginMsg06:네이버로그인은 현재 kdex.io에서만 가능합니다.
+  welcomtoKDEX:KDEX에 오신것을 환영합니다.
+  "extendedSignIn":"로그인 연장",
+  "Yes":"예",
+  "No":"아니오",
+  areyoulogout:로그아웃 하시겠습니까?
+  closebetaMsg:현재 사전가입된 회원의 Closed Beta 운영중입니다.
+  level1alertMsg:인증레벨 2부터 이용이 가능합니다. 모바일 앱에서 로그인하시면 인증레벨이 2로 올라갑니다.
+  serverAlert:현재 거래소 보안서버 업데이트 점검중으로 서비스 이용이 어렵습니다. 빠른시간내에 업데이트 및 점검을 완료하겠습니다.
+  "autoLogoutMsg1":"장시간 사용이 없어",
+  autoLogoutMsg2:초후 자동 로그아웃 됩니다. 로그인 연장 하시겠습니까?
+
+  "orderCancel":"주문취소",
+  cancelOrder?:주문을 취소하시겠습니까?
+  cancelOrderComplete:주문이 취소처리 되었습니다.
+
+  year : 년
+  month : 개월
+  week : 주일
+  day : 일
+  hour : 시간
+  Stochastic : 스토캐스틱
+  MovingAverage : 이동평균선
+    
+  #pushMsg
+  level1loginMsg:거래를 위해서는 모바일 승인이 필요합니다.
+  "pushMsgLoginCertSend":"로그인 인증번호 발송",
+  "pushMsgLoginCertSendMsg1":"로그인 인증번호는",
+  pushMsgLoginCertSendMsg2:입니다.
+  pushMsgCertToMobile:모바일로 인증번호가 발송되었습니다.
+  "TransactionNotifications":"거래 알림",
+  pushMsgTransactionNotifications1:KDEX 거래소의 orderSimbol 마켓에서 orderType주문이 신청되었습니다.(수량:orderQty, 시장가 주문) 모바일 승인이 필요합니다.
+  pushMsgTransactionNotifications2:KDEX 거래소의 orderSimbol 마켓에서 orderType주문이 신청되었습니다.(수량:orderQty, 금액:orderPrice) 모바일 승인이 필요합니다.
+  transactionOrderComplete:주문이 완료 되었습니다.
+  TemporaryServerError:일시적 서버 오류입니다. 문제가 지속될 경우 관리자에게 문의해 주세요.
+  pushMsgSendAddr:KDEX 거래소 sendSimbol 지갑에서 sendAddr 로 sendQty sendSimbol 을 보내려고 합니다. (수수료:sendFee) 모바일 승인이 필요합니다.
+  needSendConfirmApp:인증번호가 메일로 발송되었습니다. 앱에서 승인후 인증번호를 입력하시면 전송이 완료됩니다.
+  transactionSendComplete:전송요청이 완료되었습니다. 블록체인에 반영되기까지 약간의 시간이 소요될 수 있습니다.
+  pushMsgExAddr:KDEX 거래소 fromSimbol 지갑에서 toSimbol 지갑으로 exQty 을 교환합니다. (교환비율:exRate) 모바일 승인이 필요합니다.
+  needExConfirmApp:앱에서 승인을 하셔야 교환이 완료됩니다.
+  transactionExComplete:교환요청이 완료되었습니다. 블록체인에 반영되기까지 약간의 시간이 소요될 수 있습니다.
+  customTokenSuccessfullyAdded:커스텀 토큰이 정상적으로 추가되었습니다.
+  SavedContacts:주소록에 저장되었습니다.
+  EditContacts:주소록이 수정되었습니다.
+  DelContacts:주소록이 삭제되었습니다.
+  interestedTokenSaved:관심토큰으로 저장되었습니다.
+  interestedTokenRemoved:관심토큰에서 삭제되었습니다.
+  FixedAverageBuyingPrice:매수평균가가 수정되었습니다.
+  ResetAverageBuyingPrice:매수평균가가 초기화되었습니다.
+  "DeviceOutageNotifications":"기기사용중지알림",
+  "DeviceOutageNotificationsMsg1":"",
+  DeviceOutageNotificationsMsg2: 기기의 사용을 중지합니다. 원치 않으시면 취소를 눌러주세요
+  "MainDeviceChangeNotification":"메인기기변경알림",
+  "MainDeviceChangeNotificationMsg1":"",
+  MainDeviceChangeNotificationMsg2: 기기를 메인디바이스로 변경합니다. 원치 않으시면 취소를 눌러주세요.
+  "RequestPrivateKeyCopy":"프라이빗키 복사요청",
+  RequestPrivateKeyCopyMsg: 기기에서 프라이빗키 복사를 요청하였습니다. 원치 않으시면 취소를 눌러주세요.
+
+
+  #이메일찾기
+  "findingIDUsedLogin":"KDEX 로그인시 사용되는 아이디 찾기",
+  "findEmailAtSignUp":"가입시 등록한 닉네임이나 연락처로 이메일 찾기",
+  "mobilePhoneNumber":"휴대폰번호",
+  "copyClipboard":"클립보드로 복사",
+  "confirm":"확인",
+  "goToLogin":"로그인 하러가기",
+  enterNickname:닉네임을 입력하세요.
+  "enterMobileNumber":"휴대폰 번호를 입력하세요",
+  findIDMsg01:아이디를 찾았습니다. 찾은 아이디는
+  findIDMsg02:입니다.
+  CopiedClipboardMsg:클립보드에 복사되었습니다. Ctrl + V 로 붙여넣기 하세요.
+  copyFailedTryAgain:복사가 실패하였습니다. 다시 시도해 주세요.
+  thisBrowserNotSupported:이 브라우저는 지원하지 않습니다.
+
+  #비밀번호찾기
+  "changePasswordByEmail":"회원정보에 등록한 이메일로 비밀번호 변경",
+  "changePasswordMsg01":"가입 당시 입력한 이메일을 입력하시면 ",
+  changePasswordMsg02:비밀번호 변경 안내 메일을 발송하여 드립니다.
+  enterEmailAddress:이메일을 입력해주세요.
+  passwordChangeEmailSent:비밀번호 변경 메일이 발송되었습니다. 메일을 확인해 주세요
+  failedSendMail:메일 발송에 실패 하였습니다. 문제가 지속될 경우 관리자에게 문의해 주세요
+
+
+
+  #default.js
+  enterPlease:을/를 입력해주시기 바랍니다.
+  checkContents:의 입력내용을 확인해주세요.
+  enterNumbers:숫자로 입력해주시기 바랍니다.
+
+  #chartStopmp.js
+  canNotBeOrdered:주문이 불가능한 금액입니다.
+  "enterPurchasePrice":"매수가격을 입력해 주세요",
+  "enterSellingPrice":"매도가격을 입력해 주세요",
+  tradeAfterLogin:로그인 후 거래가 가능합니다.
+  "MinimumPrice0":"최소 가격은 0원 이상 주문하세요",
+  canNotPlaceOrdersMinimum:최소 주문금액 보다 적은 금액은 주문이 불가합니다.
+  availableQuantityInsufficient:매도가능 수량이 부족합니다.
+  "minimumQuantity0":"최소 수량은 0 이상 주문하세요",
+  orderApprovedAppToComplete:앱에서 주문 승인을 하셔야 주문이 완료됩니다.
+  AmountAdjustedUnit:호가단위에 맞춰 금액이 수정되었습니다.
+  tradeCertificationLev2:인증레벨 2부터 거래가 가능합니다. 모바일 앱에서 로그인해 주세요.
+  notEnoughMoneyOrdering:주문가능 금액이 부족합니다.
+  "orderInsufficient":"주문가능 수량이 부족합니다",
+  ServicePreparation:서비스 준비중입니다.
+  ETHLessTransferFee:ETH 가능수량이 전송수수료 보다 적을경우 매도가 불가합니다.
+  CautionOverPrice:[주의] 현재가의 30%가 넘는 주문가격입니다. 주문을 계속 하시겠습니까?
+  "KDEXPriceConfirmation":"KDEX 주문가격 확인",
+  SequentialOrderingOncePerSecond:연속 주문은 1초에 한번씩 가능합니다.
+
+
+
+  #walletApp.js
+  "inboundNOutbound":"입출고",
+  "trading":"매매",
+  "reward":"보상",
+  "token":"토큰",
+  KRWPreparationService:원화 입출금은 서비스 준비중입니다.
+  "KDEXPointBalanceMsg01":"KDEX포인트 잔액이 ",
+  KDEXPointBalanceMsg02:입니다. 충전후 출금하세요.
+  "selectWalletToExchange":"교환할 지갑을 선택하세요",
+  "enterQuantityToExchange":"교환할 수량을 입력하세요",
+  amountsMinimumExchangMsg:최소 교환수량보다 적은 금액은 교환할수 없습니다.
+  "enterQuantityExchangeForPoints":"포인트로 교환할 수량을 입력하세요",
+  "veryFast":"매우빠름",
+  "fast":"빠름",
+  "normal":"보통",
+  "directInput":"직접입력",
+  deleteContact:해당 주소록을 삭제하시겠습니까?
+  "confirmAddressBookDeletion":"주소록 삭제 확인",
+  "checkAddress":"주소를 확인하세요",
+  "enterAddressName":"주소이름을 입력하세요",
+  notTransferAmountEtheriumYouHave:보유하신 이더리움이 전송료보다 적어 전송을 할수 없습니다.
+  notSendMoreMaximumAmount:최대 전송 수량보다 많은 금액은 보낼수 없습니다.
+  "enterQuantitySend":"전송할 수량을 입력해 주세요",
+  possessionQuantityLessMinimum:보유수량이 최소 교환수량보다 부족합니다.
+  retainedAmountLessMinimum:보유금액이 최소 교환포인트 금액보다 부족합니다.
+  "WithdrawableAmount":"출금 가능 금액",
+  "WithdrawalAmount":"출금 금액",
+  "WithdrawalFee":"출금 수수료",
+  "TotalWithdrawal":"출금 합계",
+  WithdrawalNotConfirmed:출금 신청후 출금이 확인되지 않은 내역입니다.
+  "ApplicationTime":"신청시간",
+  "ApplicationAmount":"신청금액",
+  WithdrawalMSG01:첫 입금 후 72시간 이내 출금은 불가능합니다.
+  WithdrawalMSG02:출금은 영업일 기준 11시, 13시, 15시, 17시에 일괄처리됩니다.
+  WithdrawalMSG03:계좌인증시 등록한 계좌로 입금됩니다.
+  "WithdrawalMSG04":"안전한 자산보호를 위해 이메일로 전송된 인증번호를 입력하세요",
+  WithdrawalMSG05:정상출금 확인후 Push로 출금확인 메세지가 전송됩니다.
+  "WithdrawalMSG06":"최소 출금 가능금액은",
+  WithdrawalMSG07:원 입니다. 
+  WithdrawalMSG08::1회 최대 5천만원, 1일 최대 2억원까지 가능합니다.
+  "CertificationNumber":"인증번호",
+  "SendVerificationNumber":"인증번호 발송",
+  "ApplicationWithdrawal":"출금신청",
+  "DepositAccountInformation":"입금 계좌 정보",
+  "DepositAmount":"입금 금액",
+  DepositNotConfirmed:입금 신청후 입금이 확인되지 않은 내역입니다.
+  DepositMSG01:아래 입금신청 버튼을 눌러 Push를 받으신후 입금하셔야 합니다.
+  DepositMSG02:입력하신 입금액의 뒤 2자리금액은 정확한 처리를 위한 금액이며 전체 금액이 지갑에 반영됩니다.
+  DepositMSG03:입금자명은 계좌인증하신 실명으로 입금하셔야 합니다.
+  DepositMSG04:입금자명, 입금금액이 다른경우 입금처리가 되지 않을 수 있습니다.
+  DepositMSG05:정상입금 확인후 Push로 입금확인 메세지가 전송됩니다.
+  "DepositApplication":"입금 신청",
+  sessionEndedMSG01:세션이 종료되어 로그아웃되었습니다. 다시로그인 해주세요
+  notEnoughKDAExchange:환전신청할 KDA가 부족합니다.
+  ThiscoinWithdrawnManual:해당코인은 수동출금으로 출금이 가능합니다.
+  withdrawalRestricted:현재 출금 제한중입니다.
+  KRWDepositWithdrawallevel3:원화 입출금은 인증레벨3 부터 가능합니다. 인증센터로 이동하시겠습니까?
+  verificationNumberSentEmail:인증번호가 메일로 발송되었습니다. 전송받은 인증번호를 입력하세요
+  verificationNumberVerified:인증번호가 확인되었습니다.
+  verifyAuthorizationNumberSentEmail:메일로 전송된 인증번호를 확인하셔야 합니다.
+  amountOneWithdrawal50million:1회 출금 가능 금액은 5천만원 입니다.
+  unprocessedWithdrawalExists:처리되지 않은 출금신청내역이 존재합니다.
+  notWithdrawMoreThanAmount:출금가능 금액보다 많은 금액은 출금할수 없습니다.
+  verificationNumberSentEmail01:인증번호가 메일로 발송되었습니다. 
+  "verificationNumberSentEmail02":"전송받은 인증번호를 입력하세요",
+  withdrawalApplicationCompleted:출금신청이 완료되었습니다.
+  unprocessedDepositExists:처리되지 않은 입금신청내역이 존재합니다.
+  depositAtLeast10000:최소 10,000원 이상 부터 입금 가능합니다.
+  ClickConfirmReminderDeposit:확인버튼을 눌러 입금시 주의사항과 변경된 입금금액을 확인하세요.
+  "ExchangeableQuantity":"환전 가능 수량",
+  "ExchangeApplication":"환전 신청",
+  "Fold":"접기",
+  QRScanningCam:PC의 캠으로 QR스캔이 가능합니다.
+  coinsNotYetTransferred:아직 블록체인으로 넘기지 않은 모든 코인을 블록체인으로 옮김니다.
+  QuantitiesMinedRewarded:채굴 및 보상으로 받았지만 아직 실지갑으로 옮기지 않은 수량이며 환전신청을 통해 실제 블록체인지갑으로 옮길수 있습니다.
+  requestedKDATokenExchange:KDA토큰 환전을 신청하였습니다. 모바일에서 승인하시면 환전요청이 완료됩니다.
+
+
+  #logout
+  logoutMsg:로그아웃 되었습니다.
+  "gotoMain":"KDEX 메인으로",
+
+  "kdexnews":"KDEX 뉴스",
+
+  #SignUp
+  "joinByEmail":"이메일로 가입하기",
+  "joinBySNS":"SNS 간편 가입",
+  "nickName":"닉네임",
+  previewEmail:이메일(아이디)
+  signUpEnterEmail:유효한 이메일을 입력하세요.
+  "signUpPW":"비밀번호",
+  "signUpPWChk":"비밀번호 확인",
+  signUpPWsub1:영문, 숫자 혼합하여 8~20자리 이내로 입력하세요.
+  "signUpPWChksub1":"영문 숫자 혼합",
+  signUpNicknamesub1:닉네임은 최소 3자이상 입력하세요.
+  signUpNicknamesub2:이미등록된 닉네임입니다.
+  signUpNicknamesub3:가입가능한 닉네임입니다.
+  signUpEmailsub1:잘못된 이메일형식입니다.
+  signUpEmailsub2:이미등록된 이메일입니다.
+  signUpEmailsub3:가입가능한 이메일입니다.
+  signUpPWChksub1:입력한 두 비밀번호가 일치합니다.
+  "signUpPWChksub2":"입력한 두 비밀번호가 일치하지 않습니다",
+  signUpPWsub2:안전한 비밀번호 입니다.
+  "signUpMobileNo":"휴대폰 번호",
+  "recommendedID":"추천인 아이디",
+  "agreementAgree":"약관 및 개인정보활용 동의",
+  "viewFullArticle":"전문보기",
+  alreadyMem:이미회원이신가요
+  "joinKdex":"가입하기",
+  alreadyMem:이미 회원이신가요?
+
+  singUpSnsPW:SNS 회원가입은 비밀번호를 입력하시 않으셔도 됩니다.
+  singUpOK:가입 되었습니다.
+
+  singUpReCAPTCHA:reCAPTCHA를 확인해 주세요.
+  joinNickNameChk:닉네임을 확인해 주세요.
+  joinEmailChk:이메일을 확인해 주세요.
+  joinPWChk:비밀번호를 확인해 주세요.
+  joinMobileChk:휴대폰 번호를 확인해 주세요.
+  joinAgreementChk:이용약관에 동의해 주세요.
+
+  LostConnectionMsg:실시간 서버연결이 끊어졌습니다.
+  "ServerConnection":"서버연결",
+  "PriceUnit":"호가단위",
+  "ERC-20TokensTransmissionFeeETH":"ERC-20 토큰의 경우 전송수수료가 이더리움으로 차감됩니다. 내 이더리움 전송가능수량",
+
+  "BlockChainNetworkVerification":"블록체인네트워크확인",
+  "SelectCoin":"코인선택",
+  "PreviousMonth":"이전 달",
+  "nextMonth":"다음 달",
+  "January":"1월",
+  "February":"2월",
+  "March":"3월",
+  "April":"4월",
+  "May":"5월",
+  "June":"6월",
+  "July":"7월",
+  "August":"8월",
+  "September":"9월",
+  "October":"10월",
+  "November":"11월",
+  "December":"12월",
+  "Jan":"1월",
+  "Feb":"2월",
+  "Mar":"3월",
+  "Apr":"4월",
+  "Jun":"6월",
+  "Jul":"7월",
+  "Aug":"8월",
+  "Sep":"9월",
+  "Oct":"10월",
+  "Nov":"11월",
+  "Dec":"12월",
+  "Sunday":"일",
+  "Monday":"월",
+  "Tuesday":"화",
+  "Wednesday":"수",
+  "Thursday":"목",
+  "Friday":"금",
+  "Saturday":"토",
+  "Sun":"일",
+  "Mon":"월",
+  "Tue":"화",
+  "Wed":"수",
+  "Thu":"목",
+  "Fri":"금",
+  "Sat":"토"
 }
