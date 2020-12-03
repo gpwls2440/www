@@ -1,0 +1,92 @@
+.table_type_h3 .c1,
+.line_box_h2 ul li .c2 {
+  color: #000;
+}
+
+.blue {
+  color: #3060dd !important;
+}
+.red {
+  color: #e4292b !important;
+}
+
+.c8 {
+  display: inline-block;
+  width: 30px;
+  text-align: left;
+  padding-left: 0px;
+}
+.table_type_h3 .c_n {
+  display: inline-block;
+  width: 20px;
+  text-align: left;
+  padding-left: 5px;
+}
+.editText {
+  text-align: right;
+  font-size: 11px;
+  display: block;
+}
+
+.inputBox {
+  border-bottom: 1px #ddd solid;
+  padding: 20px 0px;
+  margin-bottom: 35px;
+}
+.inputBox table {
+  font-size: 16px;
+  width: 100%;
+}
+.inputBox table th {
+  font-size: 16px;
+  color: #777;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 20px;
+}
+.inputBox table td {
+  text-align: right;
+  height: 40px;
+}
+.inputBox table td span.qty {
+  color: #000;
+  font-size: 18px;
+}
+.inputBox table td span.symbol {
+  color: #777;
+  font-size: 16px;
+  display: inline-block;
+  width: 30px;
+  padding: 0px 10px;
+  text-align: left;
+}
+
+.inputBox table td span.qty input {
+  text-align: right;
+  font-size: 18px;
+  width: 160px;
+  padding: 5px;
+}
+
+.total_div {
+  clear: both;
+  float: right;
+  margin-right: 25px;
+  font-size: 15px;
+  width: 340px;
+  line-height: 30px;
+  padding: 0 40px;
+}
+
+.total_div .l {
+  float: left;
+  color: #444;
+}
+.total_div .r {
+  float: right;
+  color: #8b90a6;
+}
+.total_div .c2 {
+  font-size: 18px;
+  color: #e4292b;
+}

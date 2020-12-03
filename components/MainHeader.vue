@@ -33,7 +33,7 @@
         <span id="loginTime" style="color: #2b2a48">600</span>
         <a href="/mypage">{{ $t('mypage') }}</a>
         <a href="javascript:go_logout();">{{ $t('logout') }}</a>
-        <a href="javascript:go_join();">{{ $t('signup') }}</a>
+        <a href="/auth/signup">{{ $t('signup') }}</a>
         <a href="/auth/login">{{ $t('login') }}</a>
         <a href="javascript:select_lang()" class="lang">한국어</a>
         <ul class="select_lang_box">
