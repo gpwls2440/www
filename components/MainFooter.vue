@@ -8,7 +8,7 @@
       <!-- Rights -->
       <div class="footer_inner">
         <!-- footer_inner -->
-        <p><img src="/assets/img/foot_logo.png" alt="KDEX" /></p>
+        <p><img src="~/assets/images/foot_logo.png" alt="KDEX" /></p>
         <p class="mt10">
           {{ $t('address01') }}
           <span class="line">|</span>
