@@ -29,7 +29,7 @@
     "nuxt": "^2.14.6",
     "nuxt-polyfill": "^1.0.3",
     "pikaday": "^1.8.0",
-    "swiper": "^6.3.5",
+    "swiper": "^4.2.2",
     "vee-validate": "^3.0.0",
     "vue-awesome-swiper": "^4.1.1",
     "vue-chartjs": "^3.5.1",

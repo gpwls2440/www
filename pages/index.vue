@@ -1,9 +1,9 @@
 <template>
   <div class="main_container">
     <!-- container -->
-    <div class="m_visual_h1 swiper-container">
+    <div class="m_visual_h1">
       <!--  m_visual_h1 -->
-      <swiper ref="mySwiper" :options="swiperOption">
+      <swiper ref="mySwiper" :options="swiperOption" class="swiper-container">
         <swiper-slide>
           <img id="slideMagine" src="~/assets/images/slide1.jpg" alt="" />
           <div class="mv_area">
@@ -31,9 +31,8 @@
             </span>
           </div>
         </swiper-slide>
-        <div slot="pagination" class="swiper-pagination"></div>
+        <div class="swiper-pagination"></div>
       </swiper>
-      <div class="swiper-pagination"></div>
     </div>
     <div v-cloak class="mainpage">
       <div class="notice_bar">
@@ -53,12 +52,12 @@
         <div class="exchange4">
           <div id="tab_btn" class="main_tab">
             <ul>
-              <li ng-show="favList[0] != null" ng-class="{'active' : curItem == ' '}">
-                <a href="#con1" ng-click="showMarket(' ')">{{ $t('favorites') }}</a>
+              <li v-show="favList[0] != null" :class="{ active: curItem == ' ' }">
+                <a href="#con1" @click="showMarket(' ')">{{ $t('favorites') }}</a>
               </li>
-              <li ng-class="{'active' : curItem == 'KRW'}"><a href="#con2" ng-click="showMarket('KRW')" title="KRW">KRW</a></li>
-              <li ng-class="{'active' : curItem == 'BTC'}"><a href="#con3" ng-click="showMarket('BTC')">BTC</a></li>
-              <li ng-class="{'active' : curItem == 'ETH'}"><a href="#con4" ng-click="showMarket('ETH')">ETH</a></li>
+              <li :class="{ active: curItem == 'KRW' }"><a href="#con2" title="KRW" @click="showMarket('KRW')">KRW</a></li>
+              <li :class="{ active: curItem == 'BTC' }"><a href="#con3" @click="showMarket('BTC')">BTC</a></li>
+              <li :class="{ active: curItem == 'ETH' }"><a href="#con4" @click="showMarket('ETH')">ETH</a></li>
             </ul>
           </div>
           <div id="ex4Div2Tab1" class="ex4Div2Tab">
@@ -85,27 +84,29 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="coinList" ng-repeat="coin in coinInfoList | orderBy:['order','market', 'order']  | filter:serchingItem " ng-click="goMarket(coin.simbol)">
-                    <td title="{/ coin.coinName /}">
+                  <tr v-for="coin in coinInfoList" :key="coin" class="coinList" @click="goMarket(coin.simbol)">
+                    <td :title="coin.coinName">
                       <div style="width: 50px; float: left; margin-left: 20px; padding-top: 5px">
-                        <img ng-src="/assets/img/coin/{/ coin.simbol | cutSimbol  /}.png" style="width: 60%; vertical-align: middle" alt="{/ coin.simbol /}" />
+                        <img src="~/assets/images/coin/btc.png" style="width: 60%; vertical-align: middle" :alt="coin.simbol" />
                       </div>
                       <div style="float: left; font-size: 16px; text-align: left; margin-left: 10px; line-height: 1.2">
-                        {/ coin.coinName /}<br />
-                        <span style="font-size: 12px">({/ coin.simbol | cutSimbol /} / {/ coin.simbol | cutMarket /})</span>
+                        {{ coin.coinName }}<br />
+                        <span style="font-size: 12px">({{ coin.simbol | cutSimbol }} / {{ coin.simbol | cutMarket }})</span>
                       </div>
                     </td>
-                    <td class="pdw" ng-class="{'red' :  coin.updnSign == '1', 'blue' :  coin.updnSign == '-1'}">
-                      {/ coin.lastPrice | toFixMarket:coin.market /}<span class="won_price" ng-if="coin.market != 'KRW'">{/ coin.basicPrice | calcPrice:coin.lastPrice /}<span> KRW</span></span>
+                    <td class="pdw" :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">
+                      {{ coin.lastPrice | toFixMarket:coin.market  }}<span class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice | calcPrice:coin.lastPrice  }}<span> KRW</span></span>
                     </td>
-                    <td ng-class="{'red' :  coin.updnSign == '1', 'blue' :  coin.updnSign == '-1'}">{/ coin.updnRate | toFixPer /} %</td>
+                    <td :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">{{ coin.updnRate | toFixPer }} %</td>
                     <td class="sec2 red">
-                      {/ coin.highPrice | toFixMarket:coin.market /}<span class="won_price" ng-if="coin.market != 'KRW'">{/ coin.basicPrice | calcPrice:coin.highPrice /}<span> KRW</span></span>
+                      {{ coin.highPrice | toFixMarket:coin.market  }}<span class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice | calcPrice:coin.highPrice  }}<span> KRW</span></span>
                     </td>
                     <td class="sec2 blue">
-                      {/ coin.lowPrice | toFixMarket:coin.market /}<span class="won_price" ng-if="coin.market != 'KRW'">{/ coin.basicPrice | calcPrice:coin.lowPrice /}<span> KRW</span></span>
+                      {{ coin.lowPrice | toFixMarket:coin.market  }}<span class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice | calcPrice:coin.lowPrice  }}<span> KRW</span></span>
                     </td>
-                    <td class="sec4">{/ coin.totalVol /}<span class="n1"> {/ coin.simbol | cutSimbol /}</span></td>
+                    <td class="sec4">
+                      {{ coin.totalVol }}<span class="n1"> {{ coin.simbol | cutSimbol }}</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -125,8 +126,7 @@
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import MainModal from '../components/MainModal'
-// import 'swiper/css/swiper.css'
-import 'swiper/swiper-bundle.css'
+import '@/assets/css/swiper.min.css'
 import '@/assets/css/index.css'
 
 export default {
@@ -141,8 +141,9 @@ export default {
       notiMainTitleList: [],
       swiperOption: {
         centeredSlides: true,
+        loop: true,
         autoplay: {
-          delay: 3200,
+          delay: 3000,
           disableOnInteraction: false
         },
         pagination: {
@@ -150,6 +151,13 @@ export default {
           clickable: true
         }
       }
+      /*
+      notiMainTitleList: [
+        {
+          notiTitle: 'title'
+        }
+      ]
+      */
     }
   },
   computed: {
@@ -160,7 +168,6 @@ export default {
   created() {},
   mounted() {
     console.log('Current Swiper instance object', this.swiper)
-    // this.swiper.slideTo(3, 1000, false)
   },
   methods: {}
 }
