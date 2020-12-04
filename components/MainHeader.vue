@@ -29,8 +29,6 @@
         </ul>
       </div>
       <div class="gnb_right">
-        <span style="color: #2b2a48">{{ hostName }}</span>
-        <span id="loginTime" style="color: #2b2a48">600</span>
         <a href="/mypage">{{ $t('mypage') }}</a>
         <a href="javascript:go_logout();">{{ $t('logout') }}</a>
         <a href="/auth/signup">{{ $t('signup') }}</a>
