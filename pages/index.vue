@@ -36,6 +36,7 @@
     </div>
     <div v-cloak class="mainpage">
       <div class="notice_bar">
+        <!--
         <ul id="rolling" class="rolling">
           <li v-for="noTit in notiMainTitleList" :key="noTit">
             <span class="notice1">{{ $t('notice') }}</span>
@@ -45,6 +46,18 @@
             </a>
           </li>
         </ul>
+        -->
+        <!--
+        <ul id="rolling" class="rolling">
+          <li>
+            <span class="notice1">공지사항</span>
+            <span class="notice2">제목</span>
+            <a href="#">
+              <span class="notice3">+{{ $('more') }}</span>
+            </a>
+          </li>
+        </ul>
+        -->
       </div>
       <div class="contents">
         <!-- contents -->
@@ -52,9 +65,11 @@
         <div class="exchange4">
           <div id="tab_btn" class="main_tab">
             <ul>
+              <!--
               <li v-show="favList[0] != null" :class="{ active: curItem == ' ' }">
                 <a href="#con1" @click="showMarket(' ')">{{ $t('favorites') }}</a>
               </li>
+              -->
               <li :class="{ active: curItem == 'KRW' }"><a href="#con2" title="KRW" @click="showMarket('KRW')">KRW</a></li>
               <li :class="{ active: curItem == 'BTC' }"><a href="#con3" @click="showMarket('BTC')">BTC</a></li>
               <li :class="{ active: curItem == 'ETH' }"><a href="#con4" @click="showMarket('ETH')">ETH</a></li>
@@ -95,14 +110,14 @@
                       </div>
                     </td>
                     <td class="pdw" :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">
-                      {{ coin.lastPrice | toFixMarket:coin.market  }}<span class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice | calcPrice:coin.lastPrice  }}<span> KRW</span></span>
+                      {{ coin.lastPrice | toFixMarket:coin.market  }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice | calcPrice:coin.lastPrice  }}<span> KRW</span></span>
                     </td>
                     <td :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">{{ coin.updnRate | toFixPer }} %</td>
                     <td class="sec2 red">
-                      {{ coin.highPrice | toFixMarket:coin.market  }}<span class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice | calcPrice:coin.highPrice  }}<span> KRW</span></span>
+                      {{ coin.highPrice | toFixMarket:coin.market  }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice | calcPrice:coin.highPrice  }}<span> KRW</span></span>
                     </td>
                     <td class="sec2 blue">
-                      {{ coin.lowPrice | toFixMarket:coin.market  }}<span class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice | calcPrice:coin.lowPrice  }}<span> KRW</span></span>
+                      {{ coin.lowPrice | toFixMarket:coin.market  }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice | calcPrice:coin.lowPrice  }}<span> KRW</span></span>
                     </td>
                     <td class="sec4">
                       {{ coin.totalVol }}<span class="n1"> {{ coin.simbol | cutSimbol }}</span>
@@ -151,13 +166,6 @@ export default {
           clickable: true
         }
       }
-      /*
-      notiMainTitleList: [
-        {
-          notiTitle: 'title'
-        }
-      ]
-      */
     }
   },
   computed: {
