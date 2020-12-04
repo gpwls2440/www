@@ -2,40 +2,8 @@
   <div class="main_container">
     <!-- container -->
     <div class="m_visual_h1 swiper-container">
-      <!-- m_visual_h1 -->
-      <!--
-      <div class="m_slider1 swiper-wrapper">
-        <div class="swiper-slide" style="background-color: #111111">
-          <img id="slideMagine" src="~/assets/images/slide1.jpg" alt="" />
-          <div class="mv_area">
-            <span class="slide_text1">{{ $t('mainslide1_1') }}</span>
-            <span class="slide_text2">{{ $t('mainslide1_2') }}</span>
-            <span class="slide_text3">KDA!</span>
-            <span class="slide_text4">!{{ $t('mainslide1_3') }}</span>
-            <span class="slide_text5">{{ $t('mainslide1_4') }}</span>
-          </div>
-        </div>
-        <div class="swiper-slide" style="background-color: #181612">
-          <img src="/images/slide2.jpg" alt="" />
-          <div class="mv_area">
-            <span class="slide_text2_1">All IN One!!</span>
-            <span class="slide_text2_2">KDEX {{ $t('mainslide1_4') }}</span>
-            <span class="slide_text2_3">
-              {{ $t('mainslide2_2') }}
-              <br class="mobile" />
-              {{ $t('mainslide2_3') }}
-              <br class="mobile" />
-              <span class="slide_text2_4">
-                {{ $t('mainslide2_4') }}
-              </span>
-              {{ $t('mainslide2_5') }}
-            </span>
-          </div>
-        </div>
-      </div>
-      -->
       <!--  m_visual_h1 -->
-      <swiper class="swiper" :options="swiperOption">
+      <swiper ref="mySwiper" :options="swiperOption">
         <swiper-slide>
           <img id="slideMagine" src="~/assets/images/slide1.jpg" alt="" />
           <div class="mv_area">
@@ -63,6 +31,7 @@
             </span>
           </div>
         </swiper-slide>
+        <div slot="pagination" class="swiper-pagination"></div>
       </swiper>
       <div class="swiper-pagination"></div>
     </div>
@@ -149,53 +118,50 @@
       </div>
       <!-- mainPage-->
     </div>
+    <MainModal v-show="showModal" @close="showModal = false"></MainModal>
   </div>
 </template>
 
 <script>
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import MainModal from '../components/MainModal'
 // import 'swiper/css/swiper.css'
 import 'swiper/swiper-bundle.css'
 import '@/assets/css/index.css'
 
 export default {
   components: {
-    swiper,
-    swiperSlide
+    Swiper,
+    SwiperSlide,
+    MainModal
   },
   data() {
     return {
+      showModal: true,
       notiMainTitleList: [],
       swiperOption: {
-        slidesPerView: 5,
-        spaceBetween: 50,
+        centeredSlides: true,
+        autoplay: {
+          delay: 3200,
+          disableOnInteraction: false
+        },
         pagination: {
           el: '.swiper-pagination',
           clickable: true
-        },
-        breakpoints: {
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 40
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 30
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20
-          },
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 10
-          }
         }
       }
     }
   },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.$swiper
+    }
+  },
   created() {},
-  mounted() {},
+  mounted() {
+    console.log('Current Swiper instance object', this.swiper)
+    // this.swiper.slideTo(3, 1000, false)
+  },
   methods: {}
 }
 </script>
