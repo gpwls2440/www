@@ -1,5 +1,5 @@
 <template>
-  <div class="info_con_h4 mt5">
+  <div>
     <!-- info_con_h4 -->
     <div class="list_detail">
       <div>
