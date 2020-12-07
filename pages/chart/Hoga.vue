@@ -46,10 +46,8 @@
           <ul class="table_type_h2">
             <li v-for="tick in tickList" :key="tick" @click="setPrice(tick.mtchPrc)">
               <span class="l" :class="{ red: tick.updnSign == '1', blue: tick.updnSign == '-1' }">{{ tick.mtchPrc }}</span>
-              <span class="c" style="padding-right: 10px; width: 100px; font-size: 10px" :class="{ red: tick.preUpdnSign == '1', blue: tick.preUpdnSign == '-1' }">{{
-                tick.mtchQty | toFixAmount
-              }}</span>
-              <span class="r" style="width: 40px">{{ tick.mtchTime | TimeText }}</span>
+              <span class="c" style="padding-right: 10px; width: 100px; font-size: 10px" :class="{ red: tick.preUpdnSign == '1', blue: tick.preUpdnSign == '-1' }">{{ tick.mtchQty }}</span>
+              <span class="r" style="width: 40px">{{ tick.mtchTime }}</span>
             </li>
           </ul>
         </div>
@@ -83,7 +81,33 @@ export default {
           }
         ]
       },
-      tickList: []
+      tickList: [
+        {
+          mtchPrc: '20,950,000',
+          mtchQty: '0.014',
+          mtchTime: '08:19:55'
+        },
+        {
+          mtchPrc: '20,950,000',
+          mtchQty: '0.014',
+          mtchTime: '08:19:55'
+        },
+        {
+          mtchPrc: '20,950,000',
+          mtchQty: '0.014',
+          mtchTime: '08:19:55'
+        },
+        {
+          mtchPrc: '20,950,000',
+          mtchQty: '0.014',
+          mtchTime: '08:19:55'
+        },
+        {
+          mtchPrc: '20,950,000',
+          mtchQty: '0.014',
+          mtchTime: '08:19:55'
+        }
+      ]
     }
   }
 }
