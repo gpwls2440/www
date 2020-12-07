@@ -103,13 +103,13 @@
   margin: 0 2px;
   width: 9px;
   height: 17px;
-  background: url('/assets/img/002/ico_0.png');
+  background: url('../images/002/ico_0.png');
 }
 .ico_up {
-  background: url('/assets/img/002/ico_up.png');
+  background: url('../images/002/ico_up.png');
 }
 .ico_down {
-  background: url('/assets/img/002/ico_down.png');
+  background: url('../images/002/ico_down.png');
 }
 
 #right_section .bot .ex_price1 .price_w1 input[type='text'] {
@@ -151,22 +151,22 @@
   color: #000;
 }
 .miniBtn1.plus {
-  background-image: url('/assets/img/icon_plus_w.png');
+  background-image: url('../images/icon_plus_w.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 9px 9px;
 }
 .miniBtn1.minus {
-  background-image: url('/assets/img/icon_minus_w.png');
+  background-image: url('../images/icon_minus_w.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 9px 9px;
 }
 .miniBtn1.plus:hover {
-  background-image: url('/assets/img/icon_plus.png');
+  background-image: url('../images/icon_plus.png');
 }
 .miniBtn1.minus:hover {
-  background-image: url('/assets/img/icon_minus.png');
+  background-image: url('../images/icon_minus.png');
 }
 
 #right_section .ex_price3 .btn_c1 {
@@ -198,7 +198,7 @@
 }
 
 .warning {
-  background: url('/assets/img/icon_pkmark.png') no-repeat;
+  background: url('../images/icon_pkmark.png') no-repeat;
   display: inline-block;
   width: 20px;
   height: 20px;

@@ -32,7 +32,7 @@
         </div>
         <div class="wc_area mCustomScrollbar">
           <ul>
-            <li v-for="coin in coinInfoList" :key="coin" class="isCoinSelectBtn" @click="loadData(coin.symbol, coin.market)">
+            <li v-for="(coin, index) in coinInfoList" :key="index" class="isCoinSelectBtn" @click="loadData(coin.symbol, coin.market)">
               {{ coin.coinName }}
               <span>({{ coin.symbol | cutSymbol }}/{{ coin.market }})</span>
             </li>

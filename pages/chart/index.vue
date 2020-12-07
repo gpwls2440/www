@@ -14,7 +14,7 @@
                 <!-- 주문, 체결, 미체결내역-->
                 <div id="OrderAddCtrl" class="bot">
                   <!-- bot -->
-                  <orderTab></orderTab>
+                  <order></order>
                 </div>
               </div>
             </div>
@@ -28,7 +28,7 @@
 <script>
 import chart from './Chart'
 import hoga from './Hoga'
-import orderTab from './OrderTab'
+import order from './Order'
 import '@/assets/css/chart.css'
 
 export default {
@@ -36,7 +36,7 @@ export default {
   components: {
     chart,
     hoga,
-    orderTab
+    order
   },
   data() {
     return {}
