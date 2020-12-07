@@ -6,8 +6,8 @@
       <span class="top_close topClose">닫기</span>
     </div>
     <Header />
-    <Spinner />
     <Nuxt />
+    <Spinner />
     <Footer />
   </div>
 </template>

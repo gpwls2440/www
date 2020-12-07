@@ -3,9 +3,9 @@
     <div class="list_detail">
       <div>
         {{ $t('checkperiod') }}
-        <div class="box"><input id="startDate" type="text" style="width: 90px" ng-model="startDt" /></div>
+        <div class="box"><input id="startDate" v-model="startDt" type="text" style="width: 90px" /></div>
         -
-        <div class="box"><input id="endDate" type="text" style="width: 90px" ng-model="endDt" /></div>
+        <div class="box"><input id="endDate" v-model="endDt" type="text" style="width: 90px" /></div>
         <a href="javascript:void(0)" :class="{ on: setVal == '1' }" class="btn_mon" @click="setDate('1')">{{ $t('today') }}</a>
         <a href="javascript:void(0)" :class="{ on: setVal == '7' }" class="btn_mon" @click="setDate('7')">1{{ $t('week') }}</a>
         <a href="javascript:void(0)" :class="{ on: setVal == '30' }" class="btn_mon" @click="setDate('30')">1{{ $t('month') }}</a>
@@ -21,23 +21,27 @@
       <ul>
         <li style="width: 270px">
           <span class="l">{{ $t('total') }}{{ $t('purchaseamount') }}</span>
-          <span class="r"><span class="c1">{/ total.buyAmt | toFixKRW /}</span> KRW</span>
+          <span class="r"
+            ><span class="c1">{{ total.buyAmt }}</span> KRW</span
+          >
         </li>
         <li style="width: 270px">
           <span class="l">{{ $t('total') }}{{ $t('ask') }}{{ $t('price') }}</span>
-          <span class="r"><span class="c1">{/ total.sellAmt | toFixKRW /}</span> KRW</span>
+          <span class="r"
+            ><span class="c1">{{ total.sellAmt }}</span> KRW</span
+          >
         </li>
         <li>
           <span class="l">{{ $t('returnoninvestment') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.profitAmt > 0, blue: total.profitAmt < 0 }">{/ total.profitAmt | toFixKRW /}</span>
+            <span class="c2" :class="{ red: total.profitAmt > 0, blue: total.profitAmt < 0 }">{{ total.profitAmt }}</span>
             <span class="c8">KRW</span>
           </span>
         </li>
         <li style="width: 150px">
           <span class="l">{{ $t('profitrate') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.rate > 0, blue: total.rate < 0 }">{/ total.rate | toFixPer /}</span>
+            <span class="c2" :class="{ red: total.rate > 0, blue: total.rate < 0 }">{{ total.rate }}</span>
             <span class="c8">%</span>
           </span>
         </li>
@@ -64,14 +68,22 @@
       </thead>
       <tbody v-for="ml in boardList" :key="ml">
         <tr>
-          <td class="tr1">{/ ml.symbol | cutMarketSymbol/}</td>
-          <td class="tr1"><span>{/ ml.buyAmt | toFixKRW /}</span> <span class="c_n">KRW</span></td>
-          <td class="tr1"><span>{/ ml.sellAmt | toFixKRW /}</span> <span class="c_n">KRW</span></td>
+          <td class="tr1">{{ ml.symbol | cutMarketSymbol }}</td>
           <td class="tr1">
-            <p><span class="c1" :class="{ red: ml.profitAmt > 0, blue: ml.profitAmt < 0 }">{/ ml.profitAmt | toFixKRW /}</span> <span class="c_n">KRW</span></p>
+            <span>{{ ml.buyAmt | toFixKRW }}</span> <span class="c_n">KRW</span>
           </td>
           <td class="tr1">
-            <p><span class="c1" :class="{ red: ml.rate > 0, blue: ml.rate < 0 }">{/ ml.rate | toFixPer /}</span> <span class="c_n">%</span></p>
+            <span>{{ ml.sellAmt | toFixKRW }}</span> <span class="c_n">KRW</span>
+          </td>
+          <td class="tr1">
+            <p>
+              <span class="c1" :class="{ red: ml.profitAmt > 0, blue: ml.profitAmt < 0 }">{{ ml.profitAmt }}</span> <span class="c_n">KRW</span>
+            </p>
+          </td>
+          <td class="tr1">
+            <p>
+              <span class="c1" :class="{ red: ml.rate > 0, blue: ml.rate < 0 }">{{ ml.rate }}</span> <span class="c_n">%</span>
+            </p>
           </td>
         </tr>
       </tbody>

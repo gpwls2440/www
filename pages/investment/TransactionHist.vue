@@ -13,12 +13,9 @@
         <a href="javascript:void(0)" :class="{ on: setVal == '90' }" class="btn_mon" @click="setDate('90')">3{{ $t('month') }}</a>
         <a href="javascript:void(0)" :class="{ on: setVal == '180' }" class="btn_mon" @click="setDate('180')">6{{ $t('month') }}</a>
         <a href="javascript:void(0)" :class="{ on: setVal == '360' }" class="btn_mon" @click="setDate('360')">1{{ $t('year') }}</a>
-        <div class="box"><select class="form-control" name="tranTp" ng-model="sch.option" ng-options="item.label for item in opts"></select></div>
-        <!--<div class="box"><select class="form-control" name="instCd" ng-model="sch.symbol" ng-options="item.label for item in symbolOpts"></select></div>-->
-        <!--<div class="box"><input type="text" style="width:120px;" name="instCd" ng-model="sch.symbol" placeholder="코인명검색" /></div>-->
+        <div class="box"><select v-model="sch.option" class="form-control" name="tranTp"></select></div>
         <a href="javascript:void(0)" class="btn_1 ml05" @click="update()">SEARCH</a>
         <a href="javascript:void(0)" style="display: none" class="btn_1 ml05" @click="update1()">SEARCH</a>
-        <!--<a href="javascript:void(0)" @click="update()" class="btn_search"><img src="~/assets/images/007/ico_search.png" alt="">검색</a>-->
       </div>
     </div>
     <p class="info_text">※ {{ $t('historywillbe') }}</p>
@@ -51,9 +48,9 @@
       </thead>
       <tbody>
         <tr v-for="ml in items" :key="ml">
-          <td>{/ ml.dateTime | dateTimeText /}</td>
+          <td>{{ ml.dateTime }}</td>
           <td>
-            {/ ml.instCd | cutMarketSymbol/}
+            {{ ml.instCd }}
             <img
               v-if="ml.txAddress.length > 10"
               style="vertical-align: -2px; margin-left: 5px; cursor: pointer"
@@ -63,18 +60,20 @@
             />
             <!--img style="vertical-align:-2px; margin-left:5px; cursor:pointer" @click="goTx(ml.txAddress, ml.instCd)" v-if="ml.txAddress.length > 10" src="~/assets/images/icon_page.png" title="블록체인네트워크확인" /-->
           </td>
-          <td class="tr2"><span :class="{ red: ml.tranTp == 'TB', blue: ml.tranTp == 'TS' }">{/ ml.tranTpText /}</span></td>
-          <td class="tr2">{/ ml.tranPrc | toFixKRW /}</td>
-          <td class="tr2">{/ ml.tranQty | toFixPrice:ml.instCd /}</td>
-          <td class="tr2">{/ ml.tranAmt | toFixKRW /}</td>
-          <td class="tr2">{/ ml.sendFee | toFixPrice:ml.instCd /}</td>
           <td class="tr2">
-            {/ ml.tranFee | toFixKRW /}
+            <span :class="{ red: ml.tranTp == 'TB', blue: ml.tranTp == 'TS' }">{{ ml.tranTpText }}</span>
+          </td>
+          <td class="tr2">{{ ml.tranPrc }}</td>
+          <td class="tr2">{{ ml.tranQty }}</td>
+          <td class="tr2">{{ ml.tranAmt }}</td>
+          <td class="tr2">{{ ml.sendFee }}</td>
+          <td class="tr2">
+            {{ ml.tranFee | toFixKRW }}
             <span v-show="ml.tranFee != 0 && ml.instCd.length > 6" class="c_n">KDP</span>
             <span v-show="ml.tranFee != 0 && ml.instCd.length <= 6" class="c_n">KRW</span>
           </td>
           <td class="tr2">
-            <span :class="{ red: ml.plAmt > 0, blue: ml.plAmt < 0 }">{/ ml.plAmt | toFixKRW /}</span>
+            <span :class="{ red: ml.plAmt > 0, blue: ml.plAmt < 0 }">{{ ml.plAmt | toFixKRW }}</span>
             <span v-show="ml.plAmt != 0" class="c_n">KRW</span>
           </td>
         </tr>
@@ -93,7 +92,7 @@
           <a v-if="pager.currentPage !== 1" @click="setPage(pager.currentPage - 1)">{{ $t('previous') }}</a>
         </li>
         <li v-for="page in pager.pages" :key="page" :class="{ active: pager.currentPage === page }">
-          <a @click="setPage(page)">{/page/}</a>
+          <a @click="setPage(page)">{{ page }}</a>
         </li>
         <li :class="{ disabled: pager.currentPage === pager.totalPages }">
           <a v-if="pager.currentPage === pager.totalPages">{{ $t('next') }}</a>
@@ -114,6 +113,9 @@ export default {
     return {
       pager: {
         pages: []
+      },
+      sch: {
+        option: ''
       }
     }
   }

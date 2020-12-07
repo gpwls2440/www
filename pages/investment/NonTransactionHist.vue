@@ -27,13 +27,25 @@
       </thead>
       <tbody>
         <tr v-for="mr in items" :key="mr">
-          <td>{/ mr.ordrTime | dateTimeText /}</td>
-          <td>{/ mr.instCd | cutSymbol /} <span v-if="mr.instCd | (cutSymbol != '')">/ {/ mr.instCd | cutMarket /}</span></td>
-          <td><span :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{/ mr.byslTp | buySellType /}</span></td>
-          <td class="tr2">{/ mr.ordrPrc | toFixPrice:mr.instCd /} <span class="c_n">{/ mr.instCd | cutMarket /}</span></td>
-          <td class="tr2">{/ mr.ordrQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSymbol /}</span></td>
-          <td class="tr2">{/ mr.ordrQty - mr.remnQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSymbol /}</span></td>
-          <td class="tr2">{/ mr.remnQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSymbol /}</span></td>
+          <td>{{ mr.ordrTime }}</td>
+          <td>
+            {{ mr.instCd }} <span v-if="mr.instCd">/ {{ mr.instCd }}</span>
+          </td>
+          <td>
+            <span :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp }}</span>
+          </td>
+          <td class="tr2">
+            {{ mr.ordrPrc }} <span class="c_n">{{ mr.instCd }}</span>
+          </td>
+          <td class="tr2">
+            {{ mr.ordrQty }} <span class="c_n">{{ mr.instCd }}</span>
+          </td>
+          <td class="tr2">
+            {{ mr.ordrQty - mr.remnQty }} <span class="c_n">{{ mr.instCd }}</span>
+          </td>
+          <td class="tr2">
+            {{ mr.remnQty }} <span class="c_n">{{ mr.instCd }}</span>
+          </td>
           <td>
             <a style="cursor: pointer" class="btn_line" @click="orderCancle(mr.instCd, mr.ordrNo, mr.remnQty)">{{ $t('orderCancel') }}</a>
           </td>
@@ -50,7 +62,7 @@
           <a @click="setPage(pager.currentPage - 1)">{{ $t('previous') }}</a>
         </li>
         <li v-for="page in pager.pages" :key="page" :class="{ active: pager.currentPage === page }">
-          <a @click="setPage(page)">{/page/}</a>
+          <a @click="setPage(page)">{{ page }}</a>
         </li>
         <li :class="{ disabled: pager.currentPage === pager.totalPages }">
           <a @click="setPage(pager.currentPage + 1)">{{ $t('next') }}</a>
