@@ -1,30 +1,34 @@
 <template>
-  <div class="info_con_h4">
+  <div>
     <p class="p_tr">* {{ $t('averageprofit/lossbyitem') }}</p>
     <div class="line_box_h2">
       <!-- line_box_h2 -->
       <ul>
         <li>
           <span class="l">{{ $t('total') }}{{ $t('bidamount') }}</span>
-          <span class="r"><span class="c1">{/ total.openAmt | toFixKRW /}</span> KRW</span>
+          <span class="r"
+            ><span class="c1">{{ total.openAmt }}</span> KRW</span
+          >
         </li>
         <li>
           <span class="l">{{ $t('total') }}{{ $t('evaluationamount') }}</span>
-          <span class="r"><span class="c1">{/ total.evalAmt | toFixKRW /}</span> KRW</span>
+          <span class="r"
+            ><span class="c1">{{ total.evalAmt }}</span> KRW</span
+          >
         </li>
       </ul>
       <ul>
         <li>
           <span class="l">{{ $t('total') }}{{ $t('profitorloss') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.evalPl > 0, blue: total.evalPl < 0 }">{/ total.evalPl | toFixKRW /}</span>
+            <span class="c2" :class="{ red: total.evalPl > 0, blue: total.evalPl < 0 }">{{ total.evalPl }}</span>
             <span class="c8">KRW</span>
           </span>
         </li>
         <li>
           <span class="l">{{ $t('total') }}{{ $t('profitrate') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.evalPlRt > 0, blue: total.evalPlRt < 0 }">{/ total.evalPlRt | toFixPer /}</span>
+            <span class="c2" :class="{ red: total.evalPlRt > 0, blue: total.evalPlRt < 0 }">{{ total.evalPlRt }}</span>
             <span class="c8">%</span>
           </span>
         </li>
@@ -32,16 +36,22 @@
       <ul>
         <li>
           <span class="l">{{ $t('obtained') }}KRW</span>
-          <span class="r"><span class="c1">{/ total.totalKRW | toFixKRW /}</span> KRW</span>
+          <span class="r"
+            ><span class="c1">{{ total.totalKRW }}</span> KRW</span
+          >
         </li>
         <li>
           <span class="l">{{ $t('obtained') }}KDP</span>
-          <span class="r"><span class="c1">{/ total.totalKDP | toFixKRW /}</span> KRW</span>
+          <span class="r"
+            ><span class="c1">{{ total.totalKDP }}</span> KRW</span
+          >
         </li>
       </ul>
       <div class="total_div">
         <span class="l">{{ $t('totalassets') }}</span>
-        <span class="r"><span class="c2">{/ total.totalAmt | toFixKRW /}</span> KRW</span>
+        <span class="r"
+          ><span class="c2">{{ total.totalAmt }}</span> KRW</span
+        >
       </div>
     </div>
     <!-- // line_box_h2 -->
@@ -84,32 +94,38 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="coins in walletList | orderBy:['-evalAmt'] | filter:onlyCoin ">
+        <tr v-for="(coins, index) in walletList" :key="index">
           <td class="tl">
             <p>
-              <img src="~/assets/images/coin/btc.png" width="20" style="vertical-align: middle; margin-right: 5px" :alt="coins.simbol" /> {/ coins.simbolName /}
-              <span class="c_n">{/ coins.simbol /}</span>
+              <img src="~/assets/images/coin/btc.png" width="20" style="vertical-align: middle; margin-right: 5px" :alt="coins.symbol" /> {{ coins.symbolName }}
+              <span class="c_n">{{ coins.symbol }}</span>
             </p>
           </td>
           <td class="tr">
-            <p>{/ coins.openQty | toFix /} <span class="c_n">{/ coins.simbol /}</span></p>
+            <p>
+              {{ coins.openQty }} <span class="c_n">{{ coins.symbol }}</span>
+            </p>
           </td>
           <td class="tr">
-            <a href="javascript:void(0)" @click="editWindowOpen(coins.simbol)">
-              {/ coins.argPrice | toFixKRW /}<span class="c_n">KRW</span>
-              <img style="vertical-align: -2px; margin-left: 10px" src="~/assets/images/icon_set.png" :alt="`$t('averagepurchaseprice') $t('modify')`" />
+            <a href="javascript:void(0)" @click="editWindowOpen(coins.symbol)">
+              {{ coins.argPrice }}<span class="c_n">KRW</span>
+              <img style="vertical-align: -2px; margin-left: 10px" src="~/assets/images/icon_set.png" :alt="`$t('averagepurchaseprice')`" />
               <span v-show="coins.editFlag == 0" class="editText">{{ $t('averageprice') }} {{ $t('modify') }}</span>
               <span v-show="coins.editFlag == 1" class="editText blue">{{ $t('averageprice') }} {{ $t('Modified') }}</span>
             </a>
           </td>
-          <td class="tr">{/ coins.openAmt | toFixKRW /}<span class="c_n">KRW</span></td>
-          <td class="tr">{/ coins.evalAmt | toFixKRW /}<span class="c_n">KRW</span></td>
+          <td class="tr">{{ coins.openAmt }}<span class="c_n">KRW</span></td>
+          <td class="tr">{{ coins.evalAmt }}<span class="c_n">KRW</span></td>
           <td class="tr">
-            <p><span class="c1" :class="{ red: coins.evalPlRt > 0, blue: coins.evalPlRt < 0 }">{/ coins.evalPlRt | toFixPer /}</span> <span class="c_n">%</span></p>
-            <p><span class="c1" :class="{ red: coins.evalPl > 0, blue: coins.evalPl < 0 }">{/ coins.evalPl | toFixKRW /}</span> <span class="c_n">KRW</span></p>
+            <p>
+              <span class="c1" :class="{ red: coins.evalPlRt > 0, blue: coins.evalPlRt < 0 }">{{ coins.evalPlRt }}</span> <span class="c_n">%</span>
+            </p>
+            <p>
+              <span class="c1" :class="{ red: coins.evalPl > 0, blue: coins.evalPl < 0 }">{{ coins.evalPl }}</span> <span class="c_n">KRW</span>
+            </p>
           </td>
           <td>
-            <a ng-click="goMarket(coins.simbol)" class="btn_line">{{ $t('order') }}</a>
+            <a class="btn_line" @click="goMarket(coins.symbol)">{{ $t('order') }}</a>
           </td>
         </tr>
       </tbody>
@@ -127,12 +143,26 @@ export default {
   data() {
     return {
       total: {
-        evalPl: ''
+        openAmt: '10,000,000',
+        evalAmt: '5,000,000',
+        evalPl: '5,000,000',
+        evalPlRt: '50',
+        totalKRW: '100,000,000,000',
+        totalKDP: '20,000,000',
+        totalAmt: '100,100,000,000'
       },
-      coins: {
-        symbol: ''
-      },
-      walletList: []
+      walletList: [
+        {
+          symbol: 'BTC',
+          symbolName: '비트코인',
+          openQty: '10,000,000',
+          argPrice: '15,000',
+          openAmt: '100,000,000',
+          evalAmt: '500,000,000',
+          evalPlRt: '50',
+          evalPl: '500'
+        }
+      ]
     }
   }
 }

@@ -90,3 +90,31 @@
   font-size: 18px;
   color: #e4292b;
 }
+.form-control {
+  width: 120px;
+  border: 0;
+  font-size: 14px;
+}
+
+.info_text {
+  margin-top: 20px;
+  font-size: 14px;
+}
+.table_type_h3 tr:hover,
+.table_type_h3 .detailTr {
+  background: #e5f8f7;
+}
+
+.blue {
+  color: #3060dd !important;
+}
+.red {
+  color: #e4292b !important;
+}
+
+.c8 {
+  display: inline-block;
+  width: 30px;
+  text-align: left;
+  padding-left: 0px;
+}
