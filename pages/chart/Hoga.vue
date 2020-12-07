@@ -10,7 +10,7 @@
         </li>
         <div id="orderDiv" class="table_scroll" resize>
           <ul class="table_type_h2">
-            <li v-for="ask in coinInfo.askInfoList | askbidHeight" :key="ask" class="askLi" @click="setPrice(ask.price)">
+            <li v-for="ask in coinInfo.askInfoList" :key="ask" class="askLi" @click="setPrice(ask.price)">
               <span class="l red">{{ ask.price }}</span>
               <span class="c" style="padding-right: 5px; width: 105px; font-size: 10px"
                 >{{ ask.qty }} <span v-show="ask.myOrder > 0"> ({{ ask.myOrder }})</span></span
@@ -23,7 +23,7 @@
               <span class="ico" :class="{ ico_up: coinInfo.updnSign == '1', ico_down: coinInfo.updnSign == '-1' }"></span>
               <span class="t2" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }">{{ coinInfo.updnPrice }}</span>
             </li>
-            <li v-for="bid in coinInfo.bidInfoList | askbidHeight" :key="bid" class="bidLi" @click="setPrice(bid.price)">
+            <li v-for="bid in coinInfo.bidInfoList" :key="bid" class="bidLi" @click="setPrice(bid.price)">
               <span class="l blue">{{ bid.price }}</span>
               <span class="c" style="padding-right: 5px; width: 105px; font-size: 10px"
                 >{{ bid.qty }} <span v-show="bid.myOrder > 0"> ({{ bid.myOrder }})</span></span
@@ -70,8 +70,7 @@ export default {
         askInfoList: [
           {
             price: '23,047,000',
-            qty: '0.001',
-            myOrder: '1'
+            qty: '0.001'
           }
         ],
         bidInfoList: [

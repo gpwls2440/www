@@ -56,20 +56,22 @@
             <col style="width: 25%" />
           </colgroup>
           <tbody>
-            <tr v-for="coin in coinInfoList" :key="coin" :class="{ active: coin.simbol == oriSimbol }" @click="loadData(coin.simbol, coin.market)">
+            <tr v-for="coin in coinInfoList" :key="coin" :class="{ active: coin.symbol == oriSymbol }" @click="loadData(coin.symbol, coin.market)">
               <td class="tl" style="padding-right: 0px">
                 <p class="coinName-box">
-                  <a id="fav_{/ coin.simbol /}" class="btn_onoff" :class="checkFav(coin.simbol)" title="{/ coin.coinName /}" @click="setFav(coin.simbol)">Favorite</a>
-                  <span class="coinName">{/ coin.coinName /}</span>
+                  <!--
+                  <a :id="fav_`{{ coin.symbol }}`" class="btn_onoff" :class="checkFav(coin.symbol)" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
+                  -->
+                  <span class="coinName">{{ coin.coinName }}</span>
                 </p>
-                <span class="f12">({/ coin.simbol | cutSymbol /}/{/ coin.market /})</span><br />
-                <span class="f12">Vol {/ coin.totalVol /}</span>
+                <span class="f12">({{ coin.symbol | cutSymbol }}/{{ coin.market }})</span><br />
+                <span class="f12">Vol {{ coin.totalVol }}</span>
               </td>
               <td class="pdw" :class="{ f_red: coin.updnSign == '1', f_blue: coin.updnSign == '-1' }">
-                {/ coin.lastPrice | toFixMarket:coin.market:coin.lastPrice /}
-                <p class="won_price" ng-if="coin.market != 'KRW'">{/ coin.basicPrice | calcPrice:coin.lastPrice /}<span>KRW</span></p>
+                {{ coin.lastPrice }}
+                <p class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice }}<span>KRW</span></p>
               </td>
-              <td :class="{ f_red: coin.updnSign == '1', f_blue: coin.updnSign == '-1' }">{/ coin.updnRate | toFixPer /} %</td>
+              <td :class="{ f_red: coin.updnSign == '1', f_blue: coin.updnSign == '-1' }">{{ coin.updnRate }} %</td>
             </tr>
           </tbody>
         </table>
@@ -83,7 +85,24 @@
 export default {
   name: 'CoinSise',
   data() {
-    return {}
+    return {
+      serchText: '',
+      curMarket: ' ',
+      coinInfoList: [
+        {
+          coinName: '비트코인',
+          symbol: 'BTC',
+          market: 'KRW',
+          lastPrice: '20,000,000',
+          updnRate: '1.0'
+        }
+      ]
+    }
+  },
+  methods: {
+    showMarket(market) {
+      this.curMarket = market
+    }
   }
 }
 </script>
