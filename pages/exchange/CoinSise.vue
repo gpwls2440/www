@@ -62,7 +62,7 @@
                   <a id="fav_{/ coin.simbol /}" class="btn_onoff" :class="checkFav(coin.simbol)" title="{/ coin.coinName /}" @click="setFav(coin.simbol)">Favorite</a>
                   <span class="coinName">{/ coin.coinName /}</span>
                 </p>
-                <span class="f12">({/ coin.simbol | cutSimbol /}/{/ coin.market /})</span><br />
+                <span class="f12">({/ coin.simbol | cutSymbol /}/{/ coin.market /})</span><br />
                 <span class="f12">Vol {/ coin.totalVol /}</span>
               </td>
               <td class="pdw" :class="{ f_red: coin.updnSign == '1', f_blue: coin.updnSign == '-1' }">

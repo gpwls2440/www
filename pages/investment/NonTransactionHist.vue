@@ -28,12 +28,12 @@
       <tbody>
         <tr v-for="mr in items" :key="mr">
           <td>{/ mr.ordrTime | dateTimeText /}</td>
-          <td>{/ mr.instCd | cutSimbol /} <span v-if="mr.instCd | (cutSimbol != '')">/ {/ mr.instCd | cutMarket /}</span></td>
+          <td>{/ mr.instCd | cutSymbol /} <span v-if="mr.instCd | (cutSymbol != '')">/ {/ mr.instCd | cutMarket /}</span></td>
           <td><span :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{/ mr.byslTp | buySellType /}</span></td>
           <td class="tr2">{/ mr.ordrPrc | toFixPrice:mr.instCd /} <span class="c_n">{/ mr.instCd | cutMarket /}</span></td>
-          <td class="tr2">{/ mr.ordrQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSimbol /}</span></td>
-          <td class="tr2">{/ mr.ordrQty - mr.remnQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSimbol /}</span></td>
-          <td class="tr2">{/ mr.remnQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSimbol /}</span></td>
+          <td class="tr2">{/ mr.ordrQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSymbol /}</span></td>
+          <td class="tr2">{/ mr.ordrQty - mr.remnQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSymbol /}</span></td>
+          <td class="tr2">{/ mr.remnQty | toFixQty /} <span class="c_n">{/ mr.instCd | cutSymbol /}</span></td>
           <td>
             <a style="cursor: pointer" class="btn_line" @click="orderCancle(mr.instCd, mr.ordrNo, mr.remnQty)">{{ $t('orderCancel') }}</a>
           </td>

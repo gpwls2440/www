@@ -50,6 +50,9 @@
                 </div>
                 <!-- <div id="name"></div> -->
               </li>
+              <li>
+                <a id="custom-login-btn" href="javascript:loginNaver()"><img src="~/assets/images/ico_log4.png" alt="네이버" /></a>
+              </li>
               <li><div id="naver_id_login"></div></li>
               <li style="display: none"><div id="naver_id_login"></div></li>
             </ul>
@@ -110,6 +113,13 @@ export default {
   name: 'Login',
   data() {
     return {}
+  },
+  mounted() {
+    $('.con_slider').bxSlider({
+      mode: 'fade',
+      pause: 5000,
+      auto: true
+    })
   }
 }
 </script>

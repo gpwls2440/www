@@ -75,3 +75,12 @@ Vue.filter('askbidHeight', function (value, index) {
     return value
   }
 })
+
+Vue.filter('cutSymbol', function (input) {
+  let out = input
+  if (input.indexOf('_') > 0) {
+    const tmp = input.split('_')
+    out = tmp[0]
+  }
+  return out
+})

@@ -35,7 +35,7 @@
                   <!-- row_pop -->
                   <div class="row_l">
                     <div class="left">{{ $t('volume') }}</div>
-                    <div class="right">{/ coinInfo.totalVol /} {/ coinInfo.simbol | cutSimbol /}</div>
+                    <div class="right">{/ coinInfo.totalVol /} {/ coinInfo.simbol | cutSymbol /}</div>
                     <div class="left">{{ $t('total') }}</div>
                     <div class="right">
                       {/ coinInfo.totalAmount | toFix:this /} {/ market /}

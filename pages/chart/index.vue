@@ -32,6 +32,7 @@ import orderTab from './OrderTab'
 import '@/assets/css/chart.css'
 
 export default {
+  layout: 'darkLayout',
   components: {
     chart,
     hoga,

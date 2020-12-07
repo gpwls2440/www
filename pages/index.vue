@@ -116,7 +116,7 @@
                       </div>
                       <div style="float: left; font-size: 16px; text-align: left; margin-left: 10px; line-height: 1.2">
                         {{ coin.coinName }}<br />
-                        <span style="font-size: 12px">({{ coin.simbol | cutSimbol }} / {{ coin.simbol | cutMarket }})</span>
+                        <span style="font-size: 12px">({{ coin.simbol | cutSymbol }} / {{ coin.simbol | cutMarket }})</span>
                       </div>
                     </td>
                     <td class="pdw" :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">
@@ -130,7 +130,7 @@
                       {{ coin.lowPrice | toFixMarket:coin.market  }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice | calcPrice:coin.lowPrice  }}<span> KRW</span></span>
                     </td>
                     <td class="sec4">
-                      {{ coin.totalVol }}<span class="n1"> {{ coin.simbol | cutSimbol }}</span>
+                      {{ coin.totalVol }}<span class="n1"> {{ coin.simbol | cutSymbol }}</span>
                     </td>
                   </tr>
                   -->

@@ -17,7 +17,7 @@
             <!--<li class="isCoinSelectBtn" ng-repeat="coin in coinInfoList | orderBy : ['order'] | filter:notKDAList ">-->
             <a ng-click="loadData(coin.simbol,coin.market)" title="{/ coin.coinName /}"
               >{/coin.coinName/}
-              <span>({/ coin.simbol | cutSimbol /}/{/ coin.market /})</span>
+              <span>({/ coin.simbol | cutSymbol /}/{/ coin.market /})</span>
             </a>
           </li>
         </ul>
@@ -51,7 +51,7 @@
           </li>
           <li style="float: right">
             <span class="sec3" style="width: 160px">{{ $t('volume') }}({{ $t('lately24h') }})</span>
-            <span class="sec4">{/ coinInfo.totalVol /} <span class="n1">{/ coinInfo.simbol | cutSimbol /}</span></span>
+            <span class="sec4">{/ coinInfo.totalVol /} <span class="n1">{/ coinInfo.simbol | cutSymbol /}</span></span>
           </li>
         </ul>
         <ul>

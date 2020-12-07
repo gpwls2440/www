@@ -58,11 +58,11 @@
             </tr>
             <tr v-for="ml in matchingList" :key="ml">
               <td class="st1 tl">
-                <span class="wColor">{/ ml.instCd | cutSimbol /} / {/ ml.instCd | cutMarket /}</span>
+                <span class="wColor">{/ ml.instCd | cutSymbol /} / {/ ml.instCd | cutMarket /}</span>
                 <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{/ ml.byslTp | buySellType /}</span><br />
                 <p class="gray">{/ ml.mtchTime | dateTimeText /}</p>
               </td>
-              <td><span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{/ ml.mtchQty /}</span> {/ ml.instCd | cutSimbol /}</td>
+              <td><span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{/ ml.mtchQty /}</span> {/ ml.instCd | cutSymbol /}</td>
               <td><span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{/ ml.mtchPrc | toFix:this /}</span> {/ market /}</td>
               <td><span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{/ ml.mtchQty | calcPrice:ml.mtchPrc | toFix:this /}</span> {/ market /}</td>
             </tr>
