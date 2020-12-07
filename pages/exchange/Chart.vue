@@ -4,41 +4,38 @@
 
     <div class="top_area">
       <p class="tit">
-        <span class="b1"><img ng-src="/assets/img/coin/{/ simbol /}.png" alt="{/ simbol /}" style="width: 32px" /></span>
+        <span class="b1"><img :src="`~/assets/images/coin/${symbol}.png`" :alt="symbol" style="width: 32px" /></span>
         <a href="javascript://" class="w_area_btn">
-          <span class="st1">{/ coinName /}</span> <span class="st2">{/ simbol /}/{/ market /} </span>
-          <span class="b2"><img src="/assets/img/arr_btn.png" alt="" /></span>
+          <span class="st1">{{ coinName }}</span> <span class="st2">{{ symbol }}/{{ market }} </span>
+          <span class="b2"><img src="~/assets/images/arr_btn.png" alt="" /></span>
         </a>
       </p>
       <div class="w_area mCustomScrollbar">
         <ul>
-          <li class="isCoinSelectBtn" ng-repeat="coin in coinInfoList | orderBy : ['order']">
-            <!--<li class="isCoinSelectBtn" ng-repeat="coin in coinInfoList | orderBy : ['market', 'order'] |  filter:notKrwList">-->
-            <!--<li class="isCoinSelectBtn" ng-repeat="coin in coinInfoList | orderBy : ['order'] | filter:notKDAList ">-->
-            <a ng-click="loadData(coin.simbol,coin.market)" title="{/ coin.coinName /}"
-              >{/coin.coinName/}
-              <span>({/ coin.simbol | cutSymbol /}/{/ coin.market /})</span>
+          <li v-for="coin in coinInfoList" :key="coin" class="isCoinSelectBtn">
+            <a :title="coin.coinName" @click="loadData(coin.symbol, coin.market)"
+              >{{ coin.coinName }}
+              <span>({{ coin.symbol }}/{{ coin.market }})</span>
             </a>
           </li>
         </ul>
       </div>
-      <a href="javascript://" class="slideup_btn1"><img src="/assets/img/ex_btn_off.gif" alt="" /></a>
+      <a href="javascript://" class="slideup_btn1"><img src="~/assets/images/ex_btn_off.gif" alt="" /></a>
     </div>
     <div class="top_value">
       <!-- top_value -->
-      <p id="openPrice" class="st1" ng-class="{'red' :  coinInfo.updnSign == '1', 'blue' :  coinInfo.updnSign == '-1'}">
-        {/ coinInfo.lastPrice | toFix:this /} <span>{/ market /}</span>
-        <span class="won_price" ng-if="market != 'KRW'">{/ basicPrice | calcPrice:coinInfo.lastPrice /}<span>KRW</span></span>
+      <p id="openPrice" class="st1" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }">
+        {{ coinInfo.lastPrice }} <span>{{ market }}</span>
+        <span v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></span>
       </p>
       <p class="st2">
         <span class="sec1">{{ $t('24hrchange') }}</span>
-        <span class="sec2" ng-class="{'red' :  coinInfo.updnSign == '1', 'blue' :  coinInfo.updnSign == '-1'}">{/ coinInfo.updnRate | toFixPer /}% &nbsp; </span>
-        <span class="sec2" ng-class="{'red' :  coinInfo.updnSign == '1', 'blue' :  coinInfo.updnSign == '-1'}"
-          ><font ng-if="coinInfo.updnSign == '1'" color="red">▲&nbsp;</font><font ng-if="coinInfo.updnSign == '-1'" color="blue">▼&nbsp;</font>{/ coinInfo.updnPrice | toFix:this /}</span
+        <span class="sec2" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }">{{ coinInfo.updnRate }}% &nbsp; </span>
+        <span class="sec2" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }"
+          ><font v-if="coinInfo.updnSign == '1'" color="red">▲&nbsp;</font><font v-if="coinInfo.updnSign == '-1'" color="blue">▼&nbsp;</font>{{ coinInfo.updnPrice }}</span
         >
-        <span class="sec2 won_price1" ng-if="market != 'KRW'" ng-class="{'red' :  coinInfo.updnSign == '1', 'blue' :  coinInfo.updnSign == '-1'}"
-          ><font ng-if="coinInfo.updnSign == '1'" color="red">▲&nbsp;</font><font ng-if="coinInfo.updnSign == '-1'" color="blue">▼&nbsp;</font>{/ coinInfo.updnPrice | calcPrice:basicPrice /}
-          <span>KRW</span></span
+        <span v-if="market != 'KRW'" class="sec2 won_price1" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }"
+          ><font v-if="coinInfo.updnSign == '1'" color="red">▲&nbsp;</font><font v-if="coinInfo.updnSign == '-1'" color="blue">▼&nbsp;</font>{{ coinInfo.updnPrice }} <span>KRW</span></span
         >
       </p>
 
@@ -46,21 +43,26 @@
         <!-- top_right -->
         <ul>
           <li style="float: left">
-            <span class="sec1">{{ $t('high') }}</span> <span class="sec2 red">{/ coinInfo.highPrice | toFix:this /} </span>
-            <span class="won_price" ng-if="market != 'KRW'">{/ basicPrice | calcPrice:coinInfo.highPrice /}<span>KRW</span></span>
+            <span class="sec1">{{ $t('high') }}</span> <span class="sec2 red">{{ coinInfo.highPrice }} </span>
+            <span v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></span>
           </li>
           <li style="float: right">
             <span class="sec3" style="width: 160px">{{ $t('volume') }}({{ $t('lately24h') }})</span>
-            <span class="sec4">{/ coinInfo.totalVol /} <span class="n1">{/ coinInfo.simbol | cutSymbol /}</span></span>
+            <span class="sec4"
+              >{{ coinInfo.totalVol }} <span class="n1">{{ coinInfo.symbol }}</span></span
+            >
           </li>
         </ul>
         <ul>
           <li style="float: left">
-            <span class="sec1">{{ $t('low') }}</span> <span class="sec2 blue">{/ coinInfo.lowPrice | toFix:this /} </span>
-            <span class="won_price" ng-if="market != 'KRW'">{/ basicPrice | calcPrice:coinInfo.lowPrice /}<span>KRW</span></span>
+            <span class="sec1">{{ $t('low') }}</span> <span class="sec2 blue">{{ coinInfo.lowPrice }} </span>
+            <span v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></span>
           </li>
           <li style="float: right">
-            <span class="sec3" style="width: 160px">{{ $t('total') }}</span> <span class="sec4">{/ coinInfo.totalAmount | toFix:this /} <span class="n1">{/ market /}</span></span>
+            <span class="sec3" style="width: 160px">{{ $t('total') }}</span>
+            <span class="sec4"
+              >{{ coinInfo.totalAmount }} <span class="n1">{{ market }}</span></span
+            >
           </li>
         </ul>
       </div>
@@ -78,9 +80,30 @@
 </template>
 <script>
 export default {
-  name: 'CoinList',
+  name: 'Chart',
   data() {
-    return {}
+    return {
+      coinName: '비트코인',
+      symbol: 'BTC',
+      market: 'KRW',
+      coinInfoList: [
+        {
+          coinName: '비트코인',
+          symbol: 'BTC',
+          market: 'KRW'
+        }
+      ],
+      coinInfo: {
+        lastPrice: '12,000,000',
+        market: 'KRW',
+        highPrice: '13,000,000',
+        lowPrice: '11,000,000',
+        totalVol: '0.022',
+        totalAmount: '1,226,00',
+        updnRate: '1.40',
+        updnPrice: '290,000'
+      }
+    }
   }
 }
 </script>

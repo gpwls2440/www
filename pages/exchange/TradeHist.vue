@@ -3,14 +3,14 @@
     <div id="tab_btn4" class="ex_tab3">
       <!-- tab_btn3 -->
       <ul>
-        <li :class="{ active: bottomTab == 'tickList' }">
-          <a href="#tickList" @click="typeChange('tickList')">{{ $t('matchinghistory') }}</a>
+        <li :class="{ active: tab == '1' }">
+          <a @click="tabChange('1')">{{ $t('matchinghistory') }}</a>
         </li>
-        <li :class="{ active: bottomTab == 'coinSocial' }">
-          <a href="#coinSocial" @click="typeChange('coinSocial')">{{ $t('coinpost') }}</a>
+        <li :class="{ active: tab == '2' }">
+          <a @click="tabChange('2')">{{ $t('coinpost') }}</a>
         </li>
-        <li :class="{ active: bottomTab == 'coinInfomation' }">
-          <a href="#coinInfomation" @click="typeChange('coinInfomation')">{{ $t('coinexplanation') }}</a>
+        <li :class="{ active: tab == '3' }">
+          <a @click="tabChange('3')">{{ $t('coinexplanation') }}</a>
         </li>
       </ul>
       <a href="javascript://" class="slideup_btn4"><img src="/assets/img/ex_btn_off.gif" alt="" /></a>
@@ -36,10 +36,16 @@
               <th class="tr">{{ $t('matchingtotal') }}</th>
             </tr>
             <tr v-for="tick in tickList" :key="tick" @click="setPrice(tick.mtchPrc)">
-              <td class="tc">{/ tick.mtchTime | dateTimeText /}</td>
-              <td class="tr"><span style="font-weight: bold" :class="{ red: tick.updnSign == '1', blue: tick.updnSign == '-1' }">{/ tick.mtchPrc | toFix:this /}</span> {/ market /}</td>
-              <td class="tr"><span :class="{ red: tick.preUpdnSign == '1', blue: tick.preUpdnSign == '-1' }">{/ tick.mtchQty | toFixAmount /}</span> {/ simbol /}</td>
-              <td class="tr"><span>{/ tick.mtchAmt | toFix:this /}</span> {/ market /}</td>
+              <td class="tc">{{ tick.mtchTime }}</td>
+              <td class="tr">
+                <span style="font-weight: bold" :class="{ red: tick.updnSign == '1', blue: tick.updnSign == '-1' }">{{ tick.mtchPrc }}</span> {{ market }}
+              </td>
+              <td class="tr">
+                <span :class="{ red: tick.preUpdnSign == '1', blue: tick.preUpdnSign == '-1' }">{{ tick.mtchQty }}</span> {{ symbol }}
+              </td>
+              <td class="tr">
+                <span>{{ tick.mtchAmt }}</span> {{ market }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -48,11 +54,11 @@
     </div>
     <!-- // con10 -->
 
-    <div id="coinSocial" class="tab_con4 ex_con4">
+    <div v-if="tab == '2'" id="coinSocial" class="tab_con4 ex_con4">
       <!-- con11 -->
     </div>
     <!-- // con11 -->
-    <div id="coinInfomation" class="tab_con4 ex_con4">
+    <div v-if="tab == '3'" id="coinInfomation" class="tab_con4 ex_con4">
       <!-- con12 -->
     </div>
     <!-- // con12 -->
@@ -62,7 +68,37 @@
 export default {
   name: 'TradeHist',
   data() {
-    return {}
+    return {
+      tab: '1',
+      market: 'KRW',
+      symbol: 'BTC',
+      tickList: [
+        {
+          mtchTime: '2020.12.07 15:38:54',
+          mtchPrc: '12,000,000',
+          mtchQty: '0.02',
+          mtchAmt: '122,000'
+        },
+        {
+          mtchTime: '2020.12.07 15:38:54',
+          mtchPrc: '12,000,000',
+          mtchQty: '0.02',
+          mtchAmt: '122,000'
+        },
+        {
+          mtchTime: '2020.12.07 15:38:54',
+          mtchPrc: '12,000,000',
+          mtchQty: '0.02',
+          mtchAmt: '122,000'
+        }
+      ]
+    }
+  },
+  methods: {
+    tabChange(tab) {
+      const vm = this
+      vm.tab = tab
+    }
   }
 }
 </script>

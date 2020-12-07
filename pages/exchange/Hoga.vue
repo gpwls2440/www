@@ -3,13 +3,11 @@
     <!-- exchange2_Right -->
     <div class="exchange2_Right_top">
       {{ $t('orders') }}
-      <a href="javascript://" class="slideup_btn3"><img src="/assets/img/ex_btn_off.gif" alt="" /></a>
+      <a href="javascript://" class="slideup_btn3"><img src="~/assets/images/ex_btn_off.gif" alt="" /></a>
     </div>
 
     <div class="slideup_con3">
       <div class="ex_table_type5">
-        <!-- ex_table_type1 mCustomScrollbar -->
-
         <table style="border-collapse: separate">
           <colgroup>
             <col style="width: 21%" />
@@ -18,27 +16,29 @@
             <col style="width: * %" />
           </colgroup>
           <tbody>
-            <tr v-for="ask in coinInfo.askInfoList" :key="ask">
+            <tr v-for="(ask, index) in coinInfo.askInfoList" :key="ask">
               <td class="tr pricetd" @click="setPrice(ask.price)">
-                <span class="price"><span ng-show="ask.myOrder > 0">({/ ask.myOrder /}) </span> {/ ask.qty /}</span>
-                <span class="gauge"><span class="num" ng-style="{'width':'{/ ask.percent /}%'}"></span></span>
+                <span class="price"
+                  ><span v-show="ask.myOrder > 0">({{ ask.myOrder }}) </span> {{ ask.qty }}</span
+                >
+                <span class="gauge"><span class="num" :style="`width:${ask.percent}}%`"></span></span>
               </td>
               <td class="bg1" :class="{ line2: market != 'KRW', border_l: ask.price == coinInfo.lastPrice }" @click="setPrice(ask.price)">
-                <span :class="{ red: ask.pricePer > 0, blue: ask.pricePer < 0 }">{/ ask.price | toFix:this /}</span>
-                <p v-if="market != 'KRW'" class="won_price small">{/ basicPrice | calcPrice:ask.price /}<span>KRW</span></p>
+                <span :class="{ red: ask.pricePer > 0, blue: ask.pricePer < 0 }">{{ ask.price }}</span>
+                <p v-if="market != 'KRW'" class="won_price small">{{ basicPrice }}<span>KRW</span></p>
               </td>
               <td class="bg1" :class="{ border_r: ask.price == coinInfo.lastPrice }" @click="setPrice(ask.price)">
-                <span :class="{ red: ask.pricePer > 0, blue: ask.pricePer < 0 }">{/ ask.pricePer | toFixPer /}%</span>
+                <span :class="{ red: ask.pricePer > 0, blue: ask.pricePer < 0 }">{{ ask.pricePer }}%</span>
               </td>
-              <td rowspan="{/coinInfo.askInfoList.length/}" data-ng-show="$first">
+              <td v-show="index == 0" rowspan="10">
                 <div class="row_pop" style="top: 5px">
                   <!-- row_pop -->
                   <div class="row_l">
                     <div class="left">{{ $t('volume') }}</div>
-                    <div class="right">{/ coinInfo.totalVol /} {/ coinInfo.simbol | cutSymbol /}</div>
+                    <div class="right">{{ coinInfo.totalVol }} {{ coinInfo.symbol }}</div>
                     <div class="left">{{ $t('total') }}</div>
                     <div class="right">
-                      {/ coinInfo.totalAmount | toFix:this /} {/ market /}
+                      {{ coinInfo.totalAmount }} {{ market }}
                       <p class="gray">({{ $t('lately24h') }})</p>
                     </div>
                   </div>
@@ -46,41 +46,41 @@
                   <div class="row_l">
                     <div class="left">{{ $t('52whigh') }}</div>
                     <div class="right">
-                      <span class="red">{/ coinInfo.highestPrice | toFix:this /}</span>
-                      <p v-if="market != 'KRW'" class="won_price">{/ basicPrice | calcPrice:coinInfo.highestPrice /}<span>KRW</span></p>
-                      <p class="gray">({/ coinInfo.highestDate | dateText /})</p>
+                      <span class="red">{{ coinInfo.highestPrice }}</span>
+                      <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
+                      <p class="gray">({{ coinInfo.highestDate }})</p>
                     </div>
                   </div>
                   <div class="row_l">
                     <div class="left">{{ $t('52wlow') }}</div>
                     <div class="right">
-                      <span class="blue">{/ coinInfo.lowestPrice | toFix:this /}</span>
-                      <p v-if="market != 'KRW'" class="won_price">{/ basicPrice | calcPrice:coinInfo.lowestPrice /}<span>KRW</span></p>
-                      <p class="gray">({/ coinInfo.lowestDate | dateText /})</p>
+                      <span class="blue">{{ coinInfo.lowestPrice }}</span>
+                      <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
+                      <p class="gray">({{ coinInfo.lowestDate }})</p>
                     </div>
                   </div>
 
                   <div class="row_l">
                     <div class="left">{{ $t('closingprice') }}</div>
                     <div class="right">
-                      <span class="black">{/ coinInfo.openPrice | toFix:this /}</span>
-                      <p v-if="market != 'KRW'" class="won_price">{/ basicPrice | calcPrice:coinInfo.openPrice /}<span>KRW</span></p>
+                      <span class="black">{{ coinInfo.openPrice }}</span>
+                      <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
                     </div>
                   </div>
                   <div class="row_l">
                     <div class="left">{{ $t('todayhigh') }}</div>
                     <div class="right">
-                      <span class="red">{/ coinInfo.highPrice | toFix:this /}</span>
-                      <p v-if="market != 'KRW'" class="won_price">{/ basicPrice | calcPrice:coinInfo.highPrice /}<span>KRW</span></p>
-                      <p class="red">{/ coinInfo.highPricePer | toFixPer /}%</p>
+                      <span class="red">{{ coinInfo.highPrice }}</span>
+                      <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
+                      <p class="red">{{ coinInfo.highPricePer }}%</p>
                     </div>
                   </div>
                   <div class="row_l" style="border-bottom: 0">
                     <div class="left">{{ $t('todaylow') }}</div>
                     <div class="right">
-                      <span class="blue">{/ coinInfo.lowPrice | toFix:this /}</span>
-                      <p v-if="market != 'KRW'" class="won_price">{/ basicPrice | calcPrice:coinInfo.lowPrice /}<span>KRW</span></p>
-                      <p class="blue">{/ coinInfo.lowPricePer | toFixPer /}%</p>
+                      <span class="blue">{{ coinInfo.lowPrice }}</span>
+                      <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
+                      <p class="blue">{{ coinInfo.lowPricePer }}%</p>
                     </div>
                   </div>
                 </div>
@@ -91,15 +91,17 @@
             <tr v-for="bid in coinInfo.bidInfoList" :key="bid">
               <td class="empty"></td>
               <td class="bg2" :class="{ line2: market != 'KRW', border_l: bid.price == coinInfo.lastPrice }" @click="setPrice(bid.price)">
-                <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{/ bid.price | toFix:this /}</span>
-                <p v-if="market != 'KRW'" class="won_price small">{/ basicPrice | calcPrice:bid.price /}<span>KRW</span></p>
+                <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{{ bid.price }}</span>
+                <p v-if="market != 'KRW'" class="won_price small">{{ basicPrice }}<span>KRW</span></p>
               </td>
               <td class="bg2" :class="{ border_r: bid.price == coinInfo.lastPrice }" @click="setPrice(bid.price)">
-                <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{/ bid.pricePer | toFixPer /}%</span>
+                <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{{ bid.pricePer }}%</span>
               </td>
               <td class="tl pricetd" @click="setPrice(bid.price)">
-                <span class="price">{/ bid.qty /}<span ng-show="bid.myOrder > 0"> ({/ bid.myOrder /})</span></span>
-                <span class="gauge"><span class="num2" ng-style="{'width':'{/ bid.percent /}%'}"></span></span>
+                <span class="price"
+                  >{{ bid.qty }}<span v-show="bid.myOrder > 0"> ({{ bid.myOrder }})</span></span
+                >
+                <span class="gauge"><span class="num2" :style="`width:${bid.percent}}%`"></span></span>
               </td>
             </tr>
           </tbody>
@@ -115,8 +117,143 @@ export default {
   data() {
     return {
       coinInfo: {
-        askInfoList: []
-      }
+        askInfoList: [
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          }
+        ],
+        bidInfoList: [
+          {
+            qty: '0.001',
+            percent: '5',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '21',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '8',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '5',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          },
+          {
+            qty: '0.001',
+            percent: '10',
+            price: '25,049,000',
+            pricePer: '21.24'
+          }
+        ],
+        totalVol: '0.024',
+        symbol: 'BTC',
+        totalAmount: '12,111,000',
+        highestPrice: '21,000,000',
+        lowestPrice: '8,000,000',
+        openPrice: '12,000,000',
+        highPrice: '14,000,000',
+        lowPrice: '11,000,000',
+        highPricePer: '50',
+        lowPricePer: '30'
+      },
+      basicPrice: '12,000,000',
+      market: 'KRW'
     }
   }
 }

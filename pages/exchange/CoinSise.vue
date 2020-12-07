@@ -2,7 +2,7 @@
   <div id="exchange4" class="exchange_Left">
     <!-- exchange_Left -->
     <div class="search">
-      <input v-model="serchText" name="ex4Search" type="text" :placeholder="$t('SearchCoin')" value="" kr-input />
+      <input v-model="serchText" name="ex4Search" type="text" :placeholder="$t('SearchCoin')" value="" />
       <a id="goEx4Search" href="javascript://" class="search_btn"><img src="~/assets/images/search_btn.png" :alt="$t('search')" /></a>
     </div>
     <div id="tab_btn" class="ex_tab1">
@@ -62,6 +62,7 @@
                   <!--
                   <a :id="fav_`{{ coin.symbol }}`" class="btn_onoff" :class="checkFav(coin.symbol)" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
                   -->
+                  <a id="fav_BTC" class="btn_onoff on" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
                   <span class="coinName">{{ coin.coinName }}</span>
                 </p>
                 <span class="f12">({{ coin.symbol | cutSymbol }}/{{ coin.market }})</span><br />
@@ -69,7 +70,7 @@
               </td>
               <td class="pdw" :class="{ f_red: coin.updnSign == '1', f_blue: coin.updnSign == '-1' }">
                 {{ coin.lastPrice }}
-                <p class="won_price" ng-if="coin.market != 'KRW'">{{ coin.basicPrice }}<span>KRW</span></p>
+                <p v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice }}<span>KRW</span></p>
               </td>
               <td :class="{ f_red: coin.updnSign == '1', f_blue: coin.updnSign == '-1' }">{{ coin.updnRate }} %</td>
             </tr>
@@ -96,7 +97,9 @@ export default {
           lastPrice: '20,000,000',
           updnRate: '1.0'
         }
-      ]
+      ],
+      oriSymbol: '',
+      propertyName: ''
     }
   },
   methods: {
