@@ -88,7 +88,7 @@
               </td>
             </tr>
 
-            <tr v-for="bid in coinInfo.bidInfoList" :key="bid">
+            <tr v-for="(bid, index) in coinInfo.bidInfoList" :key="index">
               <td class="empty"></td>
               <td class="bg2" :class="{ line2: market != 'KRW', border_l: bid.price == coinInfo.lastPrice }" @click="setPrice(bid.price)">
                 <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{{ bid.price }}</span>

@@ -54,7 +54,7 @@
               <th class="tr">{{ $t('tradeprice') }}</th>
               <th class="tr">{{ $t('asktotal') }}</th>
             </tr>
-            <tr v-for="ml in matchingList" :key="ml">
+            <tr v-for="(ml, index) in matchingList" :key="index">
               <td class="st1 tl">
                 <span class="wColor">{{ ml.instCd }} / {{ ml.instCd }}</span>
                 <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.byslTp }}</span
@@ -117,7 +117,7 @@
               <th class="tr">{{ $t('unfinishedamount') }}</th>
               <th>{{ $t('cancel') }}</th>
             </tr>
-            <tr v-for="mr in matchingReady" :key="mr">
+            <tr v-for="(mr, index) in matchingReady" :key="index">
               <td class="tc">
                 <span class="st1">{{ mr.ordrTime }}</span>
               </td>

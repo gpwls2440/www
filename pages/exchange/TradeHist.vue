@@ -13,7 +13,7 @@
           <a @click="tabChange('3')">{{ $t('coinexplanation') }}</a>
         </li>
       </ul>
-      <a href="javascript://" class="slideup_btn4"><img src="/assets/img/ex_btn_off.gif" alt="" /></a>
+      <a href="javascript://" class="slideup_btn4"><img src="~/assets/images/ex_btn_off.gif" alt="" /></a>
     </div>
     <!-- // tab_btn3 -->
 
@@ -35,7 +35,7 @@
               <th class="tr">{{ $t('matchingamount') }}</th>
               <th class="tr">{{ $t('matchingtotal') }}</th>
             </tr>
-            <tr v-for="tick in tickList" :key="tick" @click="setPrice(tick.mtchPrc)">
+            <tr v-for="(tick, index) in tickList" :key="index" @click="setPrice(tick.mtchPrc)">
               <td class="tc">{{ tick.mtchTime }}</td>
               <td class="tr">
                 <span style="font-weight: bold" :class="{ red: tick.updnSign == '1', blue: tick.updnSign == '-1' }">{{ tick.mtchPrc }}</span> {{ market }}

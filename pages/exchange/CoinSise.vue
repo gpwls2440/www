@@ -8,11 +8,11 @@
     <div id="tab_btn" class="ex_tab1">
       <ul>
         <li :class="{ active: curMarket == ' ' }">
-          <a href="#con1" :title="$t('favorites')" @click="showMarket(' ')"> {{ $t('favorites') }}</a>
+          <a :title="$t('favorites')" @click="showMarket(' ')"> {{ $t('favorites') }}</a>
         </li>
-        <li :class="{ active: curMarket == 'KRW' }"><a href="#con2" title="KRW" @click="showMarket('KRW')">KRW</a></li>
-        <li :class="{ active: curMarket == 'BTC' }"><a href="#con3" :title="$t('BTC')" @click="showMarket('BTC')">BTC</a></li>
-        <li :class="{ active: curMarket == 'ETH' }"><a href="#con4" :title="$t('ETH')" @click="showMarket('ETH')">ETH</a></li>
+        <li :class="{ active: curMarket == 'KRW' }"><a title="KRW" @click="showMarket('KRW')">KRW</a></li>
+        <li :class="{ active: curMarket == 'BTC' }"><a :title="$t('BTC')" @click="showMarket('BTC')">BTC</a></li>
+        <li :class="{ active: curMarket == 'ETH' }"><a :title="$t('ETH')" @click="showMarket('ETH')">ETH</a></li>
       </ul>
     </div>
 
@@ -56,13 +56,13 @@
             <col style="width: 25%" />
           </colgroup>
           <tbody>
-            <tr v-for="coin in coinInfoList" :key="coin" :class="{ active: coin.symbol == oriSymbol }" @click="loadData(coin.symbol, coin.market)">
+            <tr v-for="(coin, index) in coinInfoList" :key="index" :class="{ active: coin.symbol == oriSymbol }" @click="loadData(coin.symbol, coin.market)">
               <td class="tl" style="padding-right: 0px">
                 <p class="coinName-box">
+                  <a :id="`fav_${coin.symbol}`" class="btn_onoff" :class="checkFav(coin.symbol)" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
                   <!--
-                  <a :id="fav_`{{ coin.symbol }}`" class="btn_onoff" :class="checkFav(coin.symbol)" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
-                  -->
                   <a id="fav_BTC" class="btn_onoff on" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
+                  -->
                   <span class="coinName">{{ coin.coinName }}</span>
                 </p>
                 <span class="f12">({{ coin.symbol | cutSymbol }}/{{ coin.market }})</span><br />
@@ -96,8 +96,30 @@ export default {
           market: 'KRW',
           lastPrice: '20,000,000',
           updnRate: '1.0'
+        },
+        {
+          coinName: '이더리움',
+          symbol: 'ETH',
+          market: 'KRW',
+          lastPrice: '260,000',
+          updnRate: '3.0'
+        },
+        {
+          coinName: '라이트코인',
+          symbol: 'LTC',
+          market: 'KRW',
+          lastPrice: '80,830',
+          updnRate: '0.03'
+        },
+        {
+          coinName: '퀀텀',
+          symbol: 'QTUM',
+          market: 'KRW',
+          lastPrice: '2,820',
+          updnRate: '0.03'
         }
       ],
+      favList: ['BTC', 'ETH'],
       oriSymbol: '',
       propertyName: ''
     }
@@ -105,7 +127,15 @@ export default {
   methods: {
     showMarket(market) {
       this.curMarket = market
-    }
+    },
+    checkFav(symbol) {
+      if (this.favList.includes(symbol)) {
+        return 'on'
+      } else {
+        return ''
+      }
+    },
+    setFav(symbol) {}
   }
 }
 </script>

@@ -4,7 +4,7 @@
 
     <div class="top_area">
       <p class="tit">
-        <span class="b1"><img :src="`~/assets/images/coin/${symbol}.png`" :alt="symbol" style="width: 32px" /></span>
+        <span class="b1"><img :src="`/assets/images/coin/${symbol}.png`" :alt="symbol" style="width: 32px" /></span>
         <a href="javascript://" class="w_area_btn">
           <span class="st1">{{ coinName }}</span> <span class="st2">{{ symbol }}/{{ market }} </span>
           <span class="b2"><img src="~/assets/images/arr_btn.png" alt="" /></span>
@@ -12,7 +12,7 @@
       </p>
       <div class="w_area mCustomScrollbar">
         <ul>
-          <li v-for="coin in coinInfoList" :key="coin" class="isCoinSelectBtn">
+          <li v-for="(coin, index) in coinInfoList" :key="index" class="isCoinSelectBtn">
             <a :title="coin.coinName" @click="loadData(coin.symbol, coin.market)"
               >{{ coin.coinName }}
               <span>({{ coin.symbol }}/{{ coin.market }})</span>

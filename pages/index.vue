@@ -77,11 +77,11 @@
               </li>
               -->
                 <li :class="{ active: curItem == ' ' }">
-                  <a href="#con1" @click="showMarket(' ')">{{ $t('favorites') }}</a>
+                  <a @click="showMarket(' ')">{{ $t('favorites') }}</a>
                 </li>
-                <li :class="{ active: curItem == 'KRW' }"><a href="#con2" title="KRW" @click="showMarket('KRW')">KRW</a></li>
-                <li :class="{ active: curItem == 'BTC' }"><a href="#con3" @click="showMarket('BTC')">BTC</a></li>
-                <li :class="{ active: curItem == 'ETH' }"><a href="#con4" @click="showMarket('ETH')">ETH</a></li>
+                <li :class="{ active: curItem == 'KRW' }"><a title="KRW" @click="showMarket('KRW')">KRW</a></li>
+                <li :class="{ active: curItem == 'BTC' }"><a @click="showMarket('BTC')">BTC</a></li>
+                <li :class="{ active: curItem == 'ETH' }"><a @click="showMarket('ETH')">ETH</a></li>
               </ul>
             </div>
             <div id="ex4Div2Tab1" class="ex4Div2Tab">
@@ -108,47 +108,29 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!--
-                  <tr v-for="coin in coinInfoList" :key="coin" class="coinList" @click="goMarket(coin.simbol)">
-                    <td :title="coin.coinName">
-                      <div style="width: 50px; float: left; margin-left: 20px; padding-top: 5px">
-                        <img src="~/assets/images/coin/btc.png" style="width: 60%; vertical-align: middle" :alt="coin.simbol" />
-                      </div>
-                      <div style="float: left; font-size: 16px; text-align: left; margin-left: 10px; line-height: 1.2">
-                        {{ coin.coinName }}<br />
-                        <span style="font-size: 12px">({{ coin.simbol | cutSymbol }} / {{ coin.simbol | cutMarket }})</span>
-                      </div>
-                    </td>
-                    <td class="pdw" :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">
-                      {{ coin.lastPrice | toFixMarket:coin.market  }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice | calcPrice:coin.lastPrice  }}<span> KRW</span></span>
-                    </td>
-                    <td :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">{{ coin.updnRate | toFixPer }} %</td>
-                    <td class="sec2 red">
-                      {{ coin.highPrice | toFixMarket:coin.market  }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice | calcPrice:coin.highPrice  }}<span> KRW</span></span>
-                    </td>
-                    <td class="sec2 blue">
-                      {{ coin.lowPrice | toFixMarket:coin.market  }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice | calcPrice:coin.lowPrice  }}<span> KRW</span></span>
-                    </td>
-                    <td class="sec4">
-                      {{ coin.totalVol }}<span class="n1"> {{ coin.simbol | cutSymbol }}</span>
-                    </td>
-                  </tr>
-                  -->
-                    <tr class="coinList" @click="goMarket(btc)">
-                      <td>
+                    <tr v-for="(coin, index) in coinInfoList" :key="index" class="coinList" @click="goMarket(coin.symbol)">
+                      <td :title="coin.coinName">
                         <div style="width: 50px; float: left; margin-left: 20px; padding-top: 5px">
-                          <img src="~/assets/images/coin/btc.png" style="width: 60%; vertical-align: middle" />
+                          <img src="~/assets/images/coin/btc.png" style="width: 60%; vertical-align: middle" :alt="coin.symbol" />
                         </div>
                         <div style="float: left; font-size: 16px; text-align: left; margin-left: 10px; line-height: 1.2">
-                          비트코인<br />
-                          <span style="font-size: 12px">btc / krw</span>
+                          {{ coin.coinName }}<br />
+                          <span style="font-size: 12px">({{ coin.symbol }} / {{ coin.symbol }})</span>
                         </div>
                       </td>
-                      <td class="pdw red">20,880,000</td>
-                      <td class="red">0.7%</td>
-                      <td class="sec2 red">21,121,000</td>
-                      <td class="sec2 blue">20,111,000</td>
-                      <td class="sec4">0.027<span class="n1">BTC</span></td>
+                      <td class="pdw" :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">
+                        {{ coin.lastPrice }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice }}<span> KRW</span></span>
+                      </td>
+                      <td :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">{{ coin.updnRate }} %</td>
+                      <td class="sec2 red">
+                        {{ coin.highPrice }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice }}<span> KRW</span></span>
+                      </td>
+                      <td class="sec2 blue">
+                        {{ coin.lowPrice }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice }}<span> KRW</span></span>
+                      </td>
+                      <td class="sec4">
+                        {{ coin.totalVol }}<span class="n1"> {{ coin.symbol }}</span>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -262,7 +244,18 @@ export default {
           clickable: true
         }
       },
-      curItem: 'KRW'
+      curItem: 'KRW',
+      coinInfoList: [
+        {
+          coinName: '비트코인',
+          symbol: 'BTC',
+          basicPrice: '20,000,000',
+          lastPrice: '21,000,000',
+          updnRate: '8.17',
+          highPrice: '22,000,000',
+          totalVol: '0.027'
+        }
+      ]
     }
   },
   computed: {
@@ -286,6 +279,9 @@ export default {
     },
     showMarket(market) {
       this.curItem = market
+    },
+    goMarket(symbol) {
+      this.$router.push({ path: '/exchange', query: { symbol } })
     }
   }
 }

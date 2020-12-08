@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="noin in noticeInfoList" :key="noin" class="popup_wrap" style="left: 30%">
+    <div v-for="(noin, index) in noticeInfoList" :key="index" class="popup_wrap" style="left: 30%">
       <div id="pop_div{/ noin.notiDtTm /}" class="pop_div" style="min-width: 500px; top: 120px; left: 30%; display: block">
         <!-- pop_div -->
         <div class="layer_topm" style="background-color: #fff">
