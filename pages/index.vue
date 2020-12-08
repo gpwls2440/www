@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!--
+    <div v-show="noticeInfoList.length === 0" id="overlay_t"></div>
+    -->
     <div class="main_container">
       <!-- container -->
       <div class="m_visual_h1">
@@ -143,7 +146,6 @@
         </div>
         <!-- mainPage-->
       </div>
-      <MainModal v-show="showModal" @close="showModal = false"></MainModal>
     </div>
     <div id="content">
       <!-- Why Choose Us -->
@@ -213,12 +215,13 @@
         </div>
       </section>
     </div>
+    <MainPopupModal v-show="showModal" @close="showModal = false"></MainPopupModal>
   </div>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import MainModal from '../components/MainModal'
+import MainPopupModal from '../components/MainPopupModal'
 import '@/assets/css/swiper.min.css'
 import '@/assets/css/index.css'
 
@@ -226,10 +229,11 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    MainModal
+    MainPopupModal
   },
   data() {
     return {
+      noticeInfoList: [],
       showModal: true,
       notiMainTitleList: [],
       swiperOption: {
@@ -282,6 +286,9 @@ export default {
     },
     goMarket(symbol) {
       this.$router.push({ path: '/exchange', query: { symbol } })
+    },
+    getNoticeLength(val) {
+      this.noticeInfoList = val
     }
   }
 }

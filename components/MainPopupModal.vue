@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(noin, index) in noticeInfoList" :key="index" class="popup_wrap" style="left: 30%">
-      <div id="pop_div{/ noin.notiDtTm /}" class="pop_div" style="min-width: 500px; top: 120px; left: 30%; display: block">
+      <div :id="`pop_div${noin.notiDtTm}`" class="pop_div" style="min-width: 500px; top: 120px; left: 30%; display: block">
         <!-- pop_div -->
         <div class="layer_topm" style="background-color: #fff">
           <!-- layer_top -->
@@ -10,17 +10,17 @@
         <!-- // layer_top -->
         <div class="layer_con" style="padding-left: 7%">
           <!-- layer_con -->
-          <div class="scroll_div_h1 mCustomScrollbar" style="height: 25vw">{{ noin.notiContents }}</div>
+          <div class="scroll_div_h1 mCustomScrollbar" style="height: 25vw" v-html="noin.notiContents"></div>
         </div>
         <!-- // layer_con -->
         <div class="layer_foot" style="min-width: 500px">
           <div class="lp_left">
             <input
-              id="chekbox{/ noin.notiDtTm /}"
+              :id="`chekbox${noin.notiDtTm}`"
               type="checkbox"
               class="cookie_save"
               style="display: inline-block; margin-right: 10px; margin-left: 20px; background-color: #fff; display: none"
-            /><label for="chekbox{/ noin.notiDtTm /}">오늘하루 열지 않기</label>
+            /><label :for="`chekbox${noin.notiDtTm}`">오늘하루 열지 않기</label>
           </div>
           <div class="lp_right">
             <input
@@ -50,21 +50,26 @@
 </template>
 
 <script>
+import { popupNotiList } from '~/api/auth'
+
 export default {
-  name: 'MainModal',
+  name: 'MainPopupModal',
   data() {
     return {
-      noticeInfoList: [
-        {
-          notiTitle: '[공지] GVK 상장 공지',
-          notiContents: '안녕하세요 케이덱스 팀입니다.'
-        }
-      ]
+      noticeInfoList: []
     }
+  },
+  mounted() {
+    this.getPopupNotiList()
   },
   methods: {
     close() {
       this.$emit('close')
+    },
+    getPopupNotiList() {
+      popupNotiList().then(res => {
+        this.noticeInfoList = res.data
+      })
     }
   }
 }

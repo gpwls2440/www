@@ -17,6 +17,7 @@
 import Balance from './Balance'
 import MyWalletChart from './MyWalletChart'
 import MyWallet from './MyWallet'
+import '@/assets/css/wallet.css'
 
 export default {
   components: {

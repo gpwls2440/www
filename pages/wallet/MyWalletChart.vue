@@ -10,9 +10,9 @@
     <!-- // center_top -->
     <div class="center_gm">
       <p v-show="curSymbol.symbol != ''" class="st1">
-        <img v-if="curSymbol.symbol != ''" class="circle" src="~/assets/images/coin/btc.png" alt="" width="30" />
-        {/ curSymbol.name /}
-        <span class="gray">({/ curSymbol.symbol /})</span>
+        <img v-if="curSymbol.symbol != ''" class="circle" :src="`~/assets/images/coin/${curSymbol.symbol}.png`" alt="" width="30" />
+        {{ curSymbol.name }}
+        <span class="gray">({{ curSymbol.symbol }})</span>
         <span class="small_btn allCoin" @click="onBlock('')">
           {{ $t('totalassets') }}
         </span>
@@ -56,7 +56,7 @@
                   start-val="0"
                   end-val="curSymbol.dpoQty"
                 ></span>
-                <span>{/ curSymbol.symbol /}</span>
+                <span>{{ curSymbol.symbol }}</span>
               </span>
             </h2>
             <h5 v-if="curSymbol.dpoPdngQty != 0" class="wlt1ConLeftTextH5">
@@ -99,7 +99,8 @@ export default {
       },
       totalQty: {
         dpoPdngAmt: ''
-      }
+      },
+      showCoin: false
     }
   }
 }
