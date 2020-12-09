@@ -23,14 +23,16 @@
           <p style="margin-top: 20px; text-align: center; color: #fff; font-size: 20px; line-height: 30px">{{ $t('mainInfo01') }} <br />{{ $t('mainInfo02') }}</p>
         </div>
         <div id="login" class="login" style="margin-top: 30px">
+          <!--
           <input type="hidden" name="ip" :value="ip" />
+          -->
           <div class="input_line">
             <img src="~/assets/images/ico_inp1.png" alt="" />
-            <input id="userId" name="userId" class="loginInput isId reqInput" type="text" required placeholder="이메일 아이디" :title="$t('ID')" @keyup="enterEvent(this, 1)" />
+            <input id="userId" ref="userId" v-model="userId" name="userId" class="loginInput isId reqInput" type="text" required placeholder="이메일 아이디" :title="$t('ID')" />
           </div>
           <div class="input_line">
             <img src="~/assets/images/ico_inp2.png" alt="" />
-            <input id="userPw" name="userPw" class="loginInput isPw reqInput" type="password" required :placeholder="$t('password')" :title="$t('password')" @keyup="enterEvent(this, 1)" />
+            <input id="userPw" v-model="userPw" name="userPw" class="loginInput isPw reqInput" type="password" required :placeholder="$t('password')" :title="$t('password')" />
           </div>
           <button type="button" class="btn_login" @click="goLogin()">{{ $t('login') }}</button>
           <div class="sim_login_h1">
@@ -76,7 +78,9 @@
           <p style="font-size: 14px; color: #fff; margin-bottom: 10px; text-align: center">{{ $t('enterVerificationNumber') }}</p>
           <input id="uid" type="hidden" name="uid" />
           <input id="level" type="hidden" name="level" />
+          <!--
           <input type="hidden" name="ip" :value="ip" />
+          -->
           <input id="bw" type="hidden" name="bw" value="" />
           <div class="input_line">
             <img src="~/assets/images/ico_inp2.png" alt="" />
@@ -103,16 +107,29 @@
       </div>
     </div>
     <!-- // login_div -->
+    <modal v-if="showModal" @close="showModal = false">
+      <p slot="body">{{ text }}</p>
+    </modal>
   </div>
   <!-- // container3 -->
 </template>
 <script>
 import '@/assets/css/auth.css'
+import { Login } from '~/api/auth'
+import Modal from '~/components/Modal'
 
 export default {
   name: 'Login',
+  components: {
+    Modal
+  },
   data() {
-    return {}
+    return {
+      userId: '',
+      userPw: '',
+      showModal: false,
+      text: ''
+    }
   },
   mounted() {
     $('.con_slider').bxSlider({
@@ -120,6 +137,25 @@ export default {
       pause: 5000,
       auto: true
     })
+  },
+  methods: {
+    goLogin() {
+      const vm = this
+      if (!vm.userId || !vm.userPw) {
+        this.showModal = true
+        this.text = '아이디 또는 패스워드를 입력해주세요'
+      } else {
+        Login(vm.userId, vm.userPw).then(res => {
+          this.showModal = true
+          this.text = res.data.resultMsg
+          if (res.data.reult.result === '2FACT') {
+          }
+        })
+      }
+    },
+    setFocus() {
+      this.$refs.userId.focus()
+    }
   }
 }
 </script>
