@@ -75,13 +75,10 @@
             <div id="tab_btn" class="main_tab">
               <ul>
                 <!--
-              <li v-show="favList[0] != null" :class="{ active: curItem == ' ' }">
-                <a href="#con1" @click="showMarket(' ')">{{ $t('favorites') }}</a>
-              </li>
-              -->
-                <li :class="{ active: curItem == ' ' }">
-                  <a @click="showMarket(' ')">{{ $t('favorites') }}</a>
+                <li v-show="favList[0] != null" :class="{ active: curItem == ' ' }">
+                  <a href="#con1" @click="showMarket(' ')">{{ $t('favorites') }}</a>
                 </li>
+                -->
                 <li :class="{ active: curItem == 'KRW' }"><a title="KRW" @click="showMarket('KRW')">KRW</a></li>
                 <li :class="{ active: curItem == 'BTC' }"><a @click="showMarket('BTC')">BTC</a></li>
                 <li :class="{ active: curItem == 'ETH' }"><a @click="showMarket('ETH')">ETH</a></li>
@@ -114,11 +111,11 @@
                     <tr v-for="(coin, index) in coinInfoList" :key="index" class="coinList" @click="goMarket(coin.symbol)">
                       <td :title="coin.coinName">
                         <div style="width: 50px; float: left; margin-left: 20px; padding-top: 5px">
-                          <img src="~/assets/images/coin/btc.png" style="width: 60%; vertical-align: middle" :alt="coin.symbol" />
+                          <img :src="require(`~/assets/images/coin/${coin.symbol}.png`)" style="width: 60%; vertical-align: middle" :alt="coin.symbol" />
                         </div>
                         <div style="float: left; font-size: 16px; text-align: left; margin-left: 10px; line-height: 1.2">
                           {{ coin.coinName }}<br />
-                          <span style="font-size: 12px">({{ coin.symbol }} / {{ coin.symbol }})</span>
+                          <span style="font-size: 12px">({{ coin.symbol }} / {{ coin.market }})</span>
                         </div>
                       </td>
                       <td class="pdw" :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">
@@ -222,6 +219,7 @@
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import MainPopupModal from '../components/MainPopupModal'
+import { coinList } from '~/api/coin'
 import '@/assets/css/swiper.min.css'
 import '@/assets/css/index.css'
 
@@ -249,17 +247,7 @@ export default {
         }
       },
       curItem: 'KRW',
-      coinInfoList: [
-        {
-          coinName: '비트코인',
-          symbol: 'BTC',
-          basicPrice: '20,000,000',
-          lastPrice: '21,000,000',
-          updnRate: '8.17',
-          highPrice: '22,000,000',
-          totalVol: '0.027'
-        }
-      ]
+      coinInfoList: []
     }
   },
   computed: {
@@ -271,6 +259,7 @@ export default {
   mounted() {
     console.log('Current Swiper instance object', this.swiper)
     this.ticker()
+    this.getCoinList()
   },
   methods: {
     ticker() {
@@ -278,17 +267,30 @@ export default {
         $('#rolling li:first').animate({ marginTop: '-60px' }, 400, function () {
           $(this).detach().appendTo('#rolling').removeAttr('style')
         })
-        this.ticker()
+        // this.ticker()
       }, 2500)
     },
     showMarket(market) {
       this.curItem = market
+      this.getCoinList()
     },
     goMarket(symbol) {
       this.$router.push({ path: '/exchange', query: { symbol } })
     },
     getNoticeLength(val) {
       this.noticeInfoList = val
+    },
+    getCoinList() {
+      coinList().then(res => {
+        const coinList = res.data
+        const vm = this
+        vm.coinInfoList = []
+        coinList.forEach(function (item, index, array) {
+          if (item.market === vm.curItem) {
+            vm.coinInfoList.push(array[index])
+          }
+        })
+      })
     }
   }
 }
