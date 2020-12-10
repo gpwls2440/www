@@ -40,29 +40,14 @@
       </div>
       <div v-cloak class="mainpage">
         <div class="notice_bar">
-          <!--
-        <ul id="rolling" class="rolling">
-          <li v-for="noTit in notiMainTitleList" :key="noTit">
-            <span class="notice1">{{ $t('notice') }}</span>
-            <span class="notice2">{{ noTit.notiTitle }}</span>
-            <a href="#">
-              <span class="notice3">+{{ $('more') }}</span>
-            </a>
-          </li>
-        </ul>
-        -->
           <ul id="rolling" class="rolling">
-            <li>
-              <span class="notice1">공지사항</span>
-              <span class="notice2">[공지] GVK 상장 공지</span>
+            <li v-for="(noTit, index) in notiMainTitleList" :key="index">
+              <span class="notice1">{{ $t('notice') }}</span>
+              <span class="notice2">{{ noTit.notiTitle }}</span>
               <a href="#">
-                <span class="notice3">+자세히</span>
-              </a>
-            </li>
-            <li>
-              <span class="notice1">공지사항</span>
-              <span class="notice2">[공지] 출금 시간 공지</span>
-              <a href="#">
+                <!--
+                <span class="notice3">+{{ $('more') }}</span>
+                -->
                 <span class="notice3">+자세히</span>
               </a>
             </li>
@@ -74,11 +59,9 @@
           <div class="exchange4">
             <div id="tab_btn" class="main_tab">
               <ul>
-                <!--
                 <li v-show="favList[0] != null" :class="{ active: curItem == ' ' }">
                   <a href="#con1" @click="showMarket(' ')">{{ $t('favorites') }}</a>
                 </li>
-                -->
                 <li :class="{ active: curItem == 'KRW' }"><a title="KRW" @click="showMarket('KRW')">KRW</a></li>
                 <li :class="{ active: curItem == 'BTC' }"><a @click="showMarket('BTC')">BTC</a></li>
                 <li :class="{ active: curItem == 'ETH' }"><a @click="showMarket('ETH')">ETH</a></li>
@@ -220,6 +203,7 @@
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import MainPopupModal from '../components/MainPopupModal'
 import { coinList } from '~/api/coin'
+import { mainNotiTitle } from '~/api/etc'
 import '@/assets/css/swiper.min.css'
 import '@/assets/css/index.css'
 
@@ -247,7 +231,8 @@ export default {
         }
       },
       curItem: 'KRW',
-      coinInfoList: []
+      coinInfoList: [],
+      favList: []
     }
   },
   computed: {
@@ -257,17 +242,18 @@ export default {
   },
   created() {},
   mounted() {
-    console.log('Current Swiper instance object', this.swiper)
     this.ticker()
     this.getCoinList()
+    this.getNotiTitle()
   },
   methods: {
     ticker() {
+      const vm = this
       setTimeout(function () {
         $('#rolling li:first').animate({ marginTop: '-60px' }, 400, function () {
           $(this).detach().appendTo('#rolling').removeAttr('style')
         })
-        // this.ticker()
+        vm.ticker()
       }, 2500)
     },
     showMarket(market) {
@@ -290,6 +276,12 @@ export default {
             vm.coinInfoList.push(array[index])
           }
         })
+      })
+    },
+    getNotiTitle() {
+      const vm = this
+      mainNotiTitle().then(res => {
+        vm.notiMainTitleList = res.data
       })
     }
   }

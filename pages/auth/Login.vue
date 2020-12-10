@@ -89,8 +89,7 @@
               v-model="certNumber"
               name="certNumber"
               class="loginInput isPw"
-              numberOnly="true"
-              type="text"
+              type="number"
               required
               maxlength="6"
               :placeholder="$t('certificationNumberInput')"
@@ -107,7 +106,7 @@
       </div>
     </div>
     <!-- // login_div -->
-    <modal v-if="showModal" @close="stepChange">
+    <modal v-if="showModal" @close="modalClose()">
       <p slot="body">{{ text }}</p>
     </modal>
   </div>
@@ -115,7 +114,7 @@
 </template>
 <script>
 import '@/assets/css/auth.css'
-import { Login, LoginCertProc } from '~/api/auth'
+import { Login, LoginCertProc, CertReSend } from '~/api/auth'
 import Modal from '~/components/Modal'
 
 export default {
@@ -131,8 +130,11 @@ export default {
       text: '',
       step: '1',
       level: '',
+      uid: '',
       certNumber: '',
-      pgwBrowser: ''
+      pgwBrowser: '',
+      result: '',
+      certTimeMethod: ''
     }
   },
   mounted() {
@@ -147,31 +149,36 @@ export default {
       const vm = this
       if (!vm.userId || !vm.userPw) {
         vm.showModal = true
-        vm.text = '아이디 또는 패스워드를 입력해주세요'
+        vm.text = '아이디 혹은 패스워드를 입력해주세요.'
       } else {
         Login(vm.userId, vm.userPw).then(res => {
           vm.showModal = true
           vm.text = res.data.resultMsg
           vm.level = res.data.level
           vm.uid = res.data.uid
-          if (res.data.result === '2FACT') {
-            // vm.step = '2'
-          }
+          vm.result = res.data.result
         })
       }
     },
-    stepChange() {
+    modalClose() {
+      const vm = this
       this.showModal = false
-      this.setCertTimeout()
-      this.step = '2'
+      if (this.result === '2FACT') {
+        vm.setCertTimeout()
+        this.step = '2'
+      }
     },
     goCertLogin() {
       const vm = this
       LoginCertProc(vm.certNumber, vm.uid, vm.level, '').then(res => {
+        vm.claerTimeout()
         if (res.data === 'OK') {
           vm.showModal = true
-          vm.text = '로그인 성공'
-          this.$router.push('/')
+          vm.text = '로그인에 성공하였습니다.'
+          // this.$router.push('/')
+        } else {
+          vm.showModal = true
+          vm.text = '인증번호를 다시 확인해주세요.'
         }
       })
     },
@@ -185,12 +192,11 @@ export default {
       return bwText
     },
     setCertTimeout() {
-      let certTimeMethod = ''
       let certTime = 180
       // let certloginChk = true
-      clearInterval(certTimeMethod)
+      this.claerTimeout()
 
-      certTimeMethod = setInterval(function () {
+      this.certTimeMethod = setInterval(function () {
         certTime = certTime - 1
         const certMin = parseInt(certTime / 60)
         let certSec = parseInt(certTime % 60)
@@ -202,15 +208,20 @@ export default {
         $('#certMin').text(certMin)
         $('#certSec').text(certSec)
 
-        String(certMin)
-        String(certSec)
-        if (certMin === '0' && certSec === '00') {
-          clearInterval(certTimeMethod)
+        if (certMin === 0 && certSec.toString() === '00') {
+          this.claerTimeout()
           // certloginChk = true
           $('#btnCert').hide()
           $('#cert_re').show()
         }
       }, 1000)
+    },
+    claerTimeout() {
+      clearInterval(this.certTimeMethod)
+    },
+    goReLogin() {
+      const vm = this
+      CertReSend(vm.uid).then(res => {})
     }
   }
 }

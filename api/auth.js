@@ -1,9 +1,8 @@
-import { axiosGet, axiosPost } from './config'
+import { axiosPost } from './config'
 
-export const popupNotiList = () => {
-  return axiosGet('/auth/mainPopup', {})
-}
-
+/**
+ * 로그인
+ */
 export const Login = (userId = '', userPw = '') => {
   return axiosPost('/auth/loginProc', {
     userId,
@@ -11,11 +10,23 @@ export const Login = (userId = '', userPw = '') => {
   })
 }
 
+/**
+ * 로그인 인증번호 발송
+ */
 export const LoginCertProc = (certNumber = '', uid = '', level ='', bw='') => {
   return axiosPost('/auth/loginCertProc', {
     certNumber,
     uid,
     level,
     bw
+  })
+}
+
+/**
+ * 로그인 인증번호 재발송
+ */
+export const CertReSend = (uid = '') => {
+  return axiosPost('/auth/reSendCert', {
+    uid
   })
 }

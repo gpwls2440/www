@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { popupNotiList } from '~/api/auth'
+import { popupNotiList } from '~/api/etc'
 
 export default {
   name: 'MainPopupModal',
