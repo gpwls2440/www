@@ -212,7 +212,7 @@
         </div>
       </section>
     </div>
-    <MainPopupModal v-show="showModal" @close="showModal = false"></MainPopupModal>
+    <MainPopupModal v-show="showModal"></MainPopupModal>
   </div>
 </template>
 

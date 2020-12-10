@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(noin, index) in noticeInfoList" :key="index" class="popup_wrap" style="left: 30%">
-      <div :id="`pop_div${noin.notiDtTm}`" class="pop_div" style="min-width: 500px; top: 120px; left: 30%; display: block">
+      <div :id="`pop_div${noin.notiDtTm}`" class="pop_div" style="min-width: 500px; top: 120px; left: 30%">
         <!-- pop_div -->
         <div class="layer_topm" style="background-color: #fff">
           <!-- layer_top -->
@@ -39,7 +39,7 @@
                 cursor: pointer;
                 margin-left: 32%;
               "
-              @click="close()"
+              @click="close(noin.notiDtTm)"
             />
           </div>
         </div>
@@ -63,8 +63,9 @@ export default {
     this.getPopupNotiList()
   },
   methods: {
-    close() {
-      this.$emit('close')
+    close(notiDtTm) {
+      // this.$emit('close')
+      $('#pop_div' + notiDtTm).css('display', 'none')
     },
     getPopupNotiList() {
       popupNotiList().then(res => {

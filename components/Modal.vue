@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import '@/assets/css/jquery_modal.css'
 export default {
   name: 'Modal'
 }
