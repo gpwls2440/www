@@ -10,3 +10,12 @@ export const Login = (userId = '', userPw = '') => {
     userPw
   })
 }
+
+export const LoginCertProc = (certNumber = '', uid = '', level ='', bw='') => {
+  return axiosPost('/auth/loginCertProc', {
+    certNumber,
+    uid,
+    level,
+    bw
+  })
+}
