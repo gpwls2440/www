@@ -22,7 +22,7 @@
           <img src="~/assets/images/log_tit1.png" :alt="$t('hello1')" />
           <p style="margin-top: 20px; text-align: center; color: #fff; font-size: 20px; line-height: 30px">{{ $t('mainInfo01') }} <br />{{ $t('mainInfo02') }}</p>
         </div>
-        <div id="login" class="login" style="margin-top: 30px">
+        <div v-if="step == '1'" id="login" class="login" style="margin-top: 30px">
           <!--
           <input type="hidden" name="ip" :value="ip" />
           -->
@@ -71,10 +71,10 @@
           </ul>
           <!-- // my_search_h1 -->
           <p class="log_txt">
-            {{ $t('notYetMember') }} <a href="javascript:go_join();">{{ $t('signup') }}</a>
+            {{ $t('notYetMember') }} <a href="/auth/signup">{{ $t('signup') }}</a>
           </p>
         </div>
-        <div id="certLogin" class="login" style="margin-top: 30px">
+        <div v-if="step == '2'" id="certLogin" class="login" style="margin-top: 30px">
           <p style="font-size: 14px; color: #fff; margin-bottom: 10px; text-align: center">{{ $t('enterVerificationNumber') }}</p>
           <input id="uid" type="hidden" name="uid" />
           <input id="level" type="hidden" name="level" />
@@ -86,6 +86,7 @@
             <img src="~/assets/images/ico_inp2.png" alt="" />
             <input
               id="certNumber"
+              v-model="certNumber"
               name="certNumber"
               class="loginInput isPw"
               numberOnly="true"
@@ -95,7 +96,6 @@
               :placeholder="$t('certificationNumberInput')"
               :title="$t('certificationNumberInput')"
               style="ime-mode: disabled"
-              @keyup="enterEvent(this, 2)"
             />
             <input id="" name="" type="text" style="display: none" />
           </div>
@@ -107,7 +107,7 @@
       </div>
     </div>
     <!-- // login_div -->
-    <modal v-if="showModal" @close="showModal = false">
+    <modal v-if="showModal" @close="stepChange">
       <p slot="body">{{ text }}</p>
     </modal>
   </div>
@@ -115,7 +115,7 @@
 </template>
 <script>
 import '@/assets/css/auth.css'
-import { Login } from '~/api/auth'
+import { Login, LoginCertProc } from '~/api/auth'
 import Modal from '~/components/Modal'
 
 export default {
@@ -128,7 +128,11 @@ export default {
       userId: '',
       userPw: '',
       showModal: false,
-      text: ''
+      text: '',
+      step: '1',
+      level: '',
+      certNumber: '',
+      pgwBrowser: ''
     }
   },
   mounted() {
@@ -142,19 +146,71 @@ export default {
     goLogin() {
       const vm = this
       if (!vm.userId || !vm.userPw) {
-        this.showModal = true
-        this.text = '아이디 또는 패스워드를 입력해주세요'
+        vm.showModal = true
+        vm.text = '아이디 또는 패스워드를 입력해주세요'
       } else {
         Login(vm.userId, vm.userPw).then(res => {
-          this.showModal = true
-          this.text = res.data.resultMsg
-          if (res.data.reult.result === '2FACT') {
+          vm.showModal = true
+          vm.text = res.data.resultMsg
+          vm.level = res.data.level
+          vm.uid = res.data.uid
+          if (res.data.result === '2FACT') {
+            // vm.step = '2'
           }
         })
       }
     },
+    stepChange() {
+      this.showModal = false
+      this.setCertTimeout()
+      this.step = '2'
+    },
+    goCertLogin() {
+      const vm = this
+      LoginCertProc(vm.certNumber, vm.uid, vm.level, '').then(res => {
+        if (res.data === 'OK') {
+          vm.showModal = true
+          vm.text = '로그인 성공'
+          this.$router.push('/')
+        }
+      })
+    },
     setFocus() {
       this.$refs.userId.focus()
+    },
+    getPgwBrowser() {
+      const pgwBrowser = jQuery.pgwBrowser()
+      const bwText = pgwBrowser.os.name + ' (' + pgwBrowser.browser.name + ' ' + pgwBrowser.browser.fullVersion + ')'
+      // $('#bw').val(bwText)
+      return bwText
+    },
+    setCertTimeout() {
+      let certTimeMethod = ''
+      let certTime = 180
+      // let certloginChk = true
+      clearInterval(certTimeMethod)
+
+      certTimeMethod = setInterval(function () {
+        certTime = certTime - 1
+        const certMin = parseInt(certTime / 60)
+        let certSec = parseInt(certTime % 60)
+
+        if (certSec < 10) {
+          certSec = '0' + certSec
+        }
+
+        $('#certMin').text(certMin)
+        $('#certSec').text(certSec)
+
+        String(certMin)
+        String(certSec)
+        if (certMin === '0' && certSec === '00') {
+          clearInterval(certTimeMethod)
+          // certloginChk = true
+          $('#btnCert').hide()
+          $('#cert_re').show()
+        }
+      }, 1000)
     }
   }
 }
