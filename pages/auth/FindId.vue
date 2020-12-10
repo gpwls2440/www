@@ -53,7 +53,14 @@
 
 <script>
 export default {
-  name: 'FindId'
+  name: 'FindId',
+  mounted() {
+    $('.con_slider').bxSlider({
+      mode: 'fade',
+      pause: 5000,
+      auto: true
+    })
+  }
 }
 </script>
 
