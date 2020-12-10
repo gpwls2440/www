@@ -52,37 +52,6 @@
           </div>
           <!-- // sim_login_h1 -->
         </div>
-
-        <div id="certLogin" class="login" style="margin-top: 30px">
-          <p style="font-size: 14px; color: #fff; margin-bottom: 10px; text-align: center">{{ $t('enterVerificationNumber') }}</p>
-          <form id="frmCert" name="frmCert">
-            <input id="uid" type="hidden" name="uid" />
-            <input id="level" type="hidden" name="level" />
-            <input type="hidden" name="ip" :value="ip" />
-            <input id="bw" type="hidden" name="bw" value="" />
-            <div class="input_line">
-              <img src="~/assets/images/ico_inp2.png" alt="" />
-              <input
-                id="certNumber"
-                name="certNumber"
-                class="loginInput isPw"
-                onkeyup="enterEvent(this,2)"
-                numberOnly="true"
-                type="text"
-                required
-                maxlength="6"
-                :placeholder="$t('certificationNumberInput')"
-                :title="$t('certificationNumberInput')"
-                style="ime-mode: disabled"
-              />
-              <input id="" name="" type="text" style="display: none" />
-            </div>
-            <button id="btnCert" type="button" class="btn_login" @click="goCertLogin()">{{ $t('certificationNumberInput') }} (<span id="certMin">3</span>:<span id="certSec">00</span>)</button>
-            <p id="cert_re" style="margin-top: 10px; display: none">
-              <button type="button" class="btn_login" @click="goReLogin()">{{ $t('resendCertificationNumber') }}</button>
-            </p>
-          </form>
-        </div>
       </div>
     </div>
     <!-- // login_div -->
