@@ -106,7 +106,7 @@
       </div>
     </div>
     <!-- // login_div -->
-    <modal v-if="showModal" @close="modalClose()">
+    <modal v-if="showModal" @close="showModal = false">
       <p slot="body">{{ text }}</p>
     </modal>
   </div>
@@ -114,6 +114,7 @@
 </template>
 <script>
 import '@/assets/css/auth.css'
+import { mapMutations, mapGetters } from 'vuex'
 import { Login, LoginCertProc, CertReSend } from '~/api/auth'
 import Modal from '~/components/Modal'
 
@@ -129,13 +130,17 @@ export default {
       showModal: false,
       text: '',
       step: '1',
-      level: '',
-      uid: '',
+      // level: '',
+      // uid: '',
       certNumber: '',
       pgwBrowser: '',
       result: '',
       certTimeMethod: ''
+      // sessionId: ''
     }
+  },
+  computed: {
+    ...mapGetters(['getUid', 'getSessionId', 'getUserLevel'])
   },
   mounted() {
     $('.con_slider').bxSlider({
@@ -145,6 +150,7 @@ export default {
     })
   },
   methods: {
+    ...mapMutations(['setUid', 'setSessionId', 'setUserLevel']),
     goLogin() {
       const vm = this
       if (!vm.userId || !vm.userPw) {
@@ -152,35 +158,46 @@ export default {
         vm.text = '아이디 혹은 패스워드를 입력해주세요.'
       } else {
         Login(vm.userId, vm.userPw).then(res => {
-          vm.showModal = true
-          vm.text = res.data.resultMsg
-          vm.level = res.data.level
-          vm.uid = res.data.uid
           vm.result = res.data.result
+          vm.showModal = true
+          if (vm.result !== 'Fail') {
+            vm.setUid(res.data.uid)
+            vm.setSessionId(res.data.sessionId)
+            vm.setUserLevel(res.data.level)
+            if (this.result === '2FACT') {
+              vm.text = res.data.resultMsg
+              vm.setCertTimeout()
+              this.step = '2'
+            } else if (this.result === 'LEVEL1') {
+              vm.text = vm.$t('loginMsg01') + vm.$t('loginMsg02')
+              this.$router.push('/')
+            }
+          } else {
+            vm.text = '다시 시도해주세요'
+          }
         })
       }
     },
     modalClose() {
-      const vm = this
       this.showModal = false
-      if (this.result === '2FACT') {
-        vm.setCertTimeout()
-        this.step = '2'
-      }
     },
     goCertLogin() {
       const vm = this
-      LoginCertProc(vm.certNumber, vm.uid, vm.level, '').then(res => {
-        vm.claerTimeout()
-        if (res.data === 'OK') {
-          vm.showModal = true
-          vm.text = '로그인에 성공하였습니다.'
-          // this.$router.push('/')
-        } else {
-          vm.showModal = true
-          vm.text = '인증번호를 다시 확인해주세요.'
-        }
-      })
+      if (!vm.certNumber) {
+        vm.showModal = true
+        vm.text = '인증번호를 입력해주세요.'
+      } else {
+        LoginCertProc(vm.certNumber, vm.getUid, vm.getUserLevel, '').then(res => {
+          if (res.data === 'OK') {
+            vm.showModal = true
+            vm.text = '로그인에 성공하였습니다.'
+            this.$router.push('/')
+          } else {
+            vm.showModal = true
+            vm.text = '인증번호를 다시 확인해주세요.'
+          }
+        })
+      }
     },
     setFocus() {
       this.$refs.userId.focus()
@@ -208,7 +225,9 @@ export default {
         $('#certMin').text(certMin)
         $('#certSec').text(certSec)
 
-        if (certMin === 0 && certSec.toString() === '00') {
+        console.log(certMin.toString() === '0')
+        console.log(certSec.toString() === '00')
+        if (certMin.toString() === '0' && certSec.toString() === '00') {
           this.claerTimeout()
           // certloginChk = true
           $('#btnCert').hide()
@@ -221,7 +240,8 @@ export default {
     },
     goReLogin() {
       const vm = this
-      CertReSend(vm.uid).then(res => {})
+      vm.setCertTimeout()
+      CertReSend(vm.getSessionId).then(res => {})
     }
   }
 }

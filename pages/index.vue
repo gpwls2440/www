@@ -200,9 +200,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import MainPopupModal from '../components/MainPopupModal'
-import { coinList } from '~/api/coin'
+import { coinList, favCoinList } from '~/api/coin'
 import { mainNotiTitle } from '~/api/etc'
 import '@/assets/css/swiper.min.css'
 import '@/assets/css/index.css'
@@ -232,10 +233,11 @@ export default {
       },
       curItem: 'KRW',
       coinInfoList: [],
-      favList: []
+      favList: ['BTC']
     }
   },
   computed: {
+    ...mapGetters(['getSessionId', 'getUid']),
     swiper() {
       return this.$refs.mySwiper.$swiper
     }
@@ -245,6 +247,7 @@ export default {
     this.ticker()
     this.getCoinList()
     this.getNotiTitle()
+    this.getFavCoinList()
   },
   methods: {
     ticker() {
@@ -272,6 +275,12 @@ export default {
         const vm = this
         vm.coinInfoList = []
         coinList.forEach(function (item, index, array) {
+          if (item.symbol.includes('_')) {
+            // const symbol = item.symbol.slice(item.symbol.length, item.symbol.length - 4)
+            console.log(item.symbol)
+            console.log(item.symbol.length)
+            console.log(item.symbol.length - 4)
+          }
           if (item.market === vm.curItem) {
             vm.coinInfoList.push(array[index])
           }
@@ -282,6 +291,12 @@ export default {
       const vm = this
       mainNotiTitle().then(res => {
         vm.notiMainTitleList = res.data
+      })
+    },
+    getFavCoinList() {
+      const vm = this
+      favCoinList().then(res => {
+        vm.favList = res.data
       })
     }
   }
