@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-cloak>
     <!--
-    <div v-show="noticeInfoList.length === 0" id="overlay_t"></div>
+    <div v-show="noticeInfoList.length !== 0" id="overlay_t"></div>
     -->
     <div class="main_container">
       <!-- container -->

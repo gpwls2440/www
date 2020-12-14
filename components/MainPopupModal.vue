@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div id="overlay_t"></div>
     <div v-for="(noin, index) in noticeInfoList" :key="index" class="popup_wrap" style="left: 30%">
       <div :id="`pop_div${noin.notiDtTm}`" class="pop_div" style="min-width: 500px; top: 120px; left: 30%">
         <!-- pop_div -->
@@ -64,12 +65,31 @@ export default {
   },
   methods: {
     close(notiDtTm) {
-      // this.$emit('close')
+      if ($('#chekbox' + notiDtTm).is(':checked')) {
+        // this.setCookies('pop_div' + notiDtTm, 'done', 1)
+        this.$cookie.set('pop_div' + notiDtTm, 'done', 1)
+      }
       $('#pop_div' + notiDtTm).css('display', 'none')
+
+      let noneadd = 0
+      for (let i = 0; i < this.noticeInfoList.length; i++) {
+        const display = $('.popup_wrap .pop_div').eq(i).css('display')
+        if (display === 'none') {
+          noneadd = noneadd + 1
+          if (noneadd === this.noticeInfoList.length) {
+            $('#overlay_t').css('display', 'none')
+          }
+        }
+      }
     },
     getPopupNotiList() {
       popupNotiList().then(res => {
         this.noticeInfoList = res.data
+        this.noticeInfoList.forEach(function (item, index, array) {
+          if (document.cookie.includes(item.notiDtTm)) {
+            // $('#pop_div' + item.notiDtTm).css('display', 'none')
+          }
+        })
       })
     }
   }
