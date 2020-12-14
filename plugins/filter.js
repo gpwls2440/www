@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { repComma, repUnComma } from './util'
 
 Vue.directive('focus', {
   inserted(el) {
@@ -83,4 +84,24 @@ Vue.filter('cutSymbol', function (input) {
     out = tmp[0]
   }
   return out
+})
+
+Vue.filter('toFixMarket', function () {
+  return function (input, coinMarket) {
+    input = repUnComma(input)
+    let out
+    if (coinMarket === 'KRW') {
+      let underCount = 2
+      if (Number(repUnComma(input)) >= 100) {
+        underCount = 0
+      } else if (Number(repUnComma(input)) >= 10) {
+        underCount = 1
+      }
+
+      out = input.toFixed(underCount)
+    } else {
+      out = input.toFixed(8)
+    }
+    return repComma(out)
+  }
 })
