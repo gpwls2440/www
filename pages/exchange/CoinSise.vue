@@ -83,7 +83,7 @@
   <!-- exchange_Left -->
 </template>
 <script>
-import { coinList, favCoinList } from '~/api/coin'
+import { coinList, favCoinList, favCoinFunc } from '~/api/coin'
 export default {
   name: 'CoinSise',
   data() {
@@ -93,8 +93,12 @@ export default {
       coinInfoList: [],
       favList: [],
       oriSymbol: '',
-      propertyName: ''
+      propertyName: '',
+      favType: 'N'
     }
+  },
+  mounted() {
+    this.getFavCoinList()
   },
   methods: {
     showMarket(market) {
@@ -129,7 +133,18 @@ export default {
         return ''
       }
     },
-    setFav(symbol) {}
+    setFav(symbol) {
+      const vm = this
+      if (vm.favList.includes(symbol)) {
+        vm.favType = 'D'
+      }
+      favCoinFunc(symbol, vm.favType).then(res => {
+        console.log(res.data)
+      })
+    },
+    loadData() {
+      console.log('lodaData')
+    }
   }
 }
 </script>
