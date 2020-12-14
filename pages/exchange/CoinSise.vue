@@ -3,7 +3,7 @@
     <!-- exchange_Left -->
     <div class="search">
       <input v-model="serchText" name="ex4Search" type="text" :placeholder="$t('SearchCoin')" value="" />
-      <a id="goEx4Search" href="javascript://" class="search_btn"><img src="~/assets/images/search_btn.png" :alt="$t('search')" /></a>
+      <a id="goEx4Search" class="search_btn"><img src="~/assets/images/search_btn.png" :alt="$t('search')" @click="getCoinList()" /></a>
     </div>
     <div id="tab_btn" class="ex_tab1">
       <ul>
@@ -95,6 +95,11 @@ export default {
       oriSymbol: '',
       propertyName: '',
       favType: 'N'
+    }
+  },
+  watch: {
+    serchText() {
+      // this.getCoinList()
     }
   },
   mounted() {

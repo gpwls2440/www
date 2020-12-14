@@ -4,7 +4,7 @@
 
     <div class="top_area">
       <p class="tit">
-        <span class="b1"><img :src="`/assets/images/coin/${symbol}.png`" :alt="symbol" style="width: 32px" /></span>
+        <span class="b1"><img :src="require(`~/assets/images/coin/${symbol}.png`)" :alt="symbol" style="width: 32px" /></span>
         <a href="javascript://" class="w_area_btn">
           <span class="st1">{{ coinName }}</span> <span class="st2">{{ symbol }}/{{ market }} </span>
           <span class="b2"><img src="~/assets/images/arr_btn.png" alt="" /></span>
@@ -78,31 +78,41 @@
   </div>
   <!-- exchange_Right -->
 </template>
+
 <script>
+import $ from 'jquery'
+import 'imports-loader'
+import 'jquery-mousewheel'
+import 'malihu-custom-scrollbar-plugin'
+import { coinList } from '~/api/coin'
+
 export default {
   name: 'Chart',
   data() {
     return {
-      coinName: '비트코인',
-      symbol: 'BTC',
-      market: 'KRW',
-      coinInfoList: [
-        {
-          coinName: '비트코인',
-          symbol: 'BTC',
-          market: 'KRW'
-        }
-      ],
-      coinInfo: {
-        lastPrice: '12,000,000',
-        market: 'KRW',
-        highPrice: '13,000,000',
-        lowPrice: '11,000,000',
-        totalVol: '0.022',
-        totalAmount: '1,226,00',
-        updnRate: '1.40',
-        updnPrice: '290,000'
-      }
+      coinName: '',
+      symbol: '',
+      market: '',
+      coinInfoList: []
+    }
+  },
+  mounted() {
+    this.getCoinList()
+  },
+  updated() {
+    // mCustomScrollbar 소스
+    $('.w_area').mCustomScrollbar({
+      scrollButtons: { enable: false },
+      theme: 'dark',
+      scrollbarPosition: 'outside'
+    })
+  },
+  methods: {
+    getCoinList() {
+      const vm = this
+      coinList().then(res => {
+        vm.coinInfoList = res.data
+      })
     }
   }
 }
