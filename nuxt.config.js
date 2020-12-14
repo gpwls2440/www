@@ -20,7 +20,8 @@ export default {
     { src: '~/plugins/amcharts.js', mode: 'client' },
     { src: '~/plugins/pikaday.js', mode: 'client' },
     { src: '~/plugins/vue-moment.js' },
-    { src: '~/plugins/i18n.js' }
+    { src: '~/plugins/i18n.js' },
+    { src: '~/plugins/vue-cookie.js' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

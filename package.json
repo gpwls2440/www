@@ -34,6 +34,7 @@
     "vee-validate": "^3.0.0",
     "vue-awesome-swiper": "^4.1.1",
     "vue-chartjs": "^3.5.1",
+    "vue-cookie": "^1.1.4",
     "vue-i18n": "^8.22.2",
     "vue-moment": "^4.1.0",
     "vue-spinner": "^1.0.4"
