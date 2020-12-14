@@ -60,7 +60,7 @@
             <div id="tab_btn" class="main_tab">
               <ul>
                 <li v-show="favList[0] != null" :class="{ active: curItem == ' ' }">
-                  <a href="#con1" @click="showMarket(' ')">{{ $t('favorites') }}</a>
+                  <a @click="showMarket(' ')">{{ $t('favorites') }}</a>
                 </li>
                 <li :class="{ active: curItem == 'KRW' }"><a title="KRW" @click="showMarket('KRW')">KRW</a></li>
                 <li :class="{ active: curItem == 'BTC' }"><a @click="showMarket('BTC')">BTC</a></li>
@@ -233,7 +233,7 @@ export default {
       },
       curItem: 'KRW',
       coinInfoList: [],
-      favList: ['BTC']
+      favList: []
     }
   },
   computed: {
@@ -276,10 +276,7 @@ export default {
         vm.coinInfoList = []
         coinList.forEach(function (item, index, array) {
           if (item.symbol.includes('_')) {
-            // const symbol = item.symbol.slice(item.symbol.length, item.symbol.length - 4)
-            console.log(item.symbol)
-            console.log(item.symbol.length)
-            console.log(item.symbol.length - 4)
+            item.symbol = item.symbol.substring(0, item.symbol.length - 4)
           }
           if (item.market === vm.curItem) {
             vm.coinInfoList.push(array[index])

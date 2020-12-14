@@ -7,6 +7,5 @@ export const coinList = () => {
 
 // 즐겨찾기 코인
 export const favCoinList = () => {
-  return axiosGet('/api/favCoinWebList', {
-  })
+  return axiosGet('/ajax/favCoinWebList', {})
 }
