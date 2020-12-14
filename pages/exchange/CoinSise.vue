@@ -83,43 +83,15 @@
   <!-- exchange_Left -->
 </template>
 <script>
+import { coinList, favCoinList } from '~/api/coin'
 export default {
   name: 'CoinSise',
   data() {
     return {
       serchText: '',
       curMarket: ' ',
-      coinInfoList: [
-        {
-          coinName: '비트코인',
-          symbol: 'BTC',
-          market: 'KRW',
-          lastPrice: '20,000,000',
-          updnRate: '1.0'
-        },
-        {
-          coinName: '이더리움',
-          symbol: 'ETH',
-          market: 'KRW',
-          lastPrice: '260,000',
-          updnRate: '3.0'
-        },
-        {
-          coinName: '라이트코인',
-          symbol: 'LTC',
-          market: 'KRW',
-          lastPrice: '80,830',
-          updnRate: '0.03'
-        },
-        {
-          coinName: '퀀텀',
-          symbol: 'QTUM',
-          market: 'KRW',
-          lastPrice: '2,820',
-          updnRate: '0.03'
-        }
-      ],
-      favList: ['BTC', 'ETH'],
+      coinInfoList: [],
+      favList: [],
       oriSymbol: '',
       propertyName: ''
     }
@@ -127,6 +99,28 @@ export default {
   methods: {
     showMarket(market) {
       this.curMarket = market
+      this.getCoinList()
+    },
+    getCoinList() {
+      coinList().then(res => {
+        const coinList = res.data
+        const vm = this
+        vm.coinInfoList = []
+        coinList.forEach(function (item, index, array) {
+          if (item.symbol.includes('_')) {
+            item.symbol = item.symbol.substring(0, item.symbol.length - 4)
+          }
+          if (item.market === vm.curMarket) {
+            vm.coinInfoList.push(array[index])
+          }
+        })
+      })
+    },
+    getFavCoinList() {
+      const vm = this
+      favCoinList().then(res => {
+        vm.favList = res.data
+      })
     },
     checkFav(symbol) {
       if (this.favList.includes(symbol)) {
