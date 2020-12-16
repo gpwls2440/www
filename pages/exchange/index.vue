@@ -6,7 +6,7 @@
       <div id="CoinInfoCtrl" class="ex_wrapper">
         <!-- ex_wrapper -->
         <coin-sise></coin-sise>
-        <chart></chart>
+        <chart :symbol-market="symbolMarket"></chart>
         <div class="exchange2_cb">
           <!-- 주문, 호가, 거래내역 영역-->
           <div class="exchange2_Left">
@@ -42,7 +42,10 @@ export default {
     tradehist
   },
   data() {
-    return {}
-  }
+    return {
+      symbolMarket: ''
+    }
+  },
+  mounted() {}
 }
 </script>

@@ -80,38 +80,45 @@
 </template>
 
 <script>
-import $ from 'jquery'
-import 'imports-loader'
-import 'jquery-mousewheel'
-import 'malihu-custom-scrollbar-plugin'
-import { coinList } from '~/api/coin'
+import { coinList, coinInfo } from '~/api/coin'
 
 export default {
   name: 'Chart',
+  props: {
+    symbolMarket: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       coinName: '',
-      symbol: '',
+      symbol: 'BTC',
       market: '',
-      coinInfoList: []
+      coinInfoList: [],
+      coinInfo: {},
+      basicPrice: ''
     }
   },
   mounted() {
     this.getCoinList()
-  },
-  updated() {
-    // mCustomScrollbar 소스
-    $('.w_area').mCustomScrollbar({
-      scrollButtons: { enable: false },
-      theme: 'dark',
-      scrollbarPosition: 'outside'
-    })
+    this.getCoinInfo()
   },
   methods: {
     getCoinList() {
       const vm = this
       coinList().then(res => {
         vm.coinInfoList = res.data
+      })
+    },
+    getCoinInfo() {
+      const vm = this
+      vm.symbolMarket = vm.$route.query.symbol_market
+      coinInfo(vm.symbolMarket).then(res => {
+        vm.coinInfo = res.data.coinInfo
+        vm.coinName = res.data.coinName
+        vm.market = res.data.market
+        vm.symbol = res.data.symbol
       })
     }
   }

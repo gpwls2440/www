@@ -17,3 +17,10 @@ export const favCoinFunc = (symbol = '', type = '') => {
     type: type
   })
 }
+
+// 코인정보
+export const coinInfo = (symbolMarket = '') => {
+  return axiosPost('/exchange/coinInfo', {
+    symbol: symbolMarket
+  })
+}

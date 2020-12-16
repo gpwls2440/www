@@ -91,7 +91,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(coin, index) in coinInfoList" :key="index" class="coinList" @click="goMarket(coin.symbol)">
+                    <tr v-for="(coin, index) in coinInfoList" :key="index" class="coinList" @click="goMarket(coin.symbol, coin.market)">
                       <td :title="coin.coinName">
                         <div style="width: 50px; float: left; margin-left: 20px; padding-top: 5px">
                           <img :src="require(`~/assets/images/coin/${coin.symbol}.png`)" style="width: 60%; vertical-align: middle" :alt="coin.symbol" />
@@ -263,8 +263,9 @@ export default {
       this.curItem = market
       this.getCoinList()
     },
-    goMarket(symbol) {
-      this.$router.push({ path: '/exchange', query: { symbol } })
+    goMarket(symbol, market) {
+      const symbolMarket = symbol + '_' + market
+      this.$router.replace({ path: '/exchange', query: { symbol_market: symbolMarket } })
     },
     getNoticeLength(val) {
       this.noticeInfoList = val
@@ -274,14 +275,22 @@ export default {
         const coinList = res.data
         const vm = this
         vm.coinInfoList = []
-        coinList.forEach(function (item, index, array) {
-          if (item.symbol.includes('_')) {
-            item.symbol = item.symbol.substring(0, item.symbol.length - 4)
-          }
-          if (item.market === vm.curItem) {
-            vm.coinInfoList.push(array[index])
-          }
-        })
+        if (vm.curItem === ' ') {
+          coinList.forEach(function (item, index, array) {
+            if (vm.favList.includes(item.symbol)) {
+              vm.coinInfoList.push(array[index])
+            }
+          })
+        } else {
+          coinList.forEach(function (item, index, array) {
+            if (item.symbol.includes('_')) {
+              item.symbol = item.symbol.substring(0, item.symbol.length - 4)
+            }
+            if (item.market === vm.curItem) {
+              vm.coinInfoList.push(array[index])
+            }
+          })
+        }
       })
     },
     getNotiTitle() {
