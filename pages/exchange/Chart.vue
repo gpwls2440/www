@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { coinList, coinInfo } from '~/api/coin'
 
 export default {
@@ -100,9 +101,16 @@ export default {
       basicPrice: ''
     }
   },
+  computed: {
+    ...mapGetters(['getSymbolMarket'])
+  },
   mounted() {
     this.getCoinList()
     this.getCoinInfo()
+  },
+  updated() {
+    // this.getCoinInfo()
+    console.log('update')
   },
   methods: {
     getCoinList() {
@@ -113,8 +121,7 @@ export default {
     },
     getCoinInfo() {
       const vm = this
-      vm.symbolMarket = vm.$route.query.symbol_market
-      coinInfo(vm.symbolMarket).then(res => {
+      coinInfo(vm.getSymbolMarket).then(res => {
         vm.coinInfo = res.data.coinInfo
         vm.coinName = res.data.coinName
         vm.market = res.data.market

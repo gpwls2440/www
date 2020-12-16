@@ -16,7 +16,7 @@
             <col style="width: * %" />
           </colgroup>
           <tbody>
-            <tr v-for="(ask, index) in coinInfo.askInfoList" :key="ask">
+            <tr v-for="(ask, index) in coinInfo.askInfoList" :key="index">
               <td class="tr pricetd" @click="setPrice(ask.price)">
                 <span class="price"
                   ><span v-show="ask.myOrder > 0">({{ ask.myOrder }}) </span> {{ ask.qty }}</span
@@ -88,7 +88,7 @@
               </td>
             </tr>
 
-            <tr v-for="(bid, index) in coinInfo.bidInfoList" :key="index">
+            <tr v-for="(bid, index) in coinInfo.bidInfoList" :key="index + 10">
               <td class="empty"></td>
               <td class="bg2" :class="{ line2: market != 'KRW', border_l: bid.price == coinInfo.lastPrice }" @click="setPrice(bid.price)">
                 <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{{ bid.price }}</span>
@@ -112,148 +112,32 @@
   <!-- exchange2_Right -->
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { coinInfo } from '~/api/coin'
 export default {
-  name: 'TransacionHist',
+  name: 'Hoga',
   data() {
     return {
-      coinInfo: {
-        askInfoList: [
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          }
-        ],
-        bidInfoList: [
-          {
-            qty: '0.001',
-            percent: '5',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '21',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '8',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '5',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          },
-          {
-            qty: '0.001',
-            percent: '10',
-            price: '25,049,000',
-            pricePer: '21.24'
-          }
-        ],
-        totalVol: '0.024',
-        symbol: 'BTC',
-        totalAmount: '12,111,000',
-        highestPrice: '21,000,000',
-        lowestPrice: '8,000,000',
-        openPrice: '12,000,000',
-        highPrice: '14,000,000',
-        lowPrice: '11,000,000',
-        highPricePer: '50',
-        lowPricePer: '30'
-      },
+      coinInfo: {},
       basicPrice: '12,000,000',
       market: 'KRW'
+    }
+  },
+  computed: {
+    ...mapGetters(['getSymbolMarket'])
+  },
+  mounted() {
+    this.getCoinInfo()
+  },
+  methods: {
+    getCoinInfo() {
+      const vm = this
+      coinInfo(vm.getSymbolMarket).then(res => {
+        vm.coinInfo = res.data.coinInfo
+        vm.coinName = res.data.coinName
+        vm.market = res.data.market
+        vm.symbol = res.data.symbol
+      })
     }
   }
 }

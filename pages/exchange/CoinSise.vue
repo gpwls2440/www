@@ -80,7 +80,9 @@
   <!-- exchange_Left -->
 </template>
 <script>
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 import { coinList, favCoinList, favCoinFunc } from '~/api/coin'
+
 export default {
   name: 'CoinSise',
   data() {
@@ -94,6 +96,9 @@ export default {
       favType: 'N'
     }
   },
+  computed: {
+    ...mapGetters(['getSymbolMarket'])
+  },
   watch: {
     serchText() {
       // this.getCoinList()
@@ -104,6 +109,8 @@ export default {
     this.getCoinList()
   },
   methods: {
+    ...mapMutations(['setSymbolMarket']),
+    ...mapActions(['setSymbolMarketFunc']),
     showMarket(market) {
       this.curMarket = market
       this.getCoinList()
@@ -157,8 +164,9 @@ export default {
         }
       })
     },
-    loadData() {
-      console.log('lodaData')
+    loadData(symbol, market) {
+      // this.setSymbolMarket(symbol + '_' + market)
+      this.setSymbolMarketFunc(symbol + '_' + market)
     }
   }
 }

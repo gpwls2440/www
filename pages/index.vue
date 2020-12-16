@@ -200,7 +200,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import MainPopupModal from '../components/MainPopupModal'
 import { coinList, favCoinList } from '~/api/coin'
@@ -250,6 +250,7 @@ export default {
     this.getFavCoinList()
   },
   methods: {
+    ...mapMutations(['setSymbolMarket']),
     ticker() {
       const vm = this
       setTimeout(function () {
@@ -265,7 +266,11 @@ export default {
     },
     goMarket(symbol, market) {
       const symbolMarket = symbol + '_' + market
+      this.setSymbolMarket(symbolMarket)
+      /*
       this.$router.replace({ path: '/exchange', query: { symbol_market: symbolMarket } })
+      */
+      this.$router.push({ path: '/exchange' })
     },
     getNoticeLength(val) {
       this.noticeInfoList = val

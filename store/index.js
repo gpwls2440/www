@@ -3,7 +3,8 @@ export const state = () => ({
   locale: 'ko',
   uid: '',
   sessionId: '',
-  userLevel: ''
+  userLevel: '',
+  symbolMarket: ''
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -19,8 +20,18 @@ export const mutations = {
   },
   setUserLevel(state, data) {
     state.userLevel = data
+  },
+  setSymbolMarket(state, data) {
+    state.symbolMarket = data
   }
 }
+
+export const actions = {
+  setSymbolMarketFunc(context, data) {
+    return context.commit('setSymbolMarket', data)
+  }
+}
+
 export const getters = {
   getUid(state) {
     return state.uid
@@ -30,5 +41,8 @@ export const getters = {
   },
   getUserLevel(state) {
     return state.userLevel
+  },
+  getSymbolMarket(state) {
+    return state.symbolMarket
   }
 }
