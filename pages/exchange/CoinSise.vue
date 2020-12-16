@@ -60,9 +60,6 @@
               <td class="tl" style="padding-right: 0px">
                 <p class="coinName-box">
                   <a :id="`fav_${coin.symbol}`" class="btn_onoff" :class="checkFav(coin.symbol)" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
-                  <!--
-                  <a id="fav_BTC" class="btn_onoff on" :title="coin.coinName" @click="setFav(coin.symbol)">Favorite</a>
-                  -->
                   <span class="coinName">{{ coin.coinName }}</span>
                 </p>
                 <span class="f12">({{ coin.symbol | cutSymbol }}/{{ coin.market }})</span><br />
@@ -89,7 +86,7 @@ export default {
   data() {
     return {
       serchText: '',
-      curMarket: ' ',
+      curMarket: 'KRW',
       coinInfoList: [],
       favList: [],
       oriSymbol: '',
@@ -104,6 +101,7 @@ export default {
   },
   mounted() {
     this.getFavCoinList()
+    this.getCoinList()
   },
   methods: {
     showMarket(market) {
@@ -115,14 +113,22 @@ export default {
         const coinList = res.data
         const vm = this
         vm.coinInfoList = []
-        coinList.forEach(function (item, index, array) {
-          if (item.symbol.includes('_')) {
-            item.symbol = item.symbol.substring(0, item.symbol.length - 4)
-          }
-          if (item.market === vm.curMarket) {
-            vm.coinInfoList.push(array[index])
-          }
-        })
+        if (vm.curMarket === ' ') {
+          coinList.forEach(function (item, index, array) {
+            if (vm.favList.includes(item.symbol)) {
+              vm.coinInfoList.push(array[index])
+            }
+          })
+        } else {
+          coinList.forEach(function (item, index, array) {
+            if (item.symbol.includes('_')) {
+              item.symbol = item.symbol.substring(0, item.symbol.length - 4)
+            }
+            if (item.market === vm.curMarket) {
+              vm.coinInfoList.push(array[index])
+            }
+          })
+        }
       })
     },
     getFavCoinList() {
@@ -140,11 +146,15 @@ export default {
     },
     setFav(symbol) {
       const vm = this
+      this.getFavCoinList()
+      vm.favType = 'N'
       if (vm.favList.includes(symbol)) {
         vm.favType = 'D'
       }
       favCoinFunc(symbol, vm.favType).then(res => {
-        console.log(res.data)
+        if (res.data === 'OK') {
+          this.getFavCoinList()
+        }
       })
     },
     loadData() {
