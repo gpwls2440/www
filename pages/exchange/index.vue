@@ -49,3 +49,9 @@ export default {
   mounted() {}
 }
 </script>
+<style>
+#header {
+  border-bottom: 6px solid #00b9b2 !important;
+  background: #1b2f42 !important;
+}
+</style>

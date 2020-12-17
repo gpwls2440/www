@@ -270,7 +270,7 @@ export default {
       /*
       this.$router.replace({ path: '/exchange', query: { symbol_market: symbolMarket } })
       */
-      this.$router.replace({ path: '/exchange' })
+      this.$router.push({ path: '/exchange' })
     },
     getNoticeLength(val) {
       this.noticeInfoList = val
