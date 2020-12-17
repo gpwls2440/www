@@ -108,10 +108,6 @@ export default {
     this.getCoinList()
     this.getCoinInfo()
   },
-  updated() {
-    // this.getCoinInfo()
-    console.log('update')
-  },
   methods: {
     getCoinList() {
       const vm = this
