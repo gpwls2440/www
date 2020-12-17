@@ -24,11 +24,13 @@
     "bxslider": "^4.2.14",
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
+    "cookie": "^0.4.1",
     "core-js": "^3.6.5",
     "eventsource-polyfill": "^0.9.6",
     "imports-loader": "^1.2.0",
     "jquery": "^3.5.1",
     "jquery-mousewheel": "^3.1.13",
+    "js-cookie": "^2.2.1",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
     "nuxt": "^2.14.6",
     "nuxt-polyfill": "^1.0.3",
@@ -40,7 +42,8 @@
     "vue-cookie": "^1.1.4",
     "vue-i18n": "^8.22.2",
     "vue-moment": "^4.1.0",
-    "vue-spinner": "^1.0.4"
+    "vue-spinner": "^1.0.4",
+    "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

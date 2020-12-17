@@ -225,8 +225,6 @@ export default {
         $('#certMin').text(certMin)
         $('#certSec').text(certSec)
 
-        console.log(certMin.toString() === '0')
-        console.log(certSec.toString() === '00')
         if (certMin.toString() === '0' && certSec.toString() === '00') {
           this.claerTimeout()
           // certloginChk = true

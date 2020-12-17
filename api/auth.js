@@ -1,4 +1,4 @@
-import { axiosPost } from './config'
+import { axiosPost, axiosGet } from './config'
 
 /**
  * 로그인
@@ -29,4 +29,9 @@ export const CertReSend = (uid = '') => {
   return axiosPost('/auth/reSendCert', {
     uid
   })
+}
+
+// 로그아웃
+export const Logout = () => {
+  return axiosGet('/auth/logout', {})
 }

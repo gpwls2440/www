@@ -29,6 +29,11 @@ export const mutations = {
 export const actions = {
   setSymbolMarketFunc(context, data) {
     return context.commit('setSymbolMarket', data)
+  },
+  clearUserFunc(context, data) {
+    context.commit('setUid', data)
+    context.commit('setSessionId', data)
+    context.commit('setUserLevel', data)
   }
 }
 

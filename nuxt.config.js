@@ -21,7 +21,8 @@ export default {
     { src: '~/plugins/pikaday.js', mode: 'client' },
     { src: '~/plugins/vue-moment.js' },
     { src: '~/plugins/i18n.js' },
-    { src: '~/plugins/vue-cookie.js' }
+    { src: '~/plugins/vue-cookie.js' },
+    { src: '~/plugins/persistedState.js' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
