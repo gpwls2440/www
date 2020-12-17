@@ -4,7 +4,7 @@ export const state = () => ({
   uid: '',
   sessionId: '',
   userLevel: '',
-  symbolMarket: ''
+  symbolMarket: 'BTC_KRW'
 })
 export const mutations = {
   SET_LANG(state, locale) {

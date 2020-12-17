@@ -165,7 +165,6 @@ export default {
       })
     },
     loadData(symbol, market) {
-      // this.setSymbolMarket(symbol + '_' + market)
       this.setSymbolMarketFunc(symbol + '_' + market)
     }
   }
