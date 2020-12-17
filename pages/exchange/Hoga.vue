@@ -21,14 +21,14 @@
                 <span class="price"
                   ><span v-show="ask.myOrder > 0">({{ ask.myOrder }}) </span> {{ ask.qty }}</span
                 >
-                <span class="gauge"><span class="num" :style="`width:${ask.percent}}%`"></span></span>
+                <span class="gauge"><span class="num" :style="`width:${ask.percent}%`"></span></span>
               </td>
               <td class="bg1" :class="{ line2: market != 'KRW', border_l: ask.price == coinInfo.lastPrice }" @click="setPrice(ask.price)">
                 <span :class="{ red: ask.pricePer > 0, blue: ask.pricePer < 0 }">{{ ask.price }}</span>
                 <p v-if="market != 'KRW'" class="won_price small">{{ basicPrice }}<span>KRW</span></p>
               </td>
               <td class="bg1" :class="{ border_r: ask.price == coinInfo.lastPrice }" @click="setPrice(ask.price)">
-                <span :class="{ red: ask.pricePer > 0, blue: ask.pricePer < 0 }">{{ ask.pricePer }}%</span>
+                <span :class="{ red: ask.pricePer > 0, blue: ask.pricePer < 0 }">{{ ask.pricePer | toFixed2 }}%</span>
               </td>
               <td v-show="index == 0" rowspan="10">
                 <div class="row_pop" style="top: 5px">
@@ -72,7 +72,7 @@
                     <div class="right">
                       <span class="red">{{ coinInfo.highPrice }}</span>
                       <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
-                      <p class="red">{{ coinInfo.highPricePer }}%</p>
+                      <p class="red">{{ coinInfo.highPricePer | toFixed2 }}%</p>
                     </div>
                   </div>
                   <div class="row_l" style="border-bottom: 0">
@@ -80,7 +80,7 @@
                     <div class="right">
                       <span class="blue">{{ coinInfo.lowPrice }}</span>
                       <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
-                      <p class="blue">{{ coinInfo.lowPricePer }}%</p>
+                      <p class="blue">{{ coinInfo.lowPricePer | toFixed2 }}%</p>
                     </div>
                   </div>
                 </div>
@@ -95,13 +95,13 @@
                 <p v-if="market != 'KRW'" class="won_price small">{{ basicPrice }}<span>KRW</span></p>
               </td>
               <td class="bg2" :class="{ border_r: bid.price == coinInfo.lastPrice }" @click="setPrice(bid.price)">
-                <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{{ bid.pricePer }}%</span>
+                <span :class="{ red: bid.pricePer > 0, blue: bid.pricePer < 0 }">{{ bid.pricePer | toFixed2 }}%</span>
               </td>
               <td class="tl pricetd" @click="setPrice(bid.price)">
                 <span class="price"
                   >{{ bid.qty }}<span v-show="bid.myOrder > 0"> ({{ bid.myOrder }})</span></span
                 >
-                <span class="gauge"><span class="num2" :style="`width:${bid.percent}}%`"></span></span>
+                <span class="gauge"><span class="num2" :style="`width:${bid.percent}%`"></span></span>
               </td>
             </tr>
           </tbody>
