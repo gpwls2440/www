@@ -105,3 +105,9 @@ Vue.filter('toFixMarket', function () {
     return repComma(out)
   }
 })
+
+Vue.filter('toFixed2', function (value) {
+  if (value) {
+    return Number(value).toFixed(2)
+  }
+})
