@@ -13,7 +13,7 @@
           <span class="topSpan">
             <span class="white" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }">{{ coinInfo.lastPrice }}</span> <span>{{ market }}</span>
             <span v-if="market != 'KRW'">
-              (<span class="white" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }"> {{ basicPrice | calcPrice:coinInfo.lastPrice  }}</span> <span>KRW</span>)
+              (<span class="white" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }"> {{ basicPrice }}</span> <span>KRW</span>)
             </span>
           </span>
           <span class="topSpan minWidth1">
@@ -27,14 +27,14 @@
           <span class="topSpan">
             <span class="sec3">{{ $t('volume') }}</span>
             <span class="sec4 white"> {{ coinInfo.totalVol }} </span>
-            <span class="n1">{{ coinInfo.symbol | cutSymbol }}</span>
+            <span class="n1">{{ coinInfo.symbol }}</span>
           </span>
         </div>
         <div class="wc_area mCustomScrollbar">
           <ul>
             <li v-for="(coin, index) in coinInfoList" :key="index" class="isCoinSelectBtn" @click="loadData(coin.symbol, coin.market)">
               {{ coin.coinName }}
-              <span>({{ coin.symbol | cutSymbol }}/{{ coin.market }})</span>
+              <span>({{ coin.symbol }}/{{ coin.market }})</span>
             </li>
           </ul>
         </div>
@@ -49,6 +49,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { coinInfo } from '~/api/coin'
+
 export default {
   name: 'Chart',
   data() {
@@ -56,21 +59,26 @@ export default {
       coinName: '비트코인',
       symbol: 'BTC',
       market: 'KRW',
-      coinInfo: {
-        lastPrice: '20,950,000',
-        updnRate: '1.40',
-        highPrice: '20,950,000',
-        lowPrice: '20,950,000',
-        totalVol: '0.022 BTC',
-        symbol: 'BTC'
-      },
-      coinInfoList: [
-        {
-          coinName: '이더리움',
-          symbol: 'ETH',
-          market: 'KRW'
-        }
-      ]
+      coinInfo: {},
+      coinInfoList: [],
+      basicPrice: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['getSymbolMarket'])
+  },
+  mounted() {
+    this.getCoinInfo()
+  },
+  methods: {
+    getCoinInfo() {
+      const vm = this
+      coinInfo(vm.getSymbolMarket).then(res => {
+        vm.coinInfo = res.data.coinInfo
+        vm.coinName = res.data.coinName
+        vm.market = res.data.market
+        vm.symbol = res.data.symbol
+      })
     }
   }
 }

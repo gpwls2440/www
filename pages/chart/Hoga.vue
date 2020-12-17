@@ -23,7 +23,7 @@
               <span class="ico" :class="{ ico_up: coinInfo.updnSign == '1', ico_down: coinInfo.updnSign == '-1' }"></span>
               <span class="t2" :class="{ red: coinInfo.updnSign == '1', blue: coinInfo.updnSign == '-1' }">{{ coinInfo.updnPrice }}</span>
             </li>
-            <li v-for="(bid, index) in coinInfo.bidInfoList" :key="index" class="bidLi" @click="setPrice(bid.price)">
+            <li v-for="(bid, index) in coinInfo.bidInfoList" :key="index + 10" class="bidLi" @click="setPrice(bid.price)">
               <span class="l blue">{{ bid.price }}</span>
               <span class="c" style="padding-right: 5px; width: 105px; font-size: 10px"
                 >{{ bid.qty }} <span v-show="bid.myOrder > 0"> ({{ bid.myOrder }})</span></span
@@ -59,118 +59,38 @@
 </template>
 
 <script>
+import { coinInfo } from '~/api/coin'
+import { tickList } from '~/api/exchange'
+
 export default {
   name: 'Hoga',
   components: {},
   data() {
     return {
-      market: 'KRW',
+      market: '',
       symbol: 'BTC',
-      coinInfo: {
-        askInfoList: [
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          }
-        ],
-        bidInfoList: [
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: 10
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          },
-          {
-            price: '23,047,000',
-            qty: '0.001',
-            percent: '10'
-          }
-        ],
-        lastPrice: '12,000,000',
-        updnPrice: '5,000'
-      },
-      tickList: [
-        {
-          mtchPrc: '20,950,000',
-          mtchQty: '0.014',
-          mtchTime: '08:19:55'
-        },
-        {
-          mtchPrc: '20,950,000',
-          mtchQty: '0.014',
-          mtchTime: '08:19:55'
-        },
-        {
-          mtchPrc: '20,950,000',
-          mtchQty: '0.014',
-          mtchTime: '08:19:55'
-        },
-        {
-          mtchPrc: '20,950,000',
-          mtchQty: '0.014',
-          mtchTime: '08:19:55'
-        },
-        {
-          mtchPrc: '20,950,000',
-          mtchQty: '0.014',
-          mtchTime: '08:19:55'
-        }
-      ]
+      coinInfo: {},
+      tickList: []
+    }
+  },
+  mounted() {
+    this.getCoinInfo()
+    this.getTickList()
+  },
+  methods: {
+    getCoinInfo() {
+      const vm = this
+      coinInfo(vm.getSymbolMarket).then(res => {
+        vm.coinInfo = res.data.coinInfo
+        vm.market = res.data.market
+        vm.symbol = res.data.symbol
+      })
+    },
+    getTickList() {
+      const vm = this
+      tickList(vm.symbol).then(res => {
+        vm.tickList = res.data
+      })
     }
   }
 }
