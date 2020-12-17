@@ -36,15 +36,15 @@
               <th class="tr">{{ $t('matchingtotal') }}</th>
             </tr>
             <tr v-for="(tick, index) in tickList" :key="index" @click="setPrice(tick.mtchPrc)">
-              <td class="tc">{{ tick.mtchTime }}</td>
+              <td class="tc">{{ tick.mtchTime | dateAndTimeFilter }}</td>
               <td class="tr">
-                <span style="font-weight: bold" :class="{ red: tick.updnSign == '1', blue: tick.updnSign == '-1' }">{{ tick.mtchPrc }}</span> {{ market }}
+                <span style="font-weight: bold" :class="{ red: tick.updnSign == '1', blue: tick.updnSign == '-1' }">{{ tick.mtchPrc | commaFilter }}</span> {{ market }}
               </td>
               <td class="tr">
                 <span :class="{ red: tick.preUpdnSign == '1', blue: tick.preUpdnSign == '-1' }">{{ tick.mtchQty }}</span> {{ symbol }}
               </td>
               <td class="tr">
-                <span>{{ tick.mtchAmt }}</span> {{ market }}
+                <span>{{ tick.mtchAmt | commaFilter }}</span> {{ market }}
               </td>
             </tr>
           </tbody>
@@ -65,6 +65,7 @@
   </div>
 </template>
 <script>
+import { tickList } from '~/api/exchange'
 export default {
   name: 'TradeHist',
   data() {
@@ -72,32 +73,22 @@ export default {
       tab: '1',
       market: 'KRW',
       symbol: 'BTC',
-      tickList: [
-        {
-          mtchTime: '2020.12.07 15:38:54',
-          mtchPrc: '12,000,000',
-          mtchQty: '0.02',
-          mtchAmt: '122,000'
-        },
-        {
-          mtchTime: '2020.12.07 15:38:54',
-          mtchPrc: '12,000,000',
-          mtchQty: '0.02',
-          mtchAmt: '122,000'
-        },
-        {
-          mtchTime: '2020.12.07 15:38:54',
-          mtchPrc: '12,000,000',
-          mtchQty: '0.02',
-          mtchAmt: '122,000'
-        }
-      ]
+      tickList: []
     }
+  },
+  mounted() {
+    this.getTickList()
   },
   methods: {
     tabChange(tab) {
       const vm = this
       vm.tab = tab
+    },
+    getTickList() {
+      const vm = this
+      tickList(vm.symbol).then(res => {
+        vm.tickList = res.data
+      })
     }
   }
 }

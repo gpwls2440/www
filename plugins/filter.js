@@ -41,6 +41,15 @@ Vue.filter('hhmmssFilter', function (value, index) {
   }
 })
 
+Vue.filter('dateAndTimeFilter', function (value) {
+  if (value) {
+    const date = value.substring(0, 8)
+    const time = value.substring(8)
+
+    return `${date.substring(0, 4)}.${date.substring(4, 6)}.${date.substring(6, 8)} ${time.substring(0, 2)}:${time.substring(2, 4)}:${time.substring(4, 6)}`
+  }
+})
+
 Vue.filter('askbidHeight', function (value, index) {
   const centerH = 53
   const itemH = 26
