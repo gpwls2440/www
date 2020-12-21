@@ -17,4 +17,6 @@ $ npm run start
 $ npm run generate
 ```
 
+# update test
+
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
