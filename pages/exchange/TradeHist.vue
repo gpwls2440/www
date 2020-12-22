@@ -17,7 +17,7 @@
     </div>
     <!-- // tab_btn3 -->
 
-    <div id="tickList" class="tab_con4 ex_con4">
+    <div v-if="tab == '1'" id="tickList" class="tab_con4 ex_con4">
       <!-- con10 -->
       <div class="ex_table_type3 mCustomScrollbar" style="height: 320px">
         <!-- ex_table_type1 mCustomScrollbar -->
@@ -56,9 +56,11 @@
 
     <div v-if="tab == '2'" id="coinSocial" class="tab_con4 ex_con4">
       <!-- con11 -->
+      코인소셜
     </div>
     <!-- // con11 -->
     <div v-if="tab == '3'" id="coinInfomation" class="tab_con4 ex_con4">
+      코인설명
       <!-- con12 -->
     </div>
     <!-- // con12 -->

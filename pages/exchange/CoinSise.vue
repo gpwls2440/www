@@ -101,12 +101,12 @@ export default {
   },
   watch: {
     serchText() {
-      // this.getCoinList()
+      this.getCoinList(this.serchText)
     }
   },
   mounted() {
     this.getFavCoinList()
-    this.getCoinList()
+    this.getCoinList(this.serchText)
   },
   methods: {
     ...mapMutations(['setSymbolMarket']),
@@ -115,7 +115,7 @@ export default {
       this.curMarket = market
       this.getCoinList()
     },
-    getCoinList() {
+    getCoinList(serchText) {
       coinList().then(res => {
         const coinList = res.data
         const vm = this

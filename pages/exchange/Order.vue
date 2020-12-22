@@ -20,7 +20,7 @@
 
     <div id="con5" class="tab_con2 ex_con2">
       <!-- con5 -->
-      <ul v-if="userLevel > 1" class="ex_price1">
+      <ul v-if="getUserLevel > 1" class="ex_price1">
         <li class="left">
           <p v-if="market == 'KRW'" class="st1">
             {{ $t('assets') }} : <span class="pointColor">{{ amountInfo.amount }}</span>
@@ -99,25 +99,25 @@
           </p>
         </li>
       </ul>
-      <ul v-if="userLevel == 0" class="ex_price1">
+      <ul v-if="getSessionId == ''" class="ex_price1">
         <li class="left">
           <p class="st1">
-            <a href="/auth/login" target="_self"
+            <a href="/auth/login"
               ><span class="pointColor">{{ $t('login') }}</span></a
             >
             {{ $t('or') }}
-            <a href="javascript:go_join();"
+            <a href="/auth/signup"
               ><span class="pointColor"> {{ $t('signup') }}</span></a
             >
           </p>
         </li>
         <li class="right">
           <p class="st1">
-            <a href="/auth/login" target="_self"
+            <a href="/auth/login"
               ><span class="pointColor">{{ $t('login') }}</span></a
             >
             {{ $t('or') }}
-            <a href="javascript:go_join();"
+            <a href="/auth/signup"
               ><span class="pointColor"> {{ $t('signup') }}</span></a
             >
           </p>
@@ -133,7 +133,7 @@
             </span>
           </p>
           <div v-show="priceType == '2'" class="price_w1">
-            <input id="buyPrice" v-model="buyPrice" type="text" name="orderPriceBuy" valid-number @change="calcBuy()" @blur="focusOut('buy')" />
+            <input id="buyPrice" v-model="buyPrice" type="text" name="orderPriceBuy" />
             <span>{{ market }}</span>
             <div id="modiInfoBuy"></div>
           </div>
@@ -150,7 +150,7 @@
             </span>
           </p>
           <div class="price_w1">
-            <input v-model="buyQty" type="text" valid-qty name="orderQtyBuy" @change="calcBuy()" />
+            <input v-model="buyQty" type="text" name="orderQtyBuy" @change="calcBuy()" />
             <span>{{ symbol }}</span>
           </div>
           <div v-if="priceType == '2'" class="st3 mt15" style="float: left">{{ $t('ordertotal') }}</div>
@@ -169,7 +169,7 @@
             </span>
           </p>
           <div v-show="priceType == '2'" class="price_w1">
-            <input v-model="sellPrice" type="text" name="orderPriceSell" valid-number @change="calcSell()" @blur="focusOut('sell')" />
+            <input v-model="sellPrice" type="text" name="orderPriceSell" />
             <span>{{ market }}</span>
             <div id="modiInfoSell"></div>
           </div>
@@ -186,7 +186,7 @@
             </span>
           </p>
           <div class="price_w1">
-            <input v-model="sellQty" type="text" name="orderQtySell" valid-qty @change="calcSell()" />
+            <input v-model="sellQty" type="text" name="orderQtySell" />
             <span>{{ symbol }}</span>
           </div>
           <div class="st3 mt15" style="float: right; text-align: right">
@@ -196,7 +196,7 @@
         </li>
       </ul>
       <div class="ex_price2">
-        <p v-if="userLevel > 1" class="gray st1">
+        <p v-if="getUserLevel > 1" class="gray st1">
           {{ $t('minamount') }}
           <span class="black fw300">{{ minPrice }}</span>
           {{ market }}<span class="wm">/</span>
@@ -216,26 +216,32 @@
       </div>
       <div v-show="priceType == '2'" class="ex_price3">
         <p class="left"><input type="button" class="btn_c2" style="border: 0" :value="$t('bid')" @click="goOrder('B', priceType)" /></p>
-        <p class="right"><input type="button" style="border: 0" class="btn_c1" :value="$t('ask')" @click="goOrder('S', priceType)" />=</p>
+        <p class="right"><input type="button" style="border: 0" class="btn_c1" :value="$t('ask')" @click="goOrder('S', priceType)" /></p>
       </div>
     </div>
     <!-- // con5 -->
+    <modal v-if="showModal" @close="showModal = false">
+      <p slot="body">{{ text }}</p>
+    </modal>
   </div>
   <!-- // exchange2_Left_top -->
 </template>
 <script>
 import { mapGetters } from 'vuex'
-
+import Modal from '~/components/Modal'
 import { orderAsset } from '~/api/balance'
+
 export default {
   name: 'Order',
+  components: {
+    Modal
+  },
   data() {
     return {
       market: '',
       amountInfo: {},
       buyFee: '',
       sellFee: '',
-      userLevel: '2',
       walletInfo: {},
       priceType: '2',
       buyAmount: '0',
@@ -250,15 +256,26 @@ export default {
       tickSize: '1,000',
       feeRate: '0.1',
       walletAmountInfo: {},
-      basicPrice: ''
+      basicPrice: '',
+      showModal: false,
+      text: ''
     }
   },
   computed: {
-    ...mapGetters(['getSymbolMarket'])
+    ...mapGetters(['getSymbolMarket', 'getUserLevel', 'getSessionId'])
   },
   watch: {
-    getSymbolMarket() {
-      this.getOrderAsset()
+    buyPrice() {
+      return (this.buyProce = this.buyPrice.replace(/[^0-9]/g, ''))
+    },
+    sellPrice() {
+      return (this.sellPrice = this.sellPrice.replace(/[^0-9]/g, ''))
+    },
+    buyQty() {
+      return (this.buyQty = this.buyQty.replace(/[^0-9]/g, ''))
+    },
+    sellQty() {
+      return (this.sellQty = this.sellQty.replace(/[^0-9]/g, ''))
     }
   },
   mounted() {
@@ -272,6 +289,16 @@ export default {
         vm.walletAmountInfo = res.data.walletAmountInfo
         vm.walletInfo = res.data.walletInfo
       })
+    },
+    notworking() {
+      this.showModal = true
+      this.text = '서비스 준비중입니다.'
+    },
+    goOrder(orderType, priceType) {
+      if (this.getSessionId === '') {
+        this.showModal = true
+        this.text = '로그인 후 거래가 가능합니다.'
+      }
     }
   }
 }

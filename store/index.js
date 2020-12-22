@@ -3,7 +3,7 @@ export const state = () => ({
   locale: 'ko',
   uid: '',
   sessionId: '',
-  userLevel: '',
+  userLevel: 0,
   symbolMarket: 'BTC_KRW'
 })
 export const mutations = {

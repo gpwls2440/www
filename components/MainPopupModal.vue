@@ -11,7 +11,10 @@
         <!-- // layer_top -->
         <div class="layer_con" style="padding-left: 7%">
           <!-- layer_con -->
+          <!--
           <div class="scroll_div_h1 mCustomScrollbar" style="height: 25vw" v-html="noin.notiContents"></div>
+          -->
+          <div class="scroll_div_h1 mCustomScrollbar" style="height: 25vw">{{ noin.notiContents }}</div>
         </div>
         <!-- // layer_con -->
         <div class="layer_foot" style="min-width: 500px">

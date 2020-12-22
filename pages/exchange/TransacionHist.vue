@@ -24,7 +24,7 @@
 
     <div v-if="tab === '2'" id="MatchingList" class="tab_con3 ex_con3">
       <!-- con8 -->
-      <div v-show="userLevel < 1" style="text-align: center; padding: 20px; font-size: 16px">
+      <div v-show="getSessionId == ''" style="text-align: center; padding: 20px; font-size: 16px">
         <p class="st1">
           <a href="/auth/login"
             ><span class="pointColor">{{ $t('login') }}</span></a
@@ -79,7 +79,7 @@
     <!-- // con8 -->
     <div v-if="tab === '3'" id="MatchingReady" class="tab_con3 ex_con3">
       <!-- con9 -->
-      <div v-show="userLevel < 1" style="text-align: center; padding: 20px; font-size: 16px">
+      <div v-show="getSessionId == ''" style="text-align: center; padding: 20px; font-size: 16px">
         <p class="st1">
           <a href="/auth/login"
             ><span class="pointColor">{{ $t('login') }}</span></a
@@ -97,7 +97,7 @@
         <input type="hidden" name="simbol" :value="oriSimbol" />
         <input type="hidden" name="waysType" value="W" />
       </form>
-      <div v-show="userLevel > 1" class="ex_table_type3 mCustomScrollbar">
+      <div v-show="getUserLevel > 1" class="ex_table_type3 mCustomScrollbar">
         <!-- ex_table_type1 mCustomScrollbar -->
         <table>
           <colgroup>
@@ -142,18 +142,21 @@
   <!-- // exchange2_Left_bottom -->
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'TransacionHist',
   data() {
     return {
       tab: '1',
-      userLevel: 2,
       matchingList: [
         {
           instCd: ''
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUserLevel'])
   },
   methods: {
     tabChange(tab) {
