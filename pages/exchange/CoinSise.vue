@@ -100,13 +100,11 @@ export default {
     ...mapGetters(['getSymbolMarket'])
   },
   watch: {
-    serchText() {
-      this.getCoinList(this.serchText)
-    }
+    serchText() {}
   },
   mounted() {
     this.getFavCoinList()
-    this.getCoinList(this.serchText)
+    this.getCoinList()
   },
   methods: {
     ...mapMutations(['setSymbolMarket']),
@@ -115,7 +113,7 @@ export default {
       this.curMarket = market
       this.getCoinList()
     },
-    getCoinList(serchText) {
+    getCoinList() {
       coinList().then(res => {
         const coinList = res.data
         const vm = this

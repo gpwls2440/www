@@ -23,18 +23,18 @@
       <ul v-if="getUserLevel > 1" class="ex_price1">
         <li class="left">
           <p v-if="market == 'KRW'" class="st1">
-            {{ $t('assets') }} : <span class="pointColor">{{ amountInfo.amount }}</span>
+            {{ $t('assets') }} : <span class="pointColor">{{ amountInfo.amount == null ? '0' : amountInfo.amount }}</span>
             {{ market }}
             <br />
-            {{ $t('availableamount') }} : <span class="pointColor">{{ amountInfo.ordrAbleAmount }}</span>
+            {{ $t('availableamount') }} : <span class="pointColor">{{ amountInfo.ordrAbleAmount == null ? '0' : amountInfo.orderAbleAmount }}</span>
             {{ market }}
           </p>
           <p v-if="market != 'KRW'" class="st1">
-            {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletAmountInfo.openQty }}</span>
+            {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletAmountInfo.openQty == null ? '0' : walletAmountInfo.openQty }}</span>
             {{ market }}
             <br />
             {{ $t('availableamount') }} :
-            <span class="pointColor"> {{ walletAmountInfo.ableQty }}</span>
+            <span class="pointColor"> {{ walletAmountInfo.ableQty == null ? '0' : walletAmountInfo.ableQty }}</span>
             {{ market }}
             <br />
             {{ $t('transferfee') }} :
@@ -44,11 +44,11 @@
         </li>
         <li class="right">
           <p class="st1">
-            {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletInfo.openQty }}</span>
+            {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletInfo.openQty == null ? '0' : walletInfo.openQty }}</span>
             {{ symbol }}
             <br />
             {{ $t('maxaskamount') }} :
-            <span class="pointColor"> {{ walletInfo.ableQty }}</span>
+            <span class="pointColor"> {{ walletInfo.ableQty == null ? '0' : walletInfo.ableQty }}</span>
             {{ symbol }}
             <br />
             {{ $t('transferfee') }} :
@@ -262,7 +262,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSymbolMarket', 'getUserLevel', 'getSessionId'])
+    ...mapGetters(['getSymbolMarket', 'getUserLevel', 'getSessionId', 'getUid'])
   },
   watch: {
     buyPrice() {
@@ -276,7 +276,11 @@ export default {
     },
     sellQty() {
       return (this.sellQty = this.sellQty.replace(/[^0-9]/g, ''))
-    }
+    },
+    getSymbolMarket() {
+      this.getOrderAsset()
+    },
+    buyAmount() {}
   },
   mounted() {
     this.getOrderAsset()
@@ -284,10 +288,11 @@ export default {
   methods: {
     getOrderAsset() {
       const vm = this
-      orderAsset(vm.getSymbolMarket).then(res => {
+      orderAsset(vm.getSessionId, vm.getUid, vm.getSymbolMarket).then(res => {
         vm.amountInfo = res.data.amountInfo
         vm.walletAmountInfo = res.data.walletAmountInfo
         vm.walletInfo = res.data.walletInfo
+        vm.market = res.data.market
       })
     },
     notworking() {

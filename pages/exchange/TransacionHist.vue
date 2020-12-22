@@ -36,7 +36,7 @@
           {{ $t('isrequired') }}
         </p>
       </div>
-      <div v-show="userLevel > 1" class="ex_table_type3 mCustomScrollbar">
+      <div v-show="getUserLevel > 1" class="ex_table_type3 mCustomScrollbar">
         <!-- ex_table_type1 mCustomScrollbar -->
         <table>
           <colgroup>

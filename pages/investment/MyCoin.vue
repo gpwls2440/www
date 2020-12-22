@@ -138,6 +138,7 @@
 </template>
 
 <script>
+import { myCoins } from '~/api/balance'
 export default {
   name: 'MyCoin',
   data() {
@@ -164,6 +165,11 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    myCoins().then(res => {
+      console.log('mycoinData: ' + res.data)
+    })
   }
 }
 </script>

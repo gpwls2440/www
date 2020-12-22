@@ -6,4 +6,3 @@ export const tickList = (symbol = '') => {
     symbol: symbol
   })
 }
-    

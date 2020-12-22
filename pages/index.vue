@@ -248,6 +248,8 @@ export default {
     this.getCoinList()
     this.getNotiTitle()
     this.getFavCoinList()
+    console.log('getSessionId: ' + this.getSessionId)
+    console.log('getUid: ' + this.getUid)
   },
   methods: {
     ...mapMutations(['setSymbolMarket']),
