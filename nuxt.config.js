@@ -9,6 +9,8 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
+  dotenv: { filename: process.env.NODE_ENV === 'production' ? '.env' : '.env.' + process.env.NODE_ENV },
+
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ['@/assets/css/design.css', '@/assets/css/design_h.css', '@/assets/css/layout.css', '@/assets/css/custom.css'],
 
