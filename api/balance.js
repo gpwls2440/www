@@ -20,7 +20,12 @@ export const sendFee = (symbol = '', procType= '', calcType = '') => {
 
 // 보유코인
 
-export const myCoins = () => {
-  return axiosGet('/auth/walletList', {})
+export const myCoins = (symbol='', type= '' , sessionId = '', uid = '') => {
+  return axiosPost('/auth/walletList', {
+    symbol: symbol,
+    type: type,
+    sessionId: sessionId,
+    uid: uid
+  })
 }
 

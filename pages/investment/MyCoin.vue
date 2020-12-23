@@ -97,7 +97,7 @@
         <tr v-for="(coins, index) in walletList" :key="index">
           <td class="tl">
             <p>
-              <img src="~/assets/images/coin/btc.png" width="20" style="vertical-align: middle; margin-right: 5px" :alt="coins.symbol" /> {{ coins.symbolName }}
+              <img :src="require(`~/assets/images/coin/${coins.symbol}.png`)" width="20" style="vertical-align: middle; margin-right: 5px" :alt="coins.symbol" /> {{ coins.symbolName }}
               <span class="c_n">{{ coins.symbol }}</span>
             </p>
           </td>
@@ -111,7 +111,7 @@
               {{ coins.argPrice }}<span class="c_n">KRW</span>
               <img style="vertical-align: -2px; margin-left: 10px" src="~/assets/images/icon_set.png" :alt="`$t('averagepurchaseprice')`" />
               <span v-show="coins.editFlag == 0" class="editText">{{ $t('averageprice') }} {{ $t('modify') }}</span>
-              <span v-show="coins.editFlag == 1" class="editText blue">{{ $t('averageprice') }} {{ $t('Modified') }}</span>
+              <span v-show="coins.editFlag == 1" class="editText blue">{{ $t('averageprice') }} {{ $t('modified') }}</span>
             </a>
           </td>
           <td class="tr">{{ coins.openAmt }}<span class="c_n">KRW</span></td>
@@ -125,7 +125,7 @@
             </p>
           </td>
           <td>
-            <a class="btn_line" @click="goMarket(coins.symbol)">{{ $t('order') }}</a>
+            <a v-if="coins.symbol !== 'KRW'" class="btn_line" @click="goMarket(coins.symbol + '_KRW')">{{ $t('order') }}</a>
           </td>
         </tr>
       </tbody>
@@ -138,38 +138,67 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import { myCoins } from '~/api/balance'
 export default {
   name: 'MyCoin',
   data() {
     return {
       total: {
-        openAmt: '10,000,000',
-        evalAmt: '5,000,000',
-        evalPl: '5,000,000',
-        evalPlRt: '50',
-        totalKRW: '100,000,000,000',
-        totalKDP: '20,000,000',
-        totalAmt: '100,100,000,000'
+        totalAmt: 0,
+        openAmt: 0,
+        evalPl: 0,
+        evalAmt: 0,
+        totalKRW: 0,
+        totalKDP: 0
       },
-      walletList: [
-        {
-          symbol: 'BTC',
-          symbolName: '비트코인',
-          openQty: '10,000,000',
-          argPrice: '15,000',
-          openAmt: '100,000,000',
-          evalAmt: '500,000,000',
-          evalPlRt: '50',
-          evalPl: '500'
-        }
-      ]
+      walletList: [],
+      symbol: ' ',
+      type: '2'
     }
   },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUid'])
+  },
   mounted() {
-    myCoins().then(res => {
-      console.log('mycoinData: ' + res.data)
-    })
+    this.getMycoin()
+  },
+  methods: {
+    ...mapMutations(['setSymbolMarket']),
+    goMarket(symbolMarket) {
+      this.setSymbolMarket(symbolMarket)
+      this.$router.push('/exchange')
+    },
+    getMycoin() {
+      const vm = this
+      myCoins(vm.symbol, vm.type, vm.getSessionId, vm.getUid).then(res => {
+        vm.walletList = res.data
+        vm.walletList.forEach(function (item, index, array) {
+          if (array[index].symbol !== 'KRW' && array[index].symbol !== 'KDP') {
+            array[index].evalAmt = Number(array[index].evalAmt)
+            array[index].openAmt = Number(array[index].openAmt)
+            array[index].evalPl = Number(array[index].evalPl)
+
+            let totalAmt = Number(array[index].lastPrice) * Number(array[index].openQty)
+            totalAmt = totalAmt.toFixed(0)
+
+            vm.total.totalAmt += Number(totalAmt)
+            vm.total.openAmt += array[index].openAmt
+            vm.total.evalPl += array[index].evalPl
+            vm.total.evalAmt += array[index].evalAmt
+          } else if (array[index].symbol === 'KRW') {
+            vm.total.totalKRW = Number(array[index].dpoQty)
+            vm.total.totalAmt += Number(array[index].dpoQty)
+          } else if (array[index].symbol === 'KDP') {
+            vm.total.totalKDP = Number(array[index].openQty)
+            vm.total.totalAmt += Number(array[index].openQty)
+          }
+        })
+        if (vm.total.evalPl !== 0) {
+          vm.total.evalPlRt = (vm.total.evalPl / vm.total.openAmt) * 100
+        }
+      })
+    }
   }
 }
 </script>
