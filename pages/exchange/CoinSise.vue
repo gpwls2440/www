@@ -114,22 +114,18 @@ export default {
       this.getCoinList()
     },
     getCoinList() {
-      coinList().then(res => {
-        const coinList = res.data
-        const vm = this
-        vm.coinInfoList = []
-        if (vm.curMarket === ' ') {
-          coinList.forEach(function (item, index, array) {
-            if (vm.favList.includes(item.symbol)) {
-              vm.coinInfoList.push(array[index])
-            }
-          })
-        } else {
-          coinList.forEach(function (item, index, array) {
+      const vm = this
+      coinList(vm.curMarket).then(res => {
+        vm.coinInfoList = res.data
+        if (vm.curMarket === 'BTC' || vm.curMarket === 'ETH' || vm.curMarket === ' ') {
+          vm.coinInfoList.forEach(function (item, index, array) {
             if (item.symbol.includes('_')) {
               item.symbol = item.symbol.substring(0, item.symbol.length - 4)
             }
-            if (item.market === vm.curMarket) {
+          })
+        } else if (vm.curMarket === ' ') {
+          vm.coinInfoList.forEach(function (item, index, array) {
+            if (vm.favList.includes(item.symbol)) {
               vm.coinInfoList.push(array[index])
             }
           })

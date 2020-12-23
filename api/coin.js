@@ -1,8 +1,10 @@
 import { axiosGet, axiosPost } from './config'
 
 // 코인리스트
-export const coinList = () => {
-  return axiosGet('/api/coinList', {})
+export const coinList = (market = '') => {
+  return axiosPost('/api/coinList', {
+    market: market
+  })
 }
 
 // 즐겨찾기 코인

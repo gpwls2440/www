@@ -9,7 +9,7 @@
       <div class="gnb">
         <ul>
           <li id="menuItem1">
-            <a href="/exchange">{{ $t('coinExchange') }}</a>
+            <a href="/exchange" @click="setSymbolMarket('BTC_KRW')">{{ $t('coinExchange') }}</a>
           </li>
           <li id="menuItem2">
             <a href="/chart">{{ $t('kdexChart') }}</a>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { Logout } from '~/api/auth'
 import '@/assets/css/jquery_modal.css'
 
@@ -77,13 +77,12 @@ export default {
   },
   methods: {
     ...mapActions(['clearUserFunc']),
+    ...mapMutations(['setSymbolMarket']),
     logout() {
       const vm = this
       Logout().then(res => {
         if (res.data === 'OK') {
-          console.log('in')
           vm.clearUserFunc('')
-          console.log('getSessionId: ' + vm.getSessionId)
         }
       })
     }

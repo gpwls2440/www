@@ -269,32 +269,19 @@ export default {
     goMarket(symbol, market) {
       const symbolMarket = symbol + '_' + market
       this.setSymbolMarket(symbolMarket)
-      /*
-      this.$router.replace({ path: '/exchange', query: { symbol_market: symbolMarket } })
-      */
       this.$router.push({ path: '/exchange' })
     },
     getNoticeLength(val) {
       this.noticeInfoList = val
     },
     getCoinList() {
-      coinList().then(res => {
-        const coinList = res.data
-        const vm = this
-        vm.coinInfoList = []
-        if (vm.curItem === ' ') {
-          coinList.forEach(function (item, index, array) {
-            if (vm.favList.includes(item.symbol)) {
-              vm.coinInfoList.push(array[index])
-            }
-          })
-        } else {
-          coinList.forEach(function (item, index, array) {
+      const vm = this
+      coinList(vm.curItem).then(res => {
+        vm.coinInfoList = res.data
+        if (vm.curItem === 'BTC' || vm.curItem === 'ETH' || vm.curItem === ' ') {
+          vm.coinInfoList.forEach(function (item, index, array) {
             if (item.symbol.includes('_')) {
               item.symbol = item.symbol.substring(0, item.symbol.length - 4)
-            }
-            if (item.market === vm.curItem) {
-              vm.coinInfoList.push(array[index])
             }
           })
         }
