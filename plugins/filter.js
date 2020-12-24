@@ -33,9 +33,13 @@ Vue.filter('yyyymmddFilter', function (value) {
   }
 })
 
-Vue.filter('hhmmssFilter', function (value, index) {
-  if (value && value.length >= 6) {
+Vue.filter('hhmmssFilter', function (value) {
+  console.log('value.length: ' + value.length)
+  console.log('typeof value.length: ' + typeof value.length)
+  if (value && value.length === 6) {
     return `${value.substring(0, 2)}:${value.substring(2, 4)}:${value.substring(4, 6)}`
+  } else if (value && value.length === 14) {
+    return `${value.substring(8, 10)}:${value.substring(10, 12)}:${value.substring(12, 14)}`
   } else {
     return value
   }
@@ -50,11 +54,21 @@ Vue.filter('dateAndTimeFilter', function (value) {
   }
 })
 
+Vue.filter('dateAndTimeFilter2', function (value) {
+  if (value) {
+    const date = value.substring(0, 8)
+    const time = value.substring(8)
+
+    return `${date.substring(2, 4)}.${date.substring(4, 6)}.${date.substring(6, 8)}${time.substring(0, 2)}:${time.substring(2, 4)}:${time.substring(4, 6)}`
+  }
+})
+
 Vue.filter('askbidHeight', function (value, index) {
   const centerH = 53
   const itemH = 26
 
-  const topH = $('#right_section .top').height()
+  // const topH = jQuery('#right_section .top').height()
+  const topH = 558
 
   let count = (Number(topH) - Number(centerH)) / 2 / itemH
   const countString = count + ''
@@ -119,4 +133,12 @@ Vue.filter('toFixed2', function (value) {
   if (value) {
     return Number(value).toFixed(2)
   }
+})
+
+Vue.filter('calcPrice', function (input, val1) {
+  const basic = Number(repUnComma(input))
+  const price = Number(val1)
+  let out = Number(price) * Number(basic)
+  out = Math.round(out)
+  return repComma(out)
 })
