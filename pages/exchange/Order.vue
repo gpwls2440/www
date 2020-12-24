@@ -150,7 +150,7 @@
             </span>
           </p>
           <div class="price_w1">
-            <input v-model="buyQty" type="text" name="orderQtyBuy" @change="calcBuy()" />
+            <input v-model="buyQty" type="text" name="orderQtyBuy" />
             <span>{{ symbol }}</span>
           </div>
           <div v-if="priceType == '2'" class="st3 mt15" style="float: left">{{ $t('ordertotal') }}</div>
@@ -230,6 +230,7 @@
 import { mapGetters } from 'vuex'
 import Modal from '~/components/Modal'
 import { orderAsset } from '~/api/balance'
+import { repComma } from '~/plugins/util'
 
 export default {
   name: 'Order',
@@ -244,7 +245,7 @@ export default {
       sellFee: '',
       walletInfo: {},
       priceType: '2',
-      buyAmount: '0',
+      buyAmount: 0,
       sellAmount: '0',
       symbol: 'BTC',
       sellQty: '',
@@ -266,21 +267,26 @@ export default {
   },
   watch: {
     buyPrice() {
-      return (this.buyProce = this.buyPrice.replace(/[^0-9]/g, ''))
+      if (this.buyQty !== '') {
+        this.buyAmount = Number(this.buyPrice) * Number(this.buyQty)
+      }
+      return (this.buyPrice = repComma(this.buyPrice.replace(/[^0-9]/g, '')))
     },
     sellPrice() {
-      return (this.sellPrice = this.sellPrice.replace(/[^0-9]/g, ''))
+      return (this.sellPrice = repComma(this.sellPrice.replace(/[^0-9]/g, '')))
     },
     buyQty() {
-      return (this.buyQty = this.buyQty.replace(/[^0-9]/g, ''))
+      if (this.buyPrice !== '') {
+        this.buyAmount = Number(this.buyPrice) * Number(this.buyQty)
+      }
+      return (this.buyQty = repComma(this.buyQty.replace(/[^0-9]/g, '')))
     },
     sellQty() {
-      return (this.sellQty = this.sellQty.replace(/[^0-9]/g, ''))
+      return (this.sellQty = repComma(this.sellQty.replace(/[^0-9]/g, '')))
     },
     getSymbolMarket() {
       this.getOrderAsset()
-    },
-    buyAmount() {}
+    }
   },
   mounted() {
     this.getOrderAsset()
