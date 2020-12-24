@@ -23,7 +23,7 @@
       <input type="hidden" name="orderPrice" value="" />
       <input type="hidden" name="orderQty" value="" />
       <ul v-if="userLevel > 1" class="ex_price1">
-        <li class="left" style="width: 48%">
+        <li class="left" style="width: 48%; text-align: left">
           <p v-if="market == 'KRW'" class="st1">
             {{ $t('assets') }} : <span class="blue">{{ amountInfo.amount }}</span>
             {{ market }}
@@ -44,7 +44,7 @@
             {{ market }}
           </p>
         </li>
-        <li class="right">
+        <li class="right" style="width: 48%; text-align: left">
           <p class="st1" :title="`보유수량 : {{ walletInfo.openQty }} {{ market  }}`">
             {{ $t('quantityretained') }} : <span class="blue"> {{ walletInfo.openQty }}</span>
             {{ symbol }}
@@ -124,7 +124,7 @@
         </li>
       </ul>
       <ul class="ex_price1 line">
-        <li class="left">
+        <li class="left" style="width: 48%">
           <p class="st2">
             {{ $t('bidprice') }}
             <span v-if="priceType == '2'" class="miniBtn_area">
@@ -161,7 +161,7 @@
           </div>
         </li>
 
-        <li class="right">
+        <li class="right" style="width: 48%">
           <p class="st2">
             {{ $t('askprice') }}
             <span v-if="priceType == '2'" class="miniBtn_area">
@@ -311,11 +311,19 @@
         </tbody>
       </table>
     </div>
+    <modal v-if="showModal" @close="showModal = false">
+      <p slot="body">{{ text }}</p>
+    </modal>
   </div>
 </template>
+
 <script>
+import Modal from '~/components/Modal'
 export default {
   name: 'Order',
+  components: {
+    Modal
+  },
   data() {
     return {
       tab: '1',
@@ -353,13 +361,19 @@ export default {
         }
       ],
       oriSymbol: 'BTC',
-      basicPrice: ''
+      basicPrice: '',
+      showModal: false,
+      text: ''
     }
   },
   methods: {
     tabChange(tab) {
       const vm = this
       vm.tab = tab
+    },
+    notworking() {
+      this.showModal = true
+      this.text = '서비스 준비중입니다.'
     }
   }
 }
