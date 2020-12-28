@@ -65,7 +65,7 @@
                 <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.mtchQty }}</span> {{ ml.instCd }}
               </td>
               <td>
-                <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.mtchPrc | toFix:this  }}</span> {{ market }}
+                <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.mtchPrc }}</span> {{ market }}
               </td>
               <td>
                 <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.mtchQty }}</span> {{ market }}
@@ -124,7 +124,7 @@
               <td class="tc" :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp }}</td>
               <td>
                 {{ mr.ordrPrc }}
-                <p class="won_price" ng-if="market != 'KRW'">{{ basicPrice }}<span>KRW</span></p>
+                <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
               </td>
               <td>{{ mr.ordrQty }}</td>
               <td>{{ mr.remnQty }}</td>
@@ -144,10 +144,11 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  name: 'TransacionHist',
+  name: 'TransactionHist',
   data() {
     return {
       tab: '1',
+      market: 'KRW',
       matchingList: [
         {
           instCd: ''

@@ -6,13 +6,13 @@
       <div id="CoinInfoCtrl" class="ex_wrapper">
         <!-- ex_wrapper -->
         <coin-sise></coin-sise>
-        <chart :symbol-market="symbolMarket"></chart>
+        <chart></chart>
         <div class="exchange2_cb">
           <!-- 주문, 호가, 거래내역 영역-->
           <div class="exchange2_Left">
             <!--주문, 거래내역 영역 -->
             <order></order>
-            <transacionHist></transacionHist>
+            <transactionHist></transactionHist>
           </div>
           <hoga></hoga>
         </div>
@@ -26,7 +26,7 @@
 import coinSise from './CoinSise'
 import chart from './Chart'
 import order from './Order'
-import transacionHist from './TransacionHist'
+import transactionHist from './transactionHist'
 import hoga from './Hoga'
 import tradehist from './TradeHist'
 
@@ -37,14 +37,9 @@ export default {
     coinSise,
     chart,
     order,
-    transacionHist,
+    transactionHist,
     hoga,
     tradehist
-  },
-  data() {
-    return {
-      symbolMarket: ''
-    }
   },
   mounted() {}
 }
