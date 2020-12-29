@@ -44,3 +44,8 @@ export const FindId = (val = '') => {
 }
 
 // 비밀번호 찾기
+export const FindPw = (userId) => {
+  return axiosPost('/auth/findPwProc', {
+    userId
+  })
+}

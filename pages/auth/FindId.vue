@@ -57,18 +57,26 @@
       </div>
     </div>
     <!-- // login_div -->
+    <modal v-if="showModal" @close="showModal = false">
+      <p slot="body">{{ text }}</p>
+    </modal>
   </div>
   <!-- // container -->
 </template>
 
 <script>
 import { FindId } from '~/api/auth'
+import Modal from '~/components/Modal'
 export default {
   name: 'FindId',
+  components: {
+    Modal
+  },
   data() {
     return {
       findType: 1,
-      inputVal: ''
+      inputVal: '',
+      showModal: false
     }
   },
   mounted() {
@@ -94,18 +102,22 @@ export default {
       const vm = this
       if (vm.findType === 1) {
         if (vm.inputVal === '') {
-          alert('닉네임을 입력하세요')
+          vm.showModal = true
+          vm.text = '닉네임을 입력하세요'
         } else {
           FindId(vm.inputVal).then(res => {
-            alert(res.data.returnMsg)
+            vm.showModal = true
+            vm.text = '회원님의 아이디는 ' + res.data.returnMsg + '입니다.'
           })
         }
       } else if (vm.findType === 2) {
         if (vm.inputVal === '') {
-          alert('휴대폰번호를 입력하세요')
+          vm.showModal = true
+          vm.text = '휴대폰번호를 입력하세요'
         } else {
           FindId(vm.inputVal).then(res => {
-            alert(res.data.returnMsg)
+            vm.showModal = true
+            vm.text = '회원님의 아이디는 ' + res.data.returnMsg + '입니다.'
           })
         }
       }
