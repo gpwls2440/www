@@ -29,9 +29,9 @@
                 -->
         <div id="login" class="login" style="margin-top: 30px; text-align: center; color: #fff; font-size: 20px; line-height: 50px">
           {{ $t('logoutMsg') }}<br />
-          <button type="button" onclick="location.href='/auth/login'" class="btn_login">LogIn</button>
+          <button type="button" class="btn_login" @click="router.push('/auth/login')">LogIn</button>
           <br />
-          <a href="javascript:goMain()">{{ $t('gotoMain') }}</a>
+          <a @click="router.push('/')">{{ $t('gotoMain') }}</a>
         </div>
       </div>
     </div>
@@ -49,3 +49,9 @@ export default {
   }
 }
 </script>
+<style>
+#header {
+  border-bottom: 6px solid #00b9b2 !important;
+  background: #1b2f42 !important;
+}
+</style>

@@ -25,7 +25,7 @@ export const LoginCertProc = (certNumber = '', uid = '', level ='', bw='') => {
 /**
  * 로그인 인증번호 재발송
  */
-export const CertReSend = (uid = '') => {
+export const CertReSend = (uid) => {
   return axiosPost('/auth/reSendCert', {
     uid
   })

@@ -33,10 +33,10 @@
         <a v-if="getSessionId != ''" @click="showModal = true">{{ $t('logout') }}</a>
         <a v-if="getSessionId == ''" href="/auth/signup">{{ $t('signup') }}</a>
         <a v-if="getSessionId == ''" href="/auth/login">{{ $t('login') }} {{ getSessionId }}</a>
-        <a href="javascript:select_lang()" class="lang">한국어</a>
+        <a class="lang">한국어</a>
         <ul class="select_lang_box">
-          <li><a href="javascript:void(0)">한국어</a></li>
-          <li><a href="javascript:change_lang('en_US')">English</a></li>
+          <li><a>한국어</a></li>
+          <li><a>English</a></li>
         </ul>
       </div>
     </div>
@@ -82,7 +82,9 @@ export default {
       const vm = this
       Logout().then(res => {
         if (res.data === 'OK') {
+          vm.showModal = false
           vm.clearUserFunc('')
+          this.$router.push('/auth/logout')
         }
       })
     }

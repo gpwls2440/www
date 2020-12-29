@@ -40,20 +40,20 @@
             <p class="txt">{{ $t('easyLogin') }}</p>
             <ul>
               <li>
-                <a id="custom-login-btn" href="javascript:loginWithKakao()"><img src="~/assets/images/ico_log1.png" :alt="$t('kakaotalk')" /></a>
+                <a id="custom-login-btn" @click="notWorking()"><img src="~/assets/images/ico_log1.png" :alt="$t('kakaotalk')" /></a>
               </li>
               <li>
                 <div id="gSignInWrapper">
                   <span class="label"></span>
                   <div id="customBtn" class="customGPlusSignIn">
-                    <span class="icon"></span>
+                    <span class="icon" @click="notWorking()"></span>
                     <span class="buttonText"></span>
                   </div>
                 </div>
                 <!-- <div id="name"></div> -->
               </li>
               <li>
-                <a id="custom-login-btn" href="javascript:loginNaver()"><img src="~/assets/images/ico_log4.png" alt="네이버" /></a>
+                <a id="custom-login-btn" @click="notWorking()"><img src="~/assets/images/ico_log4.png" alt="네이버" /></a>
               </li>
               <li><div id="naver_id_login"></div></li>
               <li style="display: none"><div id="naver_id_login"></div></li>
@@ -117,6 +117,7 @@ import '@/assets/css/auth.css'
 import { mapMutations, mapGetters } from 'vuex'
 import { Login, LoginCertProc, CertReSend } from '~/api/auth'
 import Modal from '~/components/Modal'
+// import 'pgwbrowser/pgwbrowser.js'
 
 export default {
   name: 'Login',
@@ -131,7 +132,7 @@ export default {
       text: '',
       step: '1',
       // level: '',
-      // uid: '',
+      uid: '',
       certNumber: '',
       pgwBrowser: '',
       result: '',
@@ -148,6 +149,7 @@ export default {
       pause: 5000,
       auto: true
     })
+    // console.log(this.getPgwBrowser())
   },
   methods: {
     ...mapMutations(['setUid', 'setSessionId', 'setUserLevel']),
@@ -161,7 +163,8 @@ export default {
           vm.result = res.data.result
           vm.showModal = true
           if (vm.result !== 'Fail') {
-            vm.setUid(res.data.uid)
+            vm.uid = res.data.uid
+            vm.setUid(vm.uid)
             vm.setSessionId(res.data.sessionId)
             vm.setUserLevel(res.data.level)
             if (this.result === '2FACT') {
@@ -203,9 +206,9 @@ export default {
       this.$refs.userId.focus()
     },
     getPgwBrowser() {
-      const pgwBrowser = jQuery.pgwBrowser()
+      const pgwBrowser = $.pgwBrowser()
+      console.log('pgwBrowser: ' + pgwBrowser)
       const bwText = pgwBrowser.os.name + ' (' + pgwBrowser.browser.name + ' ' + pgwBrowser.browser.fullVersion + ')'
-      // $('#bw').val(bwText)
       return bwText
     },
     setCertTimeout() {
@@ -225,8 +228,8 @@ export default {
         $('#certMin').text(certMin)
         $('#certSec').text(certSec)
 
-        if (certMin.toString() === '0' && certSec.toString() === '00') {
-          this.claerTimeout()
+        if (certMin.toString() === '2' && certSec.toString() === '50') {
+          // this.claerTimeout()
           // certloginChk = true
           $('#btnCert').hide()
           $('#cert_re').show()
@@ -239,7 +242,7 @@ export default {
     goReLogin() {
       const vm = this
       vm.setCertTimeout()
-      CertReSend(vm.getSessionId).then(res => {})
+      CertReSend(vm.uid).then(res => {})
     }
   }
 }
