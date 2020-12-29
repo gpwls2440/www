@@ -45,6 +45,7 @@ import NonTransactionHist from './NonTransactionHist'
 import TransactionProfit from './TransactionProfit'
 
 export default {
+  middleware: 'authenticated',
   components: {
     MyCoin,
     TransactionHist,

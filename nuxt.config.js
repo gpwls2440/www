@@ -20,7 +20,7 @@ export default {
     { src: '~/plugins/bxslider.js', mode: 'client' },
     { src: '~/plugins/filter.js' },
     { src: '~/plugins/amcharts.js', mode: 'client' },
-    { src: '~/plugins/pikaday.js', mode: 'client' },
+    { src: '~/plugins/vue-pikaday.js', mode: 'client' },
     { src: '~/plugins/vue-moment.js' },
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/vue-cookie.js' },

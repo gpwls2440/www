@@ -3,16 +3,16 @@
     <div class="list_detail">
       <div>
         {{ $t('checkperiod') }}
-        <div class="box"><input id="startDate" v-model="startDt" type="text" style="width: 90px" /></div>
+        <div class="box"><vue-pikaday v-model="startDt" style="width: 90px" :options="options" :value="startDt" /></div>
         -
-        <div class="box"><input id="endDate" v-model="endDt" type="text" style="width: 90px" /></div>
-        <a href="javascript:void(0)" :class="{ on: setVal == '1' }" class="btn_mon" @click="setDate('1')">{{ $t('today') }}</a>
-        <a href="javascript:void(0)" :class="{ on: setVal == '7' }" class="btn_mon" @click="setDate('7')">1{{ $t('week') }}</a>
-        <a href="javascript:void(0)" :class="{ on: setVal == '30' }" class="btn_mon" @click="setDate('30')">1{{ $t('month') }}</a>
-        <a href="javascript:void(0)" :class="{ on: setVal == '90' }" class="btn_mon" @click="setDate('90')">3{{ $t('month') }}</a>
-        <a href="javascript:void(0)" :class="{ on: setVal == '180' }" class="btn_mon" @click="setDate('180')">6{{ $t('month') }}</a>
-        <a href="javascript:void(0)" :class="{ on: setVal == '360' }" class="btn_mon" @click="setDate('360')">1{{ $t('year') }}</a>
-        <a href="javascript:void(0)" class="btn_1 ml05" @click="update()">SEARCH</a>
+        <div class="box"><vue-pikaday v-model="endDt" style="width: 90px" :options="options" :value="endDt" /></div>
+        <a :class="{ on: setVal == '1' }" class="btn_mon" @click="setDate(1, 'days')">{{ $t('today') }}</a>
+        <a :class="{ on: setVal == '7' }" class="btn_mon" @click="setDate(7, 'days')">1{{ $t('week') }}</a>
+        <a :class="{ on: setVal == '30' }" class="btn_mon" @click="setDate(1, 'months')">1{{ $t('month') }}</a>
+        <a :class="{ on: setVal == '90' }" class="btn_mon" @click="setDate(3, 'momths')">3{{ $t('month') }}</a>
+        <a :class="{ on: setVal == '180' }" class="btn_mon" @click="setDate(6, 'months')">6{{ $t('month') }}</a>
+        <a :class="{ on: setVal == '360' }" class="btn_mon" @click="setDate(12, 'momths')">1{{ $t('year') }}</a>
+        <a class="btn_1 ml05" @click="goSearch()">SEARCH</a>
       </div>
     </div>
 
@@ -68,12 +68,12 @@
       </thead>
       <tbody v-for="ml in boardList" :key="ml">
         <tr>
-          <td class="tr1">{{ ml.symbol | cutMarketSymbol }}</td>
+          <td class="tr1">{{ ml.symbol }}</td>
           <td class="tr1">
-            <span>{{ ml.buyAmt | toFixKRW }}</span> <span class="c_n">KRW</span>
+            <span>{{ ml.buyAmt }}</span> <span class="c_n">KRW</span>
           </td>
           <td class="tr1">
-            <span>{{ ml.sellAmt | toFixKRW }}</span> <span class="c_n">KRW</span>
+            <span>{{ ml.sellAmt }}</span> <span class="c_n">KRW</span>
           </td>
           <td class="tr1">
             <p>
@@ -102,8 +102,21 @@ export default {
       },
       total: {
         profitAmt: ''
-      }
+      },
+      startDt: null,
+      endDt: null,
+      options: {
+        format: 'YYYY-MM-DD'
+      },
+      setVal: '',
+      boardList: []
     }
+  },
+  methods: {
+    setDate(val, gb) {
+      this.startDt = this.$moment(this.endDt).subtract(val, gb).format('YYYY-MM-DD')
+    },
+    goSearch() {}
   }
 }
 </script>

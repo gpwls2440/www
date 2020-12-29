@@ -50,6 +50,9 @@
             <a style="cursor: pointer" class="btn_line" @click="orderCancle(mr.instCd, mr.ordrNo, mr.remnQty)">{{ $t('orderCancel') }}</a>
           </td>
         </tr>
+        <tr v-if="items.length == 0">
+          <td colspan="9">미체결 내역이 없습니다.</td>
+        </tr>
       </tbody>
     </table>
     <!-- // table_type_h3 -->
@@ -77,6 +80,7 @@
 </template>
 
 <script>
+import nonTransactionList from '~/api/exchange'
 export default {
   name: 'NonTransactionHist',
   components: {},
@@ -84,7 +88,16 @@ export default {
     return {
       pager: {
         pages: ''
-      }
+      },
+      items: []
+    }
+  },
+  methods: {
+    getNontransactionList() {
+      const vm = this
+      nonTransactionList().then(res => {
+        vm.items = res.data
+      })
     }
   }
 }

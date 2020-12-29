@@ -20,6 +20,7 @@ import MyWallet from './MyWallet'
 import '@/assets/css/wallet.css'
 
 export default {
+  middleware: 'authenticated',
   components: {
     Balance,
     MyWalletChart,
