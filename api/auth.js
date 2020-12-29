@@ -35,3 +35,12 @@ export const CertReSend = (uid) => {
 export const Logout = () => {
   return axiosGet('/auth/logout', {})
 }
+
+// 아이디 찾기
+export const FindId = (val = '') => {
+  return axiosPost('/auth/findIdProc', {
+    val: val
+  })
+}
+
+// 비밀번호 찾기

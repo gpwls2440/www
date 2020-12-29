@@ -32,11 +32,21 @@
           </p>
           <div id="typeDiv1" class="input_line mt05">
             <img src="~/assets/images/ico_inp4.png" alt="" />
-            <input id="inputNick" name="userName" class="joinInput isStr reqInput" type="text" required :placeholder="$t('nickname')" :title="$t('nickname')" />
+            <input id="inputNick" v-model="inputVal" name="userName" class="joinInput isStr reqInput" type="text" required :placeholder="$t('nickname')" :title="$t('nickname')" />
           </div>
           <div id="typeDiv2" class="input_line mt05">
             <img src="~/assets/images/ico_inp3.png" alt="" />
-            <input id="inputPhone" name="userMobile" class="joinInput reqInput" type="text" required maxlength="13" :placeholder="$t('mobilePhoneNumber')" :title="$t('mobilePhoneNumber')" />
+            <input
+              id="inputPhone"
+              v-model="inputVal"
+              name="userMobile"
+              class="joinInput reqInput"
+              type="text"
+              required
+              maxlength="13"
+              :placeholder="$t('mobilePhoneNumber')"
+              :title="$t('mobilePhoneNumber')"
+            />
           </div>
           <p id="foundEmailP" class="txt2">
             <span id="foundEmail"></span><a href="javascript:clipboard('#foundEmail')" class="copy_btn">{{ $t('copyClipboard') }}</a>
@@ -52,14 +62,54 @@
 </template>
 
 <script>
+import { FindId } from '~/api/auth'
 export default {
   name: 'FindId',
+  data() {
+    return {
+      findType: 1,
+      inputVal: ''
+    }
+  },
   mounted() {
     $('.con_slider').bxSlider({
       mode: 'fade',
       pause: 5000,
       auto: true
     })
+  },
+  methods: {
+    checkType(val) {
+      this.inputVal = ''
+      this.findType = val
+      if (this.findType === 1) {
+        $('#typeDiv1').show()
+        $('#typeDiv2').hide()
+      } else {
+        $('#typeDiv1').hide()
+        $('#typeDiv2').show()
+      }
+    },
+    findId() {
+      const vm = this
+      if (vm.findType === 1) {
+        if (vm.inputVal === '') {
+          alert('닉네임을 입력하세요')
+        } else {
+          FindId(vm.inputVal).then(res => {
+            alert(res.data.returnMsg)
+          })
+        }
+      } else if (vm.findType === 2) {
+        if (vm.inputVal === '') {
+          alert('휴대폰번호를 입력하세요')
+        } else {
+          FindId(vm.inputVal).then(res => {
+            alert(res.data.returnMsg)
+          })
+        }
+      }
+    }
   }
 }
 </script>

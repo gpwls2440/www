@@ -228,11 +228,11 @@ export default {
         $('#certMin').text(certMin)
         $('#certSec').text(certSec)
 
-        if (certMin.toString() === '2' && certSec.toString() === '50') {
-          // this.claerTimeout()
+        if (certMin.toString() === '0' && certSec.toString() === '50') {
           // certloginChk = true
           $('#btnCert').hide()
           $('#cert_re').show()
+          this.claerTimeout()
         }
       }, 1000)
     },
@@ -241,8 +241,14 @@ export default {
     },
     goReLogin() {
       const vm = this
+      $('#btnCert').show()
+      $('#cert_re').hide()
       vm.setCertTimeout()
       CertReSend(vm.uid).then(res => {})
+    },
+    notWorking() {
+      this.showModal = true
+      this.text = '서비스 준비중입니다.'
     }
   }
 }
