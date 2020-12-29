@@ -56,9 +56,8 @@
 
 <script>
 import Modal from '~/components/Modal'
-import { FindPw } from '~/api/auth'
 export default {
-  name: 'FindPw',
+  name: 'PwdReset',
   components: {
     Modal
   },
@@ -77,7 +76,9 @@ export default {
       auto: true
     })
   },
-  methods: {}
+  methods: {
+    updatePwProc() {}
+  }
 }
 </script>
 
