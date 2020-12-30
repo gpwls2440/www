@@ -24,7 +24,7 @@
         </div>
         <div id="login" class="login" style="margin-top: 30px">
           <form id="frm" name="frm">
-            <button type="button" class="btn_login" @click="goJoinEmail()">{{ $t('joinByEmail') }}</button>
+            <button type="button" class="btn_login" @click="$router.push('/auth/signupform')">{{ $t('joinByEmail') }}</button>
           </form>
           <div class="sim_login_h1">
             <!-- sim_login_h1 -->
@@ -43,9 +43,6 @@
                 </div>
                 <!-- <div id="name"></div> -->
               </li>
-
-              <!-- <li><a href="javascript:void(0);" @click="fbLoginAction();"><img src="~/assets/images/ico_log3.png" alt="페이스북" /></a></li> -->
-              <!-- <li><a id="custom-login-btn" href="javascript:loginNaver()"><img src="~/assets/images/ico_log4.png" alt="네이버" /></a></li> -->
               <li><div id="naver_id_login"></div></li>
               <li style="display: none"><div id="naver_id_login"></div></li>
             </ul>

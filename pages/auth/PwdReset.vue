@@ -23,22 +23,18 @@
           비밀번호변경<br />
           <span class="c1">새로운 비밀번호로 변경하세요</span>
         </p>
-        <input id="passCheck" type="hidden" name="passCheck" value="N" />
-        <input id="passCheck1" type="hidden" name="passCheck1" value="N" />
-        <input id="uid" type="hidden" name="uid" :value="userUid" />
-
         <div id="pwModiDiv" class="line_login">
-          <div class="input_line mt05"><img src="~/assets/images/ico_inp1.png" alt="" /> <input id="userId" name="userId" type="text" :value="userId" readonly /></div>
+          <div class="input_line mt05"><img src="~/assets/images/ico_inp1.png" alt="" /><input id="userId" name="userId" type="text" :value="userId" readonly /></div>
           <div class="input_line mt15">
             <img src="~/assets/images/ico_inp2.png" alt="" />
-            <input id="userpswd" name="userpswd" type="password" oninput="chkPw(this.value)" required placeholder="변경할 비밀번호 입력" title="비밀번호" maxlength="20" />
+            <input id="userPwd" v-model="userPwd" name="userPwd" type="password" placeholder="변경할 비밀번호 입력" required title="비밀번호" maxlength="20" @change="chkPw(userPwd)" />
             <br />
-            <p id="pwCheckText" class="txt4">영문대소문자, 숫자 혼합하여 8~20자리 이내로 입력하세요</p>
+            <p id="pwCheckText" class="txt4">영문, 숫자 혼합하여 8~20자리 이내로 입력하세요</p>
           </div>
           <br />
           <div class="input_line mt05">
             <img src="~/assets/images/ico_inp2.png" alt="" />
-            <input id="rereuserpswd" name="reuserpswd" type="password" oninput="chkPw1(this.value)" placeholder="변경할 비밀번호 확인" maxlength="20" />
+            <input id="reUserPwd" v-model="reUserPwd" name="reUserPwd" type="password" placeholder="변경할 비밀번호 확인" maxlength="20" @change="reChkPw(reUserPwd)" />
             <br />
             <p id="pwCheckText1" class="txt4">＊동일한 비밀번호를 다시 한번 입력해주세요!</p>
           </div>
@@ -56,6 +52,7 @@
 
 <script>
 import Modal from '~/components/Modal'
+import { FindPwResetInit, FindPwResetProc } from '~/api/auth'
 export default {
   name: 'PwdReset',
   components: {
@@ -66,7 +63,11 @@ export default {
       showModal: false,
       text: '',
       userId: '',
-      userUid: ''
+      userUid: '',
+      userPwd: '',
+      reUserPwd: '',
+      chkFlag1: 'N',
+      chkFlag2: 'N'
     }
   },
   mounted() {
@@ -75,9 +76,63 @@ export default {
       pause: 5000,
       auto: true
     })
+    const query = this.$route.query.p
+    this.findPwReset(query)
   },
   methods: {
-    updatePwProc() {}
+    findPwReset(query) {
+      const vm = this
+      FindPwResetInit(query).then(res => {
+        vm.userId = res.data.userId
+        vm.userUid = res.data.userUid
+        if (res.data.result === 'Timeout') {
+          vm.showModal = true
+          vm.text = '비밀번호 변경 가능 시간이 초과되었습니다.'
+          vm.$router.push('/auth/findpw')
+        }
+      })
+    },
+    updatePwProc() {
+      const vm = this
+      if (vm.chkFlag1 === 'Y' && vm.chkFlag2 === 'Y') {
+        FindPwResetProc(vm.userPwd, vm.userUid).then(res => {
+          if (res.data === vm.userUid) {
+            vm.showModal = true
+            vm.text = '비밀번호가 변경되었습니다.'
+            vm.router.push('/auth/login')
+          }
+        })
+      } else {
+        vm.showModal = true
+        vm.text = '비밀번호를 다시 확인해주세요.'
+      }
+    },
+    chkPw(val) {
+      if (!/^.*(?=.{8,20})(?=.*[0-9])(?=.*[A-Z]).*$/.test(val)) {
+        $('#pwCheckText').text('영문, 숫자 혼합하여 8~20자리 이내로 입력하세요.')
+        $('#pwCheckText').removeClass('blue')
+        $('#pwCheckText').addClass('red')
+        this.chkFlag1 = 'N'
+      } else {
+        $('#pwCheckText').text('안전한 비밀번호 입니다.')
+        $('#pwCheckText').removeClass('red')
+        $('#pwCheckText').addClass('blue')
+        this.chkFlag1 = 'Y'
+      }
+    },
+    reChkPw(val) {
+      if (val === this.userPwd) {
+        $('#pwCheckText1').text('입력한 두 비밀번호가 일치합니다.')
+        $('#pwCheckText1').removeClass('red')
+        $('#pwCheckText1').addClass('blue')
+        this.chkFlag2 = 'Y'
+      } else {
+        $('#pwCheckText1').text('입력한 두 비밀번호가 일치하지 않습니다.')
+        $('#pwCheckText1').removeClass('blue')
+        $('#pwCheckText1').addClass('red')
+        this.chkFlag2 = 'N'
+      }
+    }
   }
 }
 </script>

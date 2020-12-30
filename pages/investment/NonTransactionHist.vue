@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import nonTransactionList from '~/api/exchange'
+import { nonTransactionList } from '~/api/exchange'
 export default {
   name: 'NonTransactionHist',
   components: {},

@@ -49,3 +49,19 @@ export const FindPw = (userId) => {
     userId
   })
 }
+
+// 비밀번호 재설정
+export const FindPwResetInit = (p) => {
+  return axiosPost('/auth/pwdReset', {
+    p
+  })
+}
+
+// 비밀번호 재설정
+export const FindPwResetProc = (userpswd, uid) => {
+  return axiosPost('/auth/updatePwProc', {
+    userpswd,
+    uid
+  })
+}
+

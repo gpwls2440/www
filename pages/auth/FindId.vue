@@ -107,7 +107,11 @@ export default {
         } else {
           FindId(vm.inputVal).then(res => {
             vm.showModal = true
-            vm.text = '회원님의 아이디는 ' + res.data.returnMsg + '입니다.'
+            if (res.data.returnYn === 'Y') {
+              vm.text = '회원님의 아이디는 ' + res.data.returnMsg + '입니다.'
+            } else {
+              vm.text = res.data.returnMsg
+            }
           })
         }
       } else if (vm.findType === 2) {
@@ -117,7 +121,11 @@ export default {
         } else {
           FindId(vm.inputVal).then(res => {
             vm.showModal = true
-            vm.text = '회원님의 아이디는 ' + res.data.returnMsg + '입니다.'
+            if (res.data.returnYn === 'Y') {
+              vm.text = '회원님의 아이디는 ' + res.data.returnMsg + '입니다.'
+            } else {
+              vm.text = res.data.returnMsg
+            }
           })
         }
       }
