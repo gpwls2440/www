@@ -26,7 +26,7 @@
 import coinSise from './CoinSise'
 import chart from './Chart'
 import order from './Order'
-import transactionHist from './transactionHist'
+import transactionHist from './ExTransactionHist'
 import hoga from './Hoga'
 import tradehist from './TradeHist'
 
