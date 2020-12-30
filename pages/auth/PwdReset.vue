@@ -99,7 +99,7 @@ export default {
           if (res.data === vm.userUid) {
             vm.showModal = true
             vm.text = '비밀번호가 변경되었습니다.'
-            vm.router.push('/auth/login')
+            vm.$router.push('/auth/login')
           }
         })
       } else {
