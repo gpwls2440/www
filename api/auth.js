@@ -65,3 +65,28 @@ export const FindPwResetProc = (userpswd, uid) => {
   })
 }
 
+// 닉네임 체크
+export const NicknmChk = (nick) => {
+  return axiosPost('/auth/nickCheck', {
+    nick
+  })
+}
+
+// 이메일 체크
+export const EmailChk = (email) => {
+  return axiosPost('/auth/emailCheck', {
+    email
+  })
+}
+
+// 회원가입
+export const Signup = (userId, userPw, userName, userMobile, recom, device) => {
+  return axiosPost('/auth/joinProc', {
+    userId,
+    userPw,
+    userName,
+    userMobile,
+    recom,
+    device
+  })
+}
