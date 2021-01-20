@@ -50,6 +50,6 @@
 
 <script>
 export default {
-  name: 'MainFeader'
+  name: 'MainFooter'
 }
 </script>
