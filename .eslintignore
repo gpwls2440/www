@@ -1,1 +1,6 @@
 /api/
+/.nuxt/
+/node_modules/
+/public/
+/*.js
+/*.json
