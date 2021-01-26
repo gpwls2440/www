@@ -892,5 +892,6 @@
   "Wed": "Wed",
   "Thu": "Thu",
   "Fri": "Fri",
-  "Sat": "Sat"
+  "Sat": "Sat",
+  "signUpOKMsg": "An authentication email has been sent to you by email, so you can log in after checking."
 }
