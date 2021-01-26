@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="tc txt4">
-          <input id="agreement" type="checkbox" value="1" name="agreement" /><label for="agreement">{{ $t('agreementAgree') }}</label>
+          <input id="agreement" v-model="agreement" type="checkbox" value="1" name="agreement" /><label for="agreement">{{ $t('agreementAgree') }}</label>
           <a href="#" class="blue_tdu layer_btn1">{{ $t('viewFullArticle') }}</a>
         </div>
         <div id="html_element" class="g-recaptcha" data-sitekey="6LdsOHkUAAAAAGVF1iisCB8jK0JfmBapOgNYOUwU" style="margin-top: 10px"></div>
@@ -97,14 +97,22 @@
       <!-- // inner -->
     </div>
     <!-- // login_div2 -->
+    <modal v-if="showModal" @close="showModal = false">
+      <p slot="body">{{ text }}</p>
+    </modal>
   </div>
   <!-- // container3 -->
 </template>
 
 <script>
 import { NicknmChk, EmailChk, Signup } from '~/api/auth'
+import Modal from '~/components/Modal'
+
 export default {
   name: 'SignupForm',
+  components: {
+    Modal
+  },
   data() {
     return {
       userNick: '',
@@ -117,7 +125,9 @@ export default {
       chkEmail: '',
       chkFlag1: 'N',
       chkFlag2: 'N',
-      chkPhone: 'N'
+      chkPhone: 'N',
+      agreement: '0',
+      showModal: false
     }
   },
   mounted() {},
@@ -227,7 +237,10 @@ export default {
     goJoin() {
       const vm = this
       Signup(vm.userId, vm.userPwd, vm.userNick, vm.phoneNm, vm.recomId, 'W').then(res => {
-        console.log(res.data)
+        if (res.data === 'OK') {
+          vm.showModal = true
+          vm.text = this.$i18n.t('signUpOKMsg')
+        }
       })
     }
   }
