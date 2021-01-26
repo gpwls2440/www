@@ -2,7 +2,7 @@
   <div class="info_con_h1">
     <!-- info_con_h1 -->
     <h3><img src="~/assets/images/008/ico_008001_1.png" alt="" />{{ $t('basicMemberInformation') }}</h3>
-    <span class="recom_btn" onclick="clipboard()">{{ $t('copySuggestedLink') }}</span>
+    <span v-clipboard:copy="clipboardTxt" v-clipboard:success="copyDone" v-clipboard:error="copyFail" class="recom_btn">{{ $t('copySuggestedLink') }}</span>
     <div class="gray_box_h1">
       <!-- gray_box_h1 -->
       <div class="mem_table_h1">
@@ -22,27 +22,27 @@
               <th>
                 <label for="">{{ $t('nickname') }}</label>
               </th>
-              <td><input type="text" :value="nickName" class="n_line" style="width: 70%" disabled /></td>
+              <td><input type="text" :value="userInfo.userName" class="n_line" style="width: 70%" disabled /></td>
             </tr>
             <tr>
               <th>
                 <label for="">{{ $t('ID') }}</label>
               </th>
-              <td><input type="text" :value="email" class="n_line" style="width: 70%" disabled /></td>
+              <td><input type="text" :value="userInfo.userEmail" class="n_line" style="width: 70%" disabled /></td>
             </tr>
             <tr>
               <th>
                 <label for="">{{ $t('mobilePhoneNumber') }}</label>
               </th>
               <td>
-                <input type="text" :value="phone" class="n_line" style="width: 70%" disabled />
+                <input type="text" :value="userInfo.userMobile" class="n_line" style="width: 70%" disabled />
               </td>
             </tr>
             <tr>
               <th>
                 <label for="">{{ $t('withdrawalAccount') }}</label>
               </th>
-              <td><input type="text" value="userInfo.bankName" class="n_line" style="width: 70%" disabled /></td>
+              <td><input type="text" :value="`(` + userInfo.bankName + `)` + userInfo.bankAccountNo" class="n_line" style="width: 70%" disabled /></td>
             </tr>
           </tbody>
         </table>
@@ -81,6 +81,7 @@
                 <div>
                   <input
                     id="userpswd"
+                    v-model="newPwd"
                     name="userpswd"
                     class="joinInput isPw reqInput"
                     type="password"
@@ -88,7 +89,7 @@
                     :placeholder="$t('enterYourNewPassword')"
                     style="width: 92%"
                     maxlength="20"
-                    @input="chkPw(value)"
+                    @input="chkPw(password)"
                   />
                 </div>
                 <p id="pwCheckText" class="txt3">
@@ -112,14 +113,96 @@
     <div class="tc">
       <button class="but_black" type="button" onclick="goUpdatePw();">{{ $t('changePassword') }}</button>
     </div>
+    <modal v-if="showModal" @close="showModal = false">
+      <p slot="body">{{ text }}</p>
+    </modal>
   </div>
   <!-- // info_con_h1 -->
 </template>
 <script>
+import VueClipboard from 'vue-clipboard2'
+import Vue from 'vue'
+import { mapGetters } from 'vuex'
+import Modal from '~/components/Modal'
+import { userInfo } from '~/api/user'
+
+Vue.use(VueClipboard, { global: false })
+
 export default {
   name: 'MemberInfo',
+  components: {
+    Modal
+  },
   data() {
-    return {}
+    return {
+      showModal: false,
+      userInfo: {},
+      clipboardTxt: '',
+      newPwd: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUid'])
+  },
+  mounted() {
+    const vm = this
+    userInfo(vm.getSessionId, vm.getUid).then(res => {
+      vm.userInfo = res.data
+      vm.clipboardTxt = 'https://kdex.io/auth/' + vm.encodeEmail(vm.userInfo.userEmail) + '/welcome'
+    })
+  },
+  methods: {
+    copyDone() {
+      this.showModal = true
+      this.text = '클립보드에 복사되었습니다. Ctrl + V 로 붙여넣기 하세요.'
+    },
+    copyFail() {
+      this.showModal = true
+      this.text = '클립보드 복사에 실패하였습니다.'
+    },
+    encodeEmail(str) {
+      let res = ''
+      for (let i = 0; i < str.length; i++) {
+        let tmp = str.charCodeAt(i)
+        if (tmp === 64) {
+          tmp = 9733
+        }
+        res = res + String.fromCharCode(tmp)
+      }
+      return res
+    },
+    chkPw(str) {
+      const regPwd = /^.*(?=.{8,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/
+      if (!regPwd.test(str)) {
+        $('#passCheck').val('N')
+        $('#pwCheckText').text("{{i18n 'Between8And20Digits'}}")
+        $('#pwCheckText').removeClass('blue')
+        $('#pwCheckText').addClass('red')
+      } else {
+        $('#passCheck').val('Y')
+        $('#pwCheckText').text("{{i18n 'securePassword'}}")
+        $('#pwCheckText').removeClass('red')
+        $('#pwCheckText').addClass('blue')
+      }
+    }
   }
 }
 </script>
+<style>
+.recom_btn {
+  padding: 5px 10px;
+  border: 1px #00b9b2 solid;
+  position: absolute;
+  right: 280px;
+  margin-top: -50px;
+  font-size: 15px;
+  background: #00b9b2;
+  color: #fff;
+  cursor: pointer;
+}
+
+.recom_btn:hover {
+  background: #fff;
+  color: #00b9b2;
+}
+</style>
