@@ -1,0 +1,45 @@
+@charset "UTF-8";
+body.chart-page span,
+body.chart-page div {
+  font-size: 12px !important;
+} /*헤더,심볼*/
+.js-rootresizer__contents {
+  opacity: 0;
+}
+._tv-dialog-content .alert-dialog-content,
+._tv-dialog-content .main-properties {
+  max-height: 300px;
+  padding: 10px 10px;
+  overflow: auto !important;
+} /*설정 다이알로그*/
+@media only screen and (max-height: 650px) {
+  ._tv-dialog,
+  ._tv-dialog-content {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  ._tv-dialog > div > div:not(.tv-tabs):not(.main-properties-aftertabs) {
+    height: calc(100% - 128px) !important;
+  }
+}
+._tv-dialog._tv-dialog-nonmodal {
+  left: 0;
+  width: 100%;
+  min-width: 320px !important;
+}
+.pane-legend-line.pane-legend-wrap.main.expand-line {
+  padding-right: 5px !important;
+}
+.pane-legend .pane-legend-minbtn {
+  float: left;
+}
+.expand-line .pane-legend-item-value-container {
+  display: block;
+  padding-left: 20px;
+}
+._tv-dialog-content .dialog-buttons {
+  float: left;
+} /*dialog 하단 버튼 왼쪽 정렬*/
+.pane-legend-item-value-container {
+  display: none !important;
+} /*시고저*/

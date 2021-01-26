@@ -82,7 +82,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
+// import { widget as Widget } from '../../public/lib/tv/charting_library/charting_library.min.js'
 import { coinList, coinInfo } from '~/api/coin'
+import DataFeed from '~/api/datafeed'
 
 export default {
   name: 'Chart',
@@ -93,7 +95,12 @@ export default {
       market: '',
       coinInfoList: [],
       coinInfo: {},
-      basicPrice: ''
+      basicPrice: '',
+      datafeedUrl: {
+        default: 'https://demo_feed.tradingview.com',
+        type: String
+      },
+      tvWidget: ''
     }
   },
   computed: {
@@ -104,9 +111,161 @@ export default {
       this.getCoinInfo()
     }
   },
-  mounted() {
+  async mounted() {
     this.getCoinList()
     this.getCoinInfo()
+    const { widget } = await import('../../static/lib/tv/charting_library/charting_library.min.js') // <-- Import asynchronously
+    const widgetOptions = {
+      fullscreen: false,
+      symbol: 'BTC_KRW',
+      interval: 'D',
+      container_id: 'chart',
+      datafeed: DataFeed,
+      library_path: '/static/lib/tv/charting_library/',
+      locale: 'ko',
+      width: '100%',
+      height: '463',
+      timeframe: '1M',
+      loading_screen: { backgroundColor: '#ffffff' },
+      timezone: 'Asia/Seoul',
+      enabled_features: [
+        'volume_force_overlay',
+        'header_saveload',
+        'header_symbol_search',
+        'left_toolbar',
+        'header_compare',
+        'use_localstorage_for_settings',
+        'symbol_search_hot_key',
+        'show_hide_button_in_legend',
+        'symbol_info'
+      ],
+      drawings_access: {
+        type: 'black',
+        tools: [{ name: 'Regression Trend' }]
+      },
+      disabled_features: [
+        'volume_force_overlay',
+        'header_undo_redo',
+        'header_symbol_search',
+        'symbol_search_hot_key',
+        'go_to_date',
+        'header_compare',
+        'header_screenshot',
+        'header_fullscreen_button',
+        'context_menus',
+        'header_settings',
+        'compare_symbol',
+        'timeframes_toolbar',
+        'left_toolbar'
+      ],
+      overrides: {
+        'mainSeriesProperties.candleStyle': {
+          upColor: '#FF0000',
+          downColor: '#1155CC',
+          drawWick: true,
+          drawBorder: true,
+          borderColor: '#378658',
+          borderUpColor: '#FF0000',
+          borderDownColor: '#1155CC',
+          wickUpColor: '#FF0000',
+          wickDownColor: '#1155CC',
+          wickColor: '#737375',
+          barColorsOnPrevClose: false
+        },
+        'mainSeriesProperties.hollowCandleStyle': {
+          upColor: '#FF0000',
+          downColor: '#1155CC',
+          drawWick: true,
+          drawBorder: true,
+          borderColor: '#378658',
+          borderUpColor: '#FF0000',
+          borderDownColor: '#1155CC',
+          wickUpColor: '#FF0000',
+          wickDownColor: '#1155CC',
+          wickColor: '#737375'
+        },
+        'study_Overlay@tv-basicstudies.style': 2,
+        'study_Overlay@tv-basicstudies.lineStyle.color': '#FF0000',
+        'paneProperties.background': '#FFFFFF',
+        'paneProperties.vertGridProperties.color': '#dddddd',
+        'paneProperties.horzGridProperties.color': '#dddddd',
+        'symbolWatermarkProperties.transparency': 0,
+        'scalesProperties.textColor': '#333333',
+        'mainSeriesProperties.haStyle.upColor': '#FF0000',
+        'mainSeriesProperties.haStyle.downColor': '#1155CC',
+        'mainSeriesProperties.haStyle.drawWick': true,
+        'mainSeriesProperties.haStyle.drawBorder': true,
+        'mainSeriesProperties.haStyle.borderColor': '#378658',
+        'mainSeriesProperties.haStyle.borderUpColor': '#FF0000',
+        'mainSeriesProperties.haStyle.borderDownColor': '#1155CC',
+        'mainSeriesProperties.haStyle.wickColor': '#737375',
+        'mainSeriesProperties.haStyle.barColorsOnPrevClose': false,
+        'mainSeriesProperties.barStyle.upColor': '#FF0000',
+        'mainSeriesProperties.barStyle.downColor': '#1155CC',
+        'mainSeriesProperties.barStyle.barColorsOnPrevClose': false,
+        'mainSeriesProperties.barStyle.dontDrawOpen': false,
+        'mainSeriesProperties.areaStyle.color1': '#FF0000',
+        'mainSeriesProperties.areaStyle.color2': '#1155CC',
+        'mainSeriesProperties.areaStyle.linecolor': '#0094FF',
+        'mainSeriesProperties.areaStyle.linewidth': 1,
+        'mainSeriesProperties.areaStyle.priceSource': 'close'
+      },
+      // volume 색상 설정
+      studies_overrides: {
+        'Moving Average.plot.color': '#bf9000',
+        'volume.volume.plottype': 'columns',
+        'volume.volume.color.0': '#1155CC',
+        'volume.volume.color.1': '#FF0000',
+        'volume.volume.transparency': 50,
+        'volume.volume ma.plottype': 'line',
+        'volume.volume ma.color': '#4dc94d',
+        'volume.volume ma.transparency': 50,
+        'volume.volume ma.linewidth': 2,
+        'volume.show ma': true
+      },
+      custom_css_url: '/lib/tv/tradingview.css',
+      debug: false,
+      time_frames: [
+        { text: '1y', resolution: 'W', description: '1 Years' },
+        { text: '6m', resolution: 'D', description: '6 Month' },
+        { text: '3m', resolution: '720', description: '3 Month' },
+        { text: '1m', resolution: '360', description: '1 Month' },
+        { text: '7d', resolution: '60', description: '7 Days' },
+        { text: '3d', resolution: '30', description: '3 Days' },
+        { text: '1d', resolution: '15', description: '1 Day' },
+        { text: '6h', resolution: '5', description: '6 Hours' },
+        { text: '1h', resolution: '1', description: '1 Hour' }
+      ],
+
+      charts_storage_url: 'https://saveload.tradingview.com',
+      charts_storage_api_version: '1.1',
+      user_id: 'A0000001' + 'white',
+      load_last_chart: false
+    }
+
+    // eslint-disable-next-line new-cap
+    const tvWidget = new widget(widgetOptions)
+    this.tvWidget = tvWidget
+
+    tvWidget.onChartReady(() => {
+      tvWidget.chart().executeActionById('drawingToolbarAction') // hides or shows the drawing toolbar
+      $('#chart_container iframe').contents().find('.js-rootresizer__contents').css('opacity', 1)
+      tvWidget.chart().createStudy('Moving Average', false, false, [15], null, {
+        'Plot.color': '#bf9000',
+        'Plot.linewidth': 2
+      })
+      tvWidget.chart().createStudy('Moving Average', false, false, [60], null, {
+        'Plot.color': '#45818e',
+        'Plot.linewidth': 2
+      })
+      tvWidget
+        .chart()
+        .onIntervalChanged()
+        .subscribe({}, function (chgInterval, obj) {
+          // Datafeed.resetLastDate()
+          tvWidget.chart().executeActionById('timeScaleReset')
+        })
+    })
   },
   methods: {
     getCoinList() {

@@ -56,7 +56,7 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    vendor: ['vue-i18n'],
+    vendor: ['vue-i18n', 'charting_library.min.js'],
     plugins: [
       new webpack.ProvidePlugin({
         $: 'jquery',
@@ -82,6 +82,20 @@ export default {
           }
         }
       }
+    },
+    babel : { 
+      presets ({ isServer })  { 
+        return  [ 
+          [ 
+            require.resolve ( '@nuxt/babel-preset-app') , 
+            { 
+              targets : isServer? {node : '10'} : {ie : '11'}, 
+              corejs : {version : 3}, 
+              modules : 'commonjs' 
+            } 
+          ] 
+        ] 
+      } 
     }
   }
 }
