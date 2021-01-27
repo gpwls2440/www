@@ -67,6 +67,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { tickList } from '~/api/exchange'
 export default {
   name: 'TradeHist',
@@ -76,6 +77,14 @@ export default {
       market: 'KRW',
       symbol: 'BTC',
       tickList: []
+    }
+  },
+  computed: {
+    ...mapGetters(['getSymbolMarket'])
+  },
+  watch: {
+    getSymbolMarket() {
+      this.getTickList()
     }
   },
   mounted() {
@@ -88,7 +97,7 @@ export default {
     },
     getTickList() {
       const vm = this
-      tickList(vm.symbol).then(res => {
+      tickList(vm.getSymbolMarket).then(res => {
         vm.tickList = res.data
       })
     }

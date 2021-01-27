@@ -126,6 +126,11 @@ export default {
   computed: {
     ...mapGetters(['getSymbolMarket'])
   },
+  watch: {
+    getSymbolMarket() {
+      this.getCoinInfo()
+    }
+  },
   mounted() {
     this.getCoinInfo()
   },
