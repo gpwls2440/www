@@ -143,6 +143,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { coinInfo } from '~/api/coin'
+import { repUnComma, repComma } from '~/plugins/util'
 export default {
   name: 'TransactionHist',
   data() {
@@ -157,30 +159,42 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getSessionId', 'getUserLevel'])
+    ...mapGetters(['getSessionId', 'getUserLevel', 'getSymbolMarket'])
+  },
+  created() {
+    this.getCoinInfo()
   },
   mounted() {
     const { am4core, am4charts } = this.$am4core()
 
     const chart = am4core.create('depth_chart', am4charts.XYChart)
-    chart.dataSource.url = 'https://poloniex.com/public?command=returnOrderBook&currencyPair=BTC_ETH&depth=50'
+    chart.dataSource.url = 'http://localhost:8080/exchange/coinInfo'
     chart.dataSource.reloadFrequency = 30000
     chart.dataSource.adapter.add('parsedData', function (data) {
       // Function to process (sort and calculate cummulative volume)
       function processData(list, type, desc) {
+        const inputData = []
         // Convert to data points
         for (let i = 0; i < list.length; i++) {
-          list[i] = {
-            value: Number(list[i][0]),
-            volume: Number(list[i][1])
+          inputData[i] = {
+            price: Number(repUnComma(list[i].price)),
+            qty: Number(repUnComma(list[i].qty))
           }
         }
 
         // Sort list just in case
-        list.sort(function (a, b) {
-          if (a.value > b.value) {
+        inputData.sort(function (a, b) {
+          if (!desc) {
+            if (a.price > b.price && b.price === 0) {
+              return -1
+            }
+            if (a.price < b.price && a.price === 0) {
+              return 1
+            }
+          }
+          if (a.price > b.price) {
             return 1
-          } else if (a.value < b.value) {
+          } else if (a.price < b.price) {
             return -1
           } else {
             return 0
@@ -189,40 +203,40 @@ export default {
 
         // Calculate cummulative volume
         if (desc) {
-          for (let i = list.length - 1; i >= 0; i--) {
-            if (i < list.length - 1) {
-              list[i].totalvolume = list[i + 1].totalvolume + list[i].volume
+          for (let i = inputData.length - 1; i >= 0; i--) {
+            if (i < inputData.length - 1) {
+              inputData[i].totalvolume = inputData[i + 1].totalvolume + inputData[i].qty
             } else {
-              list[i].totalvolume = list[i].volume
+              inputData[i].totalvolume = inputData[i].qty
             }
             const dp = {}
-            dp.value = list[i].value
-            dp[type + 'volume'] = list[i].volume
-            dp[type + 'totalvolume'] = list[i].totalvolume
-            res.unshift(dp)
+            dp.value = repComma(inputData[i].price)
+            dp[type + 'volume'] = inputData[i].qty
+            dp[type + 'totalvolume'] = inputData[i].totalvolume
+            chartData.unshift(dp)
           }
         } else {
-          for (let i = 0; i < list.length; i++) {
+          for (let i = 0; i < inputData.length; i++) {
             if (i > 0) {
-              list[i].totalvolume = list[i - 1].totalvolume + list[i].volume
+              inputData[i].totalvolume = inputData[i - 1].totalvolume + inputData[i].qty
             } else {
-              list[i].totalvolume = list[i].volume
+              inputData[i].totalvolume = inputData[i].qty
             }
             const dp = {}
-            dp.value = list[i].value
-            dp[type + 'volume'] = list[i].volume
-            dp[type + 'totalvolume'] = list[i].totalvolume
-            res.push(dp)
+            dp.value = repComma(inputData[i].price)
+            dp[type + 'volume'] = inputData[i].qty
+            dp[type + 'totalvolume'] = inputData[i].totalvolume
+            chartData.push(dp)
           }
         }
       }
 
       // Init
-      const res = []
-      processData(data.bids, 'bids', true)
-      processData(data.asks, 'asks', false)
+      const chartData = []
+      processData(data.coinInfo.bidInfoList, 'bids', true)
+      processData(data.coinInfo.askInfoList, 'asks', false)
 
-      return res
+      return chartData
     })
 
     // Set up precision for numbers
@@ -246,7 +260,7 @@ export default {
     series.stroke = am4core.color('#0f0')
     series.fill = series.stroke
     series.fillOpacity = 0.1
-    series.tooltipText = '매도: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{bidsvolume}[/]'
+    series.tooltipText = '매수: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{bidsvolume}[/]'
 
     const series2 = chart.series.push(new am4charts.StepLineSeries())
     series2.dataFields.categoryX = 'value'
@@ -255,7 +269,7 @@ export default {
     series2.stroke = am4core.color('#f00')
     series2.fill = series2.stroke
     series2.fillOpacity = 0.1
-    series2.tooltipText = '매수: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{asksvolume}[/]'
+    series2.tooltipText = '매도: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{asksvolume}[/]'
 
     const series3 = chart.series.push(new am4charts.ColumnSeries())
     series3.dataFields.categoryX = 'value'
@@ -278,6 +292,14 @@ export default {
     tabChange(tab) {
       const vm = this
       vm.tab = tab
+    },
+    getCoinInfo() {
+      const vm = this
+      coinInfo(vm.getSymbolMarket).then(res => {
+        vm.coinInfo = res.data.coinInfo
+        vm.askInfoList = vm.coinInfo.askInfoList
+        vm.bidInfoList = vm.coinInfo.bidInfoList
+      })
     }
   }
 }
