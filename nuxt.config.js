@@ -47,12 +47,15 @@ export default {
       target: 'http://localhost:8080',
       pathRewrite: {
         '^/api': '/'
-      }
+      },
+      changeOrigin: true
     }
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    proxy: true
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
