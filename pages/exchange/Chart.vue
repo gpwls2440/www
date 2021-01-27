@@ -5,12 +5,12 @@
       <div class="top_area">
         <p class="tit">
           <span class="b1"><img :src="require(`~/assets/images/coin/${symbol}.png`)" :alt="symbol" style="width: 32px" /></span>
-          <a href="javascript://" class="w_area_btn">
+          <a class="w_area_btn" @mouseover="classActived = true">
             <span class="st1">{{ coinName }}</span> <span class="st2">{{ symbol }}/{{ market }} </span>
             <span class="b2"><img src="~/assets/images/arr_btn.png" alt="" /></span>
           </a>
         </p>
-        <div class="w_area mCustomScrollbar">
+        <div class="w_area mCustomScrollbar" :class="{ active: classActived }" @mouseover="classActived = true" @mouseout="classActived = false">
           <ul>
             <li v-for="(coin, index) in coinInfoList" :key="index" class="isCoinSelectBtn">
               <a :title="coin.coinName" @click="loadData(coin.symbol, coin.market)"
@@ -81,10 +81,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 // import { widget as Widget } from '../../public/lib/tv/charting_library/charting_library.min.js'
 import { coinList, coinInfo } from '~/api/coin'
-import DataFeed from '~/api/datafeed'
+// import DataFeed from '~/api/datafeed'
 
 export default {
   name: 'Chart',
@@ -100,7 +100,8 @@ export default {
         default: 'https://demo_feed.tradingview.com',
         type: String
       },
-      tvWidget: ''
+      tvWidget: '',
+      classActived: false
     }
   },
   computed: {
@@ -111,6 +112,7 @@ export default {
       this.getCoinInfo()
     }
   },
+  /*
   async mounted() {
     this.getCoinList()
     this.getCoinInfo()
@@ -267,7 +269,13 @@ export default {
         })
     })
   },
+  */
+  mounted() {
+    this.getCoinList()
+    this.getCoinInfo()
+  },
   methods: {
+    ...mapActions(['setSymbolMarketFunc']),
     getCoinList() {
       const vm = this
       coinList().then(res => {
@@ -282,6 +290,9 @@ export default {
         vm.market = res.data.market
         vm.symbol = res.data.symbol
       })
+    },
+    loadData(symbol, market) {
+      this.setSymbolMarketFunc(symbol + '_' + market)
     }
   }
 }
