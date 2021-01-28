@@ -17,3 +17,9 @@ export const getMarket = value => {
   const arr = value.split('_')
   return arr[1]
 }
+
+export const toFixQty = value => {
+  let out = ''
+  out = value.toFixed(3)
+  return out
+}

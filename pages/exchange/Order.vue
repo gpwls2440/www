@@ -232,7 +232,7 @@
 import { mapGetters } from 'vuex'
 import Modal from '~/components/Modal'
 import { orderAsset } from '~/api/balance'
-import { repComma, repUnComma } from '~/plugins/util'
+import { repComma, repUnComma, toFixQty } from '~/plugins/util'
 import { coinInfo } from '~/api/coin'
 
 export default {
@@ -256,39 +256,51 @@ export default {
       buyQty: '0',
       buyPrice: '',
       oriSimbol: '',
-      minPrice: '10,000',
+      minPrice: '',
       tickSize: '',
-      feeRate: '0.1',
+      feeRate: '',
       walletAmountInfo: {},
       basicPrice: '',
       showModal: false,
-      text: ''
+      text: '',
+      orderMaxBuy: ''
     }
   },
   computed: {
     ...mapGetters(['getSymbolMarket', 'getUserLevel', 'getSessionId', 'getUid'])
   },
   watch: {
+    getSymbolMarket() {
+      this.getCoinInfo()
+      this.getOrderAsset()
+    },
     buyPrice() {
       if (this.buyQty !== '0') {
-        this.buyAmount = Number(this.buyPrice) * Number(this.buyQty)
+        this.buyAmount = Number(repUnComma(this.buyPrice)) * Number(repUnComma(this.buyQty))
+        this.buyAmount = repComma(this.buyAmount)
       }
-      return (this.buyPrice = repComma(this.buyPrice.replace(/[^0-9]/g, '')))
+      return (this.buyPrice = repComma(this.buyPrice.replace(/[^-/.0-9]/g, '').replace(/0*([0-9]+)/g, '$1')))
     },
     sellPrice() {
-      return (this.sellPrice = repComma(this.sellPrice.replace(/[^0-9]/g, '')))
+      if (this.sellQty !== '0') {
+        this.sellAmount = Number(repUnComma(this.sellPrice)) * Number(repUnComma(this.sellQty))
+        this.sellAmount = repComma(this.sellAmount)
+      }
+      return (this.sellPrice = repComma(this.sellPrice.replace(/[^-/.0-9]/g, '').replace(/0*([0-9]+)/g, '$1')))
     },
     buyQty() {
-      if (this.buyPrice !== '') {
-        this.buyAmount = Number(this.buyPrice) * Number(this.buyQty)
+      if (this.buyPrice !== '0') {
+        this.buyAmount = Number(repUnComma(this.buyPrice)) * Number(repUnComma(this.buyQty))
+        this.buyAmount = repComma(this.buyAmount)
       }
-      return (this.buyQty = repComma(this.buyQty.replace(/[^0-9]/g, '')))
+      return (this.buyQty = repComma(this.buyQty.replace(/[^-/.0-9]/g, '').replace(/0*([0-9]+)/g, '$1')))
     },
     sellQty() {
-      return (this.sellQty = repComma(this.sellQty.replace(/[^0-9]/g, '')))
-    },
-    getSymbolMarket() {
-      this.getOrderAsset()
+      if (this.sellPrice !== '0') {
+        this.sellAmount = Number(repUnComma(this.sellPrice)) * Number(repUnComma(this.sellQty))
+        this.sellAmount = repComma(this.sellAmount)
+      }
+      return (this.sellQty = repComma(this.sellQty.replace(/[^-/.0-9]/g, '').replace(/0*([0-9]+)/g, '$1')))
     }
   },
   mounted() {
@@ -300,9 +312,12 @@ export default {
       const vm = this
       orderAsset(vm.getSessionId, vm.getUid, vm.getSymbolMarket).then(res => {
         vm.amountInfo = res.data.amountInfo
+        vm.orderMaxBuy = vm.amountInfo.ordrAbleAmount
+        vm.minPrice = vm.amountInfo.minPrice
         vm.walletAmountInfo = res.data.walletAmountInfo
         vm.walletInfo = res.data.walletInfo
         vm.market = res.data.market
+        vm.feeRate = vm.walletAmountInfo.feeRate
       })
     },
     notworking() {
@@ -367,6 +382,82 @@ export default {
           setTimeout(() => {
             $('#modiInfoSell').hide()
           }, 2000)
+        }
+      }
+    },
+    calcQty(type, mode) {
+      if (mode === 'B') {
+        const ableQty = Number(repUnComma(this.orderMaxBuy))
+        const buyPrice = Number(repUnComma(this.buyPrice))
+        if (buyPrice === 0 || buyPrice === '') {
+          this.showModal = true
+          this.text = '매수가격을 입력해주세요.'
+        } else {
+          let qty = 0
+          if (type === '0') {
+            const minPrice = Number(repUnComma(this.minPrice))
+            qty = minPrice / buyPrice
+            qty = Math.ceil(qty * 1000)
+            qty = qty / 1000
+            console.log('qty: ' + qty)
+          } else if (type === '100') {
+            // 원화마켓의 경우 수수료 차감후 계산
+            if (this.market === 'KRW') {
+              qty = (ableQty * (1 - Number(this.feeRate) * 0.01)) / buyPrice
+            } else {
+              qty = (ableQty - this.buyFee) / buyPrice
+            }
+            qty = Math.floor(qty * 1000)
+            qty = qty / 1000
+          } else {
+            qty = ableQty / buyPrice / (100 / Number(type))
+          }
+
+          this.buyQty = repComma(toFixQty(qty))
+          // this.calcBuy()
+        }
+      } else {
+        const ableQty = Number(repUnComma(this.orderMaxSell))
+        const sellPrice = Number(repUnComma(this.sellPrice))
+        if (sellPrice === 0) {
+          this.showModal = true
+          this.text = '매도가격을 입력해주세요.'
+        } else {
+          let qty = 0
+          if (type === '0') {
+            const minPrice = Number(repUnComma(this.minPrice))
+            qty = minPrice / sellPrice
+            qty = Math.ceil(qty * 1000)
+            qty = qty / 1000
+          } else if (type === '100') {
+            if (
+              this.simbol === 'KDA' ||
+              this.simbol === 'DPN' ||
+              this.simbol === 'METAC' ||
+              this.simbol === 'AGO' ||
+              this.simbol === '520' ||
+              this.simbol === 'MCVW' ||
+              this.simbol === 'BTR' ||
+              this.simbol === 'COOP' ||
+              this.simbol === 'VVC' ||
+              this.simbol === 'MPC' ||
+              this.simbol === 'CSC' ||
+              this.simbol === 'EDIEN' ||
+              this.simbol === 'KOC' ||
+              this.simbol === 'STC'
+            ) {
+              qty = ableQty
+            } else {
+              qty = ableQty - this.sellFee
+            }
+            qty = Math.floor(qty * 1000)
+            qty = qty / 1000
+          } else {
+            qty = ableQty / (100 / Number(type))
+          }
+
+          this.sellQty = repComma(toFixQty(qty))
+          // this.calcSell()
         }
       }
     }
