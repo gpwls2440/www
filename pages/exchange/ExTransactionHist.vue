@@ -18,11 +18,11 @@
     </div>
     <!-- // tab_btn3 -->
 
-    <div v-if="tab === '1'" id="con7" class="tab_con3 ex_con3">
+    <div v-show="tab === '1'" id="con7" class="tab_con3 ex_con3">
       <div id="depth_chart" style="width: 100%; height: 100%"></div>
     </div>
 
-    <div v-if="tab === '2'" id="MatchingList" class="tab_con3 ex_con3">
+    <div v-show="tab === '2'" id="MatchingList" class="tab_con3 ex_con3">
       <!-- con8 -->
       <div v-show="getSessionId == ''" style="text-align: center; padding: 20px; font-size: 16px">
         <p class="st1">
@@ -77,7 +77,7 @@
       <!-- // ex_table_type1 mCustomScrollbar -->
     </div>
     <!-- // con8 -->
-    <div v-if="tab === '3'" id="MatchingReady" class="tab_con3 ex_con3">
+    <div v-show="tab === '3'" id="MatchingReady" class="tab_con3 ex_con3">
       <!-- con9 -->
       <div v-show="getSessionId == ''" style="text-align: center; padding: 20px; font-size: 16px">
         <p class="st1">
@@ -165,128 +165,129 @@ export default {
     this.getCoinInfo()
   },
   mounted() {
-    const { am4core, am4charts } = this.$am4core()
-
-    const chart = am4core.create('depth_chart', am4charts.XYChart)
-    chart.dataSource.url = 'http://localhost:8080/exchange/coinInfo'
-    chart.dataSource.reloadFrequency = 30000
-    chart.dataSource.adapter.add('parsedData', function (data) {
-      // Function to process (sort and calculate cummulative volume)
-      function processData(list, type, desc) {
-        const inputData = []
-        // Convert to data points
-        for (let i = 0; i < list.length; i++) {
-          inputData[i] = {
-            price: Number(repUnComma(list[i].price)),
-            qty: Number(repUnComma(list[i].qty))
-          }
-        }
-
-        // Sort list just in case
-        inputData.sort(function (a, b) {
-          if (!desc) {
-            if (a.price > b.price && b.price === 0) {
-              return -1
+    if (this.tab === '1') {
+      const { am4core, am4charts } = this.$am4core()
+      const chart = am4core.create('depth_chart', am4charts.XYChart)
+      chart.dataSource.url = 'http://localhost:8080/exchange/coinInfo'
+      chart.dataSource.reloadFrequency = 30000
+      chart.dataSource.adapter.add('parsedData', function (data) {
+        // Function to process (sort and calculate cummulative volume)
+        function processData(list, type, desc) {
+          const inputData = []
+          // Convert to data points
+          for (let i = 0; i < list.length; i++) {
+            inputData[i] = {
+              price: Number(repUnComma(list[i].price)),
+              qty: Number(repUnComma(list[i].qty))
             }
-            if (a.price < b.price && a.price === 0) {
+          }
+
+          // Sort list just in case
+          inputData.sort(function (a, b) {
+            if (!desc) {
+              if (a.price > b.price && b.price === 0) {
+                return -1
+              }
+              if (a.price < b.price && a.price === 0) {
+                return 1
+              }
+            }
+            if (a.price > b.price) {
               return 1
+            } else if (a.price < b.price) {
+              return -1
+            } else {
+              return 0
             }
-          }
-          if (a.price > b.price) {
-            return 1
-          } else if (a.price < b.price) {
-            return -1
-          } else {
-            return 0
-          }
-        })
+          })
 
-        // Calculate cummulative volume
-        if (desc) {
-          for (let i = inputData.length - 1; i >= 0; i--) {
-            if (i < inputData.length - 1) {
-              inputData[i].totalvolume = inputData[i + 1].totalvolume + inputData[i].qty
-            } else {
-              inputData[i].totalvolume = inputData[i].qty
+          // Calculate cummulative volume
+          if (desc) {
+            for (let i = inputData.length - 1; i >= 0; i--) {
+              if (i < inputData.length - 1) {
+                inputData[i].totalvolume = inputData[i + 1].totalvolume + inputData[i].qty
+              } else {
+                inputData[i].totalvolume = inputData[i].qty
+              }
+              const dp = {}
+              dp.value = repComma(inputData[i].price)
+              dp[type + 'volume'] = inputData[i].qty
+              dp[type + 'totalvolume'] = inputData[i].totalvolume
+              chartData.unshift(dp)
             }
-            const dp = {}
-            dp.value = repComma(inputData[i].price)
-            dp[type + 'volume'] = inputData[i].qty
-            dp[type + 'totalvolume'] = inputData[i].totalvolume
-            chartData.unshift(dp)
-          }
-        } else {
-          for (let i = 0; i < inputData.length; i++) {
-            if (i > 0) {
-              inputData[i].totalvolume = inputData[i - 1].totalvolume + inputData[i].qty
-            } else {
-              inputData[i].totalvolume = inputData[i].qty
+          } else {
+            for (let i = 0; i < inputData.length; i++) {
+              if (i > 0) {
+                inputData[i].totalvolume = inputData[i - 1].totalvolume + inputData[i].qty
+              } else {
+                inputData[i].totalvolume = inputData[i].qty
+              }
+              const dp = {}
+              dp.value = repComma(inputData[i].price)
+              dp[type + 'volume'] = inputData[i].qty
+              dp[type + 'totalvolume'] = inputData[i].totalvolume
+              chartData.push(dp)
             }
-            const dp = {}
-            dp.value = repComma(inputData[i].price)
-            dp[type + 'volume'] = inputData[i].qty
-            dp[type + 'totalvolume'] = inputData[i].totalvolume
-            chartData.push(dp)
           }
         }
-      }
 
-      // Init
-      const chartData = []
-      processData(data.coinInfo.bidInfoList, 'bids', true)
-      processData(data.coinInfo.askInfoList, 'asks', false)
+        // Init
+        const chartData = []
+        processData(data.coinInfo.bidInfoList, 'bids', true)
+        processData(data.coinInfo.askInfoList, 'asks', false)
 
-      return chartData
-    })
+        return chartData
+      })
 
-    // Set up precision for numbers
-    chart.numberFormatter.numberFormat = '#,###.####'
+      // Set up precision for numbers
+      chart.numberFormatter.numberFormat = '#,###.####'
 
-    // Create axes
-    const xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
-    xAxis.dataFields.category = 'value'
-    // xAxis.renderer.grid.template.location = 0;
-    xAxis.renderer.minGridDistance = 50
-    xAxis.title.text = 'Price'
+      // Create axes
+      const xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
+      xAxis.dataFields.category = 'value'
+      // xAxis.renderer.grid.template.location = 0;
+      xAxis.renderer.minGridDistance = 50
+      xAxis.title.text = 'Price'
 
-    const yAxis = chart.yAxes.push(new am4charts.ValueAxis())
-    yAxis.title.text = 'Volume'
+      const yAxis = chart.yAxes.push(new am4charts.ValueAxis())
+      yAxis.title.text = 'Volume'
 
-    // Create series
-    const series = chart.series.push(new am4charts.StepLineSeries())
-    series.dataFields.categoryX = 'value'
-    series.dataFields.valueY = 'bidstotalvolume'
-    series.strokeWidth = 2
-    series.stroke = am4core.color('#0f0')
-    series.fill = series.stroke
-    series.fillOpacity = 0.1
-    series.tooltipText = '매수: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{bidsvolume}[/]'
+      // Create series
+      const series = chart.series.push(new am4charts.StepLineSeries())
+      series.dataFields.categoryX = 'value'
+      series.dataFields.valueY = 'bidstotalvolume'
+      series.strokeWidth = 2
+      series.stroke = am4core.color('#0f0')
+      series.fill = series.stroke
+      series.fillOpacity = 0.1
+      series.tooltipText = '매수: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{bidsvolume}[/]'
 
-    const series2 = chart.series.push(new am4charts.StepLineSeries())
-    series2.dataFields.categoryX = 'value'
-    series2.dataFields.valueY = 'askstotalvolume'
-    series2.strokeWidth = 2
-    series2.stroke = am4core.color('#f00')
-    series2.fill = series2.stroke
-    series2.fillOpacity = 0.1
-    series2.tooltipText = '매도: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{asksvolume}[/]'
+      const series2 = chart.series.push(new am4charts.StepLineSeries())
+      series2.dataFields.categoryX = 'value'
+      series2.dataFields.valueY = 'askstotalvolume'
+      series2.strokeWidth = 2
+      series2.stroke = am4core.color('#f00')
+      series2.fill = series2.stroke
+      series2.fillOpacity = 0.1
+      series2.tooltipText = '매도: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{asksvolume}[/]'
 
-    const series3 = chart.series.push(new am4charts.ColumnSeries())
-    series3.dataFields.categoryX = 'value'
-    series3.dataFields.valueY = 'bidsvolume'
-    series3.strokeWidth = 0
-    series3.fill = am4core.color('#000')
-    series3.fillOpacity = 0.2
+      const series3 = chart.series.push(new am4charts.ColumnSeries())
+      series3.dataFields.categoryX = 'value'
+      series3.dataFields.valueY = 'bidsvolume'
+      series3.strokeWidth = 0
+      series3.fill = am4core.color('#000')
+      series3.fillOpacity = 0.2
 
-    const series4 = chart.series.push(new am4charts.ColumnSeries())
-    series4.dataFields.categoryX = 'value'
-    series4.dataFields.valueY = 'asksvolume'
-    series4.strokeWidth = 0
-    series4.fill = am4core.color('#000')
-    series4.fillOpacity = 0.2
+      const series4 = chart.series.push(new am4charts.ColumnSeries())
+      series4.dataFields.categoryX = 'value'
+      series4.dataFields.valueY = 'asksvolume'
+      series4.strokeWidth = 0
+      series4.fill = am4core.color('#000')
+      series4.fillOpacity = 0.2
 
-    // Add cursor
-    chart.cursor = new am4charts.XYCursor()
+      // Add cursor
+      chart.cursor = new am4charts.XYCursor()
+    }
   },
   methods: {
     tabChange(tab) {
