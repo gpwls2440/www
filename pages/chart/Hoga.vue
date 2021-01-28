@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { coinInfo } from '~/api/coin'
 import { tickList } from '~/api/exchange'
 
@@ -77,6 +78,9 @@ export default {
       bidInfoList: [],
       tickList: []
     }
+  },
+  computed: {
+    ...mapGetters(['getSymbolMarket'])
   },
   mounted() {
     this.getCoinInfo()

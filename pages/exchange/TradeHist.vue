@@ -69,6 +69,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { tickList } from '~/api/exchange'
+import { getSymbol } from '~/plugins/util'
 export default {
   name: 'TradeHist',
   data() {
@@ -97,7 +98,8 @@ export default {
     },
     getTickList() {
       const vm = this
-      tickList(vm.getSymbolMarket).then(res => {
+      const symbol = getSymbol(vm.getSymbolMarket)
+      tickList(symbol).then(res => {
         vm.tickList = res.data
       })
     }
