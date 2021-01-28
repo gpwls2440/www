@@ -620,7 +620,7 @@
 .ex_tab2 ul {
   width: 100%;
 }
-.ex_tab2 ul li {
+.ex_tab2 > ul > li {
   float: left;
   width: 50%;
   text-align: center;
