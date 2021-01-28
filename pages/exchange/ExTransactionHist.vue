@@ -155,7 +155,9 @@ export default {
         {
           instCd: ''
         }
-      ]
+      ],
+      oriSimbol: '',
+      matchingReady: []
     }
   },
   computed: {
