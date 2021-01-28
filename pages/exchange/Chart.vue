@@ -5,7 +5,7 @@
       <div class="top_area">
         <p class="tit">
           <span class="b1"><img :src="require(`~/assets/images/coin/${symbol}.png`)" :alt="symbol" style="width: 32px" /></span>
-          <a class="w_area_btn" @mouseover="classActived = true">
+          <a class="w_area_btn" @mouseover="classActived = true" @mouseout="classActived = false">
             <span class="st1">{{ coinName }}</span> <span class="st2">{{ symbol }}/{{ market }} </span>
             <span class="b2"><img src="~/assets/images/arr_btn.png" alt="" /></span>
           </a>
