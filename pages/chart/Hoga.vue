@@ -65,6 +65,7 @@
 import { mapGetters } from 'vuex'
 import { coinInfo } from '~/api/coin'
 import { tickList } from '~/api/exchange'
+import { getSymbol } from '~/plugins/util'
 
 export default {
   name: 'Hoga',
@@ -81,6 +82,12 @@ export default {
   },
   computed: {
     ...mapGetters(['getSymbolMarket'])
+  },
+  watch: {
+    getSymbolMarket() {
+      this.getCoinInfo()
+      this.getTickList()
+    }
   },
   mounted() {
     this.getCoinInfo()
@@ -118,7 +125,8 @@ export default {
     },
     getTickList() {
       const vm = this
-      tickList(vm.symbol).then(res => {
+      const symbol = getSymbol(vm.getSymbolMarket)
+      tickList(symbol).then(res => {
         vm.tickList = res.data
       })
     }

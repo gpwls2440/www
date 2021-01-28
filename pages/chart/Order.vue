@@ -22,7 +22,7 @@
       <input type="hidden" name="waysType" value="W" />
       <input type="hidden" name="orderPrice" value="" />
       <input type="hidden" name="orderQty" value="" />
-      <ul v-if="userLevel > 1" class="ex_price1">
+      <ul v-if="getUserLevel > 1" class="ex_price1">
         <li class="left" style="width: 48%; text-align: left">
           <p v-if="market == 'KRW'" class="st1">
             {{ $t('assets') }} : <span class="blue">{{ amountInfo.amount }}</span>
@@ -99,25 +99,25 @@
           </p>
         </li>
       </ul>
-      <ul v-if="userLevel == 0" class="ex_price1">
-        <li class="left">
+      <ul v-if="getSessionId == ''" class="ex_price1">
+        <li class="left" style="width: 48%">
           <p class="st1">
-            <a href="/auth/login"
+            <a href="/auth/login" style="background: #3b3b4b; width: 30%; display: inline"
               ><span class="blue">{{ $t('login') }}</span></a
             >
             {{ $t('or') }}
-            <a href="javascript:go_join();"
+            <a href="javascript:go_join();" style="background: #3b3b4b; width: 30%; display: inline"
               ><span class="blue">{{ $t('signup') }}</span></a
             >
           </p>
         </li>
-        <li class="right">
+        <li class="right" style="width: 48%">
           <p class="st1">
-            <a href="/auth/login"
+            <a href="/auth/login" style="background: #3b3b4b; width: 30%; display: inline"
               ><span class="blue">{{ $t('login') }}</span></a
             >
             {{ $t('or') }}
-            <a href="javascript:go_join();"
+            <a href="javascript:go_join();" style="background: #3b3b4b; width: 30%; display: inline"
               ><span class="blue">{{ $t('signup') }}</span></a
             >
           </p>
@@ -197,7 +197,7 @@
         </li>
       </ul>
       <div class="ex_price2">
-        <p v-if="userLevel > 1" class="gray st1" style="text-align: right">
+        <p v-if="getUserLevel > 1" class="gray st1" style="text-align: right">
           {{ $t('minamount') }} <span class="white fw300"> {{ minPrice }} </span> {{ market }}<span class="wm">/</span>
           <span v-show="market == 'KRW'">
             {{ $t('PriceUnit') }}
@@ -217,7 +217,7 @@
     </div>
     <!-- // con5 -->
     <div v-if="tab == '3'" id="con7" class="tab_table_con table_con1 tab_con2 mCustomScrollbar">
-      <div v-show="userLevel < 1" style="text-align: center; padding: 20px; font-size: 16px; color: #fff">
+      <div v-show="getSessionId == ''" style="text-align: center; padding: 20px; font-size: 16px; color: #fff">
         <p class="st1">
           <a href="/auth/login"
             ><span class="blue">{{ $t('login') }}</span></a
@@ -233,7 +233,7 @@
       <input type="hidden" name="cancleOrderQty" />
       <input type="hidden" name="symbol" :value="oriSymbol" />
       <input type="hidden" name="waysType" value="W" />
-      <table v-show="userLevel > 1" class="table_type_h1">
+      <table v-show="getUserLevel > 1" class="table_type_h1">
         <colgroup>
           <col style="width: * %" />
           <col style="width: 11%" />
@@ -271,7 +271,7 @@
     </div>
 
     <div v-if="tab == '4'" id="con8" class="tab_table_con table_con2 tab_con2 mCustomScrollbar">
-      <div v-show="userLevel < 1" style="text-align: center; padding: 20px; font-size: 16px; color: #fff">
+      <div v-show="getSessionId == ''" style="text-align: center; padding: 20px; font-size: 16px; color: #fff">
         <p class="st1">
           <a href="/auth/login"
             ><span class="blue">{{ $t('login') }}</span></a
@@ -318,6 +318,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { coinInfo } from '~/api/coin'
 import Modal from '~/components/Modal'
 export default {
   name: 'Order',
@@ -327,7 +329,6 @@ export default {
   data() {
     return {
       tab: '1',
-      userLevel: '2',
       market: 'KRW',
       amountInfo: {
         amount: '100,000,000',
@@ -366,6 +367,12 @@ export default {
       text: ''
     }
   },
+  computed: {
+    ...mapGetters(['getUserLevel', 'getSessionId'])
+  },
+  mounted() {
+    this.getCoinInfo()
+  },
   methods: {
     tabChange(tab) {
       const vm = this
@@ -374,6 +381,20 @@ export default {
     notworking() {
       this.showModal = true
       this.text = '서비스 준비중입니다.'
+    },
+    getCoinInfo() {
+      const vm = this
+      coinInfo(vm.getSymbolMarket).then(res => {
+        vm.buyPrice = res.data.coinInfo.lastPrice
+        console.log('vm.buyPrice: ' + vm.buyPrice)
+        vm.sellPrice = res.data.coinInfo.lastPrice
+      })
+    },
+    goOrder(orderType, priceType) {
+      if (this.getSessionId === '') {
+        this.showModal = true
+        this.text = '로그인 후 거래가 가능합니다.'
+      }
     }
   }
 }

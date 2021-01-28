@@ -5,7 +5,7 @@
       <!-- live_graph -->
       <div id="CoinInfoCtrl" class="chart_top">
         <div style="float: left">
-          <span style="margin-left: 20px" class="wc_area_btn">
+          <span style="margin-left: 20px" class="wc_area_btn" @mouseover="classActived = true" @mouseout="classActived = false">
             <span class="st1 white">{{ coinName }}</span> <span class="st2">{{ symbol }}/{{ market }} </span>
           </span>
         </div>
@@ -30,7 +30,7 @@
             <span class="n1">{{ coinInfo.symbol }}</span>
           </span>
         </div>
-        <div class="wc_area mCustomScrollbar">
+        <div class="wc_area mCustomScrollbar" :class="{ active: classActived }" @mouseover="classActived = true" @mouseout="classActived = false">
           <ul>
             <li v-for="(coin, index) in coinInfoList" :key="index" class="isCoinSelectBtn" @click="loadData(coin.symbol, coin.market)">
               {{ coin.coinName }}
@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { coinInfo } from '~/api/coin'
+import { mapGetters, mapActions } from 'vuex'
+import { coinInfo, coinList } from '~/api/coin'
 
 export default {
   name: 'Chart',
@@ -61,16 +61,27 @@ export default {
       market: 'KRW',
       coinInfo: {},
       coinInfoList: [],
-      basicPrice: ''
+      basicPrice: '',
+      classActived: false
     }
   },
   computed: {
     ...mapGetters(['getSymbolMarket'])
   },
+  watch: {
+    getSymbolMarket() {
+      this.getCoinInfo()
+    }
+  },
+  created() {
+    this.setSymbolMarketFunc('BTC_KRW')
+  },
   mounted() {
     this.getCoinInfo()
+    this.getCoinList()
   },
   methods: {
+    ...mapActions(['setSymbolMarketFunc']),
     getCoinInfo() {
       const vm = this
       coinInfo(vm.getSymbolMarket).then(res => {
@@ -79,6 +90,15 @@ export default {
         vm.market = res.data.market
         vm.symbol = res.data.symbol
       })
+    },
+    getCoinList() {
+      const vm = this
+      coinList().then(res => {
+        vm.coinInfoList = res.data
+      })
+    },
+    loadData(symbol, market) {
+      this.setSymbolMarketFunc(symbol + '_' + market)
     }
   }
 }

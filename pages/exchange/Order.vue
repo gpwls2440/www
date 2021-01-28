@@ -129,12 +129,12 @@
             <p class="st2">
               {{ $t('bidprice') }}
               <span v-if="priceType == '2'" class="miniBtn_area">
-                <input type="button" class="miniBtn1 plus" value="+" @click="plusBuy()" />
-                <input type="button" class="miniBtn1 minus" value="&ndash;" @click="minusBuy()" />
+                <input type="button" class="miniBtn1 plus" value="+" @click="plusBuyPrice()" />
+                <input type="button" class="miniBtn1 minus" value="&ndash;" @click="minusBuyPrice(buyPrice)" />
               </span>
             </p>
             <div v-show="priceType == '2'" class="price_w1">
-              <input id="buyPrice" v-model="buyPrice" type="text" name="orderPriceBuy" />
+              <input id="buyPrice" v-model="buyPrice" type="text" name="orderPriceBuy" @blur="focusOut('buy')" />
               <span>{{ market }}</span>
               <div id="modiInfoBuy"></div>
             </div>
@@ -165,12 +165,12 @@
             <p class="st2">
               {{ $t('askprice') }}
               <span v-if="priceType == '2'" class="miniBtn_area">
-                <input type="button" class="miniBtn1 plus" value="+" @click="plusSell()" />
-                <input type="button" class="miniBtn1 minus" value="&ndash;" @click="minusSell()" />
+                <input type="button" class="miniBtn1 plus" value="+" @click="plusPrice(sellPrice)" />
+                <input type="button" class="miniBtn1 minus" value="&ndash;" @click="minusPrice(sellPrice)" />
               </span>
             </p>
             <div v-show="priceType == '2'" class="price_w1">
-              <input v-model="sellPrice" type="text" name="orderPriceSell" />
+              <input v-model="sellPrice" type="text" name="orderPriceSell" @blur="focusOut('sell')" />
               <span>{{ market }}</span>
               <div id="modiInfoSell"></div>
             </div>
@@ -232,7 +232,8 @@
 import { mapGetters } from 'vuex'
 import Modal from '~/components/Modal'
 import { orderAsset } from '~/api/balance'
-import { repComma } from '~/plugins/util'
+import { repComma, repUnComma } from '~/plugins/util'
+import { coinInfo } from '~/api/coin'
 
 export default {
   name: 'Order',
@@ -250,13 +251,13 @@ export default {
       buyAmount: 0,
       sellAmount: '0',
       symbol: 'BTC',
-      sellQty: '',
+      sellQty: '0',
       sellPrice: '',
-      buyQty: '',
+      buyQty: '0',
       buyPrice: '',
       oriSimbol: '',
       minPrice: '10,000',
-      tickSize: '1,000',
+      tickSize: '',
       feeRate: '0.1',
       walletAmountInfo: {},
       basicPrice: '',
@@ -269,7 +270,7 @@ export default {
   },
   watch: {
     buyPrice() {
-      if (this.buyQty !== '') {
+      if (this.buyQty !== '0') {
         this.buyAmount = Number(this.buyPrice) * Number(this.buyQty)
       }
       return (this.buyPrice = repComma(this.buyPrice.replace(/[^0-9]/g, '')))
@@ -292,6 +293,7 @@ export default {
   },
   mounted() {
     this.getOrderAsset()
+    this.getCoinInfo()
   },
   methods: {
     getOrderAsset() {
@@ -307,10 +309,65 @@ export default {
       this.showModal = true
       this.text = '서비스 준비중입니다.'
     },
+    getCoinInfo() {
+      const vm = this
+      coinInfo(vm.getSymbolMarket).then(res => {
+        vm.buyPrice = res.data.coinInfo.lastPrice
+        vm.sellPrice = res.data.coinInfo.lastPrice
+        vm.tickSize = res.data.coinInfo.tickSize
+      })
+    },
     goOrder(orderType, priceType) {
       if (this.getSessionId === '') {
         this.showModal = true
         this.text = '로그인 후 거래가 가능합니다.'
+      }
+    },
+    plusBuyPrice() {
+      const tickSize = this.tickSize.substring(0, this.tickSize.length - 9)
+      this.buyPrice = Number(repUnComma(this.buyPrice)) + Number(tickSize)
+      this.buyPrice = repComma(this.buyPrice)
+    },
+    minusBuyPrice() {
+      if (Number(this.buyPrice) === 0) {
+        this.showModal = true
+        this.text = '주문이 불가능한 금액입니다.'
+      } else {
+        const tickSize = this.tickSize.substring(0, this.tickSize.length - 9)
+        this.buyPrice = Number(repUnComma(this.buyPrice)) - Number(tickSize)
+        this.buyPrice = repComma(this.buyPrice)
+      }
+    },
+    focusOut(type) {
+      if (type === 'buy') {
+        if (Number(repUnComma(this.buyPrice)) % Number(this.tickSize) !== 0 && Number(this.tickSize) > 1) {
+          this.buyPrice = Number(repUnComma(this.buyPrice)) - (Number(repUnComma(this.buyPrice)) % Number(this.tickSize))
+
+          if (this.buyPrice === 0) {
+            this.buyPrice = Number(this.tickSize)
+          }
+          this.buyPrice = repComma(this.buyPrice)
+          $('#modiInfoBuy').html('호가단위에 맞춰 금액이 수정되었습니다.')
+          $('#modiInfoBuy').show()
+          setTimeout(() => {
+            $('#modiInfoBuy').hide()
+          }, 2000)
+        }
+      }
+      if (type === 'sell') {
+        if (Number(repUnComma(this.sellPrice)) % Number(this.tickSize) !== 0 && Number(this.tickSize) > 1) {
+          this.sellPrice = Number(repUnComma(this.sellPrice)) - (Number(repUnComma(this.sellPrice)) % Number(this.tickSize))
+
+          if (this.sellPrice === 0) {
+            this.sellPrice = Number(this.tickSize)
+          }
+          this.sellPrice = repComma(this.sellPrice)
+          $('#modiInfoSell').html('호가단위에 맞춰 금액이 수정되었습니다.')
+          $('#modiInfoSell').show()
+          setTimeout(() => {
+            $('#modiInfoSell').hide()
+          }, 2000)
+        }
       }
     }
   }
