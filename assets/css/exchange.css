@@ -120,7 +120,7 @@
 }
 
 .warning {
-  background: url('/assets/img/icon_pkmark.png') no-repeat;
+  background: url('../images/icon_pkmark.png') no-repeat;
   display: inline-block;
   width: 20px;
   height: 20px;
