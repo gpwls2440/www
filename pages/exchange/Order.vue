@@ -231,7 +231,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Modal from '~/components/Modal'
-import { orderAsset, sendFee } from '~/api/balance'
+import { orderAsset, sendFee, userAmount, userAbleAmount } from '~/api/balance'
 import { repComma, repUnComma, toFixQty, getMarket, getSymbol } from '~/plugins/util'
 import { coinInfo } from '~/api/coin'
 
@@ -281,6 +281,11 @@ export default {
       this.getCoinInfo()
       this.getOrderAsset()
       this.getSendFee()
+      if (getMarket(this.getSymbolMarket) === 'KRW') {
+        this.getUserAmount()
+      } else {
+        this.getUserAbleAmount()
+      }
     },
     buyPrice() {
       if (this.buyQty !== '0') {
@@ -317,6 +322,11 @@ export default {
     this.getOrderAsset()
     this.getCoinInfo()
     this.getSendFee()
+    if (getMarket(this.getSymbolMarket) === 'KRW') {
+      this.getUserAmount()
+    } else {
+      this.getUserAbleAmount()
+    }
   },
   methods: {
     getOrderAsset() {
@@ -562,6 +572,25 @@ export default {
       }
       sendFee(symbol, vm.procType, vm.calcType, vm.gasLimit, vm.gwei).then(res => {
         vm.sellFee = res.data.fee
+      })
+    },
+    getUserAmount() {
+      const vm = this
+      const market = getMarket(vm.getSymbolMarket)
+      const symbol = getSymbol(vm.getSymbolMarket)
+      userAmount(market, symbol, vm.getSessionId, vm.getUid).then(res => {
+        vm.minPrice = res.data.minPrice
+        vm.feeRate = res.data.feeRate
+        vm.orderMaxBuy = res.data.ordrAbleAmount
+      })
+    },
+    getUserAbleAmount() {
+      const vm = this
+      const market = getMarket(vm.getSymbolMarket)
+      userAbleAmount(market, vm.getSymbolMarket, vm.getSessionId, vm.getUid).then(res => {
+        vm.minPrice = res.data.minPrice
+        vm.feeRate = res.data.feeRate
+        vm.orderMaxBuy = res.data.ableQty
       })
     }
   }

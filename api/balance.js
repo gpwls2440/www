@@ -1,4 +1,4 @@
-import { axiosPost, axiosGet } from './config'
+import { axiosPost } from './config'
 
 // 주문 자산 가져오기
 export const orderAsset = (sessionId = '', uid = '', symbolMarket = '') => {
@@ -21,7 +21,6 @@ export const sendFee = (symbol = '', procType= '', calcType = '', gasLimit = '',
 }
 
 // 보유코인
-
 export const myCoins = (symbol='', type= '' , sessionId = '', uid = '') => {
   return axiosPost('/auth/walletList', {
     symbol: symbol,
@@ -31,3 +30,22 @@ export const myCoins = (symbol='', type= '' , sessionId = '', uid = '') => {
   })
 }
 
+// market이 KRW일때 자산현황
+export const userAmount = (market, symbol, sessionId, uid) => {
+  return axiosPost('/auth/userAmount', {
+    market,
+    symbol,
+    sessionId,
+    uid
+  })
+}
+
+// market이 KRW이 아닐때 자산현황
+export const userAbleAmount = (market, symbol, sessionId, uid) => {
+  return axiosPost('/auth/userAbleAmount', {
+    market,
+    symbol,
+    sessionId,
+    uid
+  })
+}
