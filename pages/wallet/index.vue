@@ -5,7 +5,7 @@
       <!-- contents -->
       <div class="con_layout5">
         <!-- con_layout5 -->
-        <Balance></Balance>
+        <MyCoins></MyCoins>
         <MyWalletChart></MyWalletChart>
         <MyWallet></MyWallet>
       </div>
@@ -14,15 +14,15 @@
 </template>
 
 <script>
-import Balance from './Balance'
+import MyCoins from './MyCoins'
 import MyWalletChart from './MyWalletChart'
 import MyWallet from './MyWallet'
 import '@/assets/css/wallet.css'
 
 export default {
-  middleware: 'authenticated',
+  // middleware: 'authenticated',
   components: {
-    Balance,
+    MyCoins,
     MyWalletChart,
     MyWallet
   },
