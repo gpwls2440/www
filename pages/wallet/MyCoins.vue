@@ -28,15 +28,15 @@
           <li v-for="(coins, index) in walletList" v-show="tokenViewFlag || coins.coinType != '2'" :key="index" :class="{ active: coins.symbol == curSymbol.symbol, token: coins.coinType == '2' }">
             <a href="javascript:void(0);" @click="onBlock(coins.symbol, coins.coinType)">
               <span class="st1">
-                <img :src="`/assets/images/coin/${coins.symbol}.png`" :alt="`${coins.symbol}`" />
+                <img :src="require(`~/assets/images/coin/${coins.symbol}.png`)" :alt="`${coins.symbol}`" />
                 <span class="ml5">{{ coins.symbolName }}</span
                 ><span class="gray">({{ coins.symbol }})</span>
               </span>
               <span class="st2">
-                <span class="ml5" decimals="8">{{ coins.dpoQty }}</span>
+                <span class="ml5">{{ coins.dpoQty | toFixed2 }}</span>
               </span>
               <span v-show="coins.symbol != 'KRW'" class="st2 won_price">
-                <span>{{ coins.dpoQty }}</span>
+                <span>{{ coins.dpoQty | toFixed }}</span>
                 <span>KRW</span>
               </span>
             </a>
@@ -54,8 +54,10 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { myCoins } from '~/api/balance'
 export default {
-  name: 'Balance',
+  name: 'MyCoins',
   data() {
     return {
       totalQty: {
@@ -64,32 +66,7 @@ export default {
       },
       viewMode: '0',
       tokenViewFlag: '1',
-      walletList: [
-        {
-          coinType: '2',
-          symbol: 'KRW',
-          symbolName: '원화',
-          dpoQty: '0.00'
-        },
-        {
-          coinType: '2',
-          symbol: 'BTC',
-          symbolName: '비트코인',
-          dpoQty: '0'
-        },
-        {
-          coinType: '2',
-          symbol: 'ETH',
-          symbolName: '이더리움',
-          dpoQty: '0'
-        },
-        {
-          coinType: '2',
-          symbol: 'LTC',
-          symbolName: '라이트코인',
-          dpoQty: '0'
-        }
-      ],
+      walletList: [],
       curSymbol: {
         symbol: '',
         name: '',
@@ -106,12 +83,25 @@ export default {
         KDAblockQty: 0,
         KdaPointQty: 0
       },
-      tokenCount: ''
+      tokenCount: '',
+      symbol: ''
     }
+  },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUid'])
+  },
+  mounted() {
+    this.getMyCoins()
   },
   methods: {
     setMode() {
       this.viewMode = '1'
+    },
+    getMyCoins() {
+      const vm = this
+      myCoins(vm.symbol, '2', vm.getSessionId, vm.getUid).then(res => {
+        vm.walletList = res.data
+      })
     }
   }
 }
