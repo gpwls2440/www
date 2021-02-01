@@ -10,11 +10,13 @@ export const orderAsset = (sessionId = '', uid = '', symbolMarket = '') => {
 }
 
 // 전송수수료 계산
-export const sendFee = (symbol = '', procType= '', calcType = '') => {
+export const sendFee = (symbol = '', procType= '', calcType = '', gasLimit = '', gwei = '') => {
   return axiosPost('/auth/getSendFee', {
     symbol: symbol,
     procType: procType,
-    calcType: calcType
+    calcType: calcType,
+    gasLimit: gasLimit,
+    gwei: gwei
   })
 }
 

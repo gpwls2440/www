@@ -231,8 +231,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import Modal from '~/components/Modal'
-import { orderAsset } from '~/api/balance'
-import { repComma, repUnComma, toFixQty } from '~/plugins/util'
+import { orderAsset, sendFee } from '~/api/balance'
+import { repComma, repUnComma, toFixQty, getMarket, getSymbol } from '~/plugins/util'
 import { coinInfo } from '~/api/coin'
 
 export default {
@@ -263,7 +263,14 @@ export default {
       basicPrice: '',
       showModal: false,
       text: '',
-      orderMaxBuy: ''
+      orderMaxBuy: '',
+      coinInfo: {
+        lastPrice: ''
+      },
+      procType: '1',
+      calcType: '3',
+      gasLimit: '0',
+      gwei: '0'
     }
   },
   computed: {
@@ -273,20 +280,23 @@ export default {
     getSymbolMarket() {
       this.getCoinInfo()
       this.getOrderAsset()
+      this.getSendFee()
     },
     buyPrice() {
       if (this.buyQty !== '0') {
         this.buyAmount = Number(repUnComma(this.buyPrice)) * Number(repUnComma(this.buyQty))
         this.buyAmount = repComma(this.buyAmount)
       }
-      return (this.buyPrice = repComma(this.buyPrice.replace(/[^-/.0-9]/g, '').replace(/0*([0-9]+)/g, '$1')))
+      // return (this.buyPrice = repComma(this.buyPrice.replace(/(^\d+$)|(^\d{1,}.\d{0,2}$)/g, '').replace(/0*([0-9]+)/g, '$1')))
+      return (this.buyPrice = repComma(this.buyPrice.replace(/[^.0-9]/g, '').replace(/0*([0-9]+)/g, '$1')))
+      // return (this.buyPrice = repComma(this.buyPrice))
     },
     sellPrice() {
       if (this.sellQty !== '0') {
         this.sellAmount = Number(repUnComma(this.sellPrice)) * Number(repUnComma(this.sellQty))
         this.sellAmount = repComma(this.sellAmount)
       }
-      return (this.sellPrice = repComma(this.sellPrice.replace(/[^-/.0-9]/g, '').replace(/0*([0-9]+)/g, '$1')))
+      return (this.sellPrice = repComma(this.sellPrice.replace(/[^\d+$)|(^\d+\\.\d{1,2}$]/g, '').replace(/0*([0-9]+)/g, '$1')))
     },
     buyQty() {
       if (this.buyPrice !== '0') {
@@ -306,6 +316,7 @@ export default {
   mounted() {
     this.getOrderAsset()
     this.getCoinInfo()
+    this.getSendFee()
   },
   methods: {
     getOrderAsset() {
@@ -327,6 +338,7 @@ export default {
     getCoinInfo() {
       const vm = this
       coinInfo(vm.getSymbolMarket).then(res => {
+        vm.coinInfo.lastPrice = res.data.coinInfo.lastPrice
         vm.buyPrice = res.data.coinInfo.lastPrice
         vm.sellPrice = res.data.coinInfo.lastPrice
         vm.tickSize = res.data.coinInfo.tickSize
@@ -384,6 +396,84 @@ export default {
           }, 2000)
         }
       }
+    },
+    validNumber() {
+      if (this.buyPrice === undefined) {
+        return '' // If value is required
+      }
+
+      // Regular expression for everything but [.] and [1 - 10] (Replace all)
+      // eslint-disable-next-line no-useless-escape
+      let transformedInput = this.buyPrice.replace(/[ㄱ-ㅎ ㅏ-ㅣ가-힣a-z!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/g, '')
+      // Now to prevent duplicates of decimal point
+      const arr = transformedInput.split('')
+
+      let count = 0 // decimal counter
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === '.') {
+          count++ //  how many do we have? increment
+        }
+      }
+
+      // if we have more than 1 decimal point, delete and leave only one at the end
+      while (count > 1) {
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === '.') {
+            arr[i] = ''
+            count = 0
+            break
+          }
+        }
+      }
+
+      console.log('arr: ' + arr)
+      console.log('count: ' + count)
+
+      // convert the array back to string by relacing the commas
+      transformedInput = arr.toString().replace(/,/g, '')
+      console.log('transformedInput: ' + transformedInput)
+      const under = transformedInput.split('.')
+      console.log('under.length : ' + under.length)
+      console.log('under : ' + under)
+      let underCount = 2
+
+      if (under.length > 1) {
+        const market = getMarket(this.getSymbolMarket)
+        console.log(Number(repUnComma(this.coinInfo.lastPrice)))
+        if (market === 'BTC' || market === 'ETH') {
+          underCount = 8
+        } else if (Number(repUnComma(this.coinInfo.lastPrice)) >= 100) {
+          underCount = 0
+        } else if (Number(repUnComma(this.coinInfo.lastPrice)) >= 10) {
+          underCount = 1
+        } else {
+          underCount = 2
+        }
+
+        console.log('underCount : ' + underCount)
+
+        if (under[1].length > underCount) {
+          transformedInput = repUnComma(transformedInput)
+          this.bu = Number(transformedInput).toFixed(underCount)
+        }
+      }
+
+      if (arr[arr.length - 1] === '.') {
+        transformedInput = repComma(transformedInput) + '.'
+      } else if (arr.includes('.')) {
+        transformedInput = repComma(transformedInput)
+      } else {
+        transformedInput = Number(transformedInput)
+        transformedInput = repComma(transformedInput)
+      }
+
+      if (transformedInput !== this.buyPrice) {
+        // modelCtrl.$setViewValue(transformedInput)
+        // modelCtrl.$render()
+        // this.buyPrice = transformedInput
+      }
+
+      // return transformedInput
     },
     calcQty(type, mode) {
       if (mode === 'B') {
@@ -460,6 +550,19 @@ export default {
           // this.calcSell()
         }
       }
+    },
+    getSendFee() {
+      const vm = this
+      const symbol = getSymbol(vm.getSymbolMarket)
+      const market = getMarket(vm.getSymbolMarket)
+      if (market !== 'KRW') {
+        sendFee(symbol, vm.procType, vm.calcType, vm.gasLimit, vm.gwei).then(res => {
+          vm.buyFee = res.data.fee
+        })
+      }
+      sendFee(symbol, vm.procType, vm.calcType, vm.gasLimit, vm.gwei).then(res => {
+        vm.sellFee = res.data.fee
+      })
     }
   }
 }
