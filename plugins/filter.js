@@ -135,6 +135,12 @@ Vue.filter('toFixed2', function (value) {
   }
 })
 
+Vue.filter('toFixed', function (value) {
+  if (value) {
+    return Number(value).toFixed(0)
+  }
+})
+
 Vue.filter('calcPrice', function (input, val1) {
   const basic = Number(repUnComma(input))
   const price = Number(val1)
