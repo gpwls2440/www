@@ -26,16 +26,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="mr in items" :key="mr">
-          <td>{{ mr.ordrTime }}</td>
+        <tr v-for="(mr, index) in items" :key="index">
+          <td>{{ mr.ordrTime | dateAndTimeFilter }}</td>
           <td>
-            {{ mr.instCd }} <span v-if="mr.instCd">/ {{ mr.instCd }}</span>
+            <span>{{ mr.instCd }}</span>
           </td>
           <td>
-            <span :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp }}</span>
+            <span :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp | buySellType }}</span>
           </td>
           <td class="tr2">
-            {{ mr.ordrPrc }} <span class="c_n">{{ mr.instCd }}</span>
+            {{ mr.ordrPrc }}
           </td>
           <td class="tr2">
             {{ mr.ordrQty }} <span class="c_n">{{ mr.instCd }}</span>
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { nonTransactionList } from '~/api/exchange'
 export default {
   name: 'NonTransactionHist',
@@ -92,10 +93,16 @@ export default {
       items: []
     }
   },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUid'])
+  },
+  mounted() {
+    this.getNontransactionList()
+  },
   methods: {
     getNontransactionList() {
       const vm = this
-      nonTransactionList().then(res => {
+      nonTransactionList(vm.getSessionId, vm.getUid, '').then(res => {
         vm.items = res.data
       })
     }

@@ -8,13 +8,13 @@ export const tickList = (symbol = '') => {
 }
 
 // 거래내역
-export const transactionList = (sessionId, uid, startDt, endDt, transTp, instCd, page, pageSize) => {
+export const transactionList = (sessionId, uid, startDt, endDt, tranTp, instCd, page, pageSize) => {
   return axiosPost('/auth/transactionHistory', {
     sessionId,
     uid,
     startDt,
     endDt,
-    transTp,
+    tranTp,
     instCd,
     page,
     pageSize
@@ -22,7 +22,10 @@ export const transactionList = (sessionId, uid, startDt, endDt, transTp, instCd,
 }
 
 // 미체결내역
-export const nonTransactionList = () => {
+export const nonTransactionList = (sessionId, uid, symbol) => {
   return axiosPost('/auth/matchingReady', {
+    sessionId,
+    uid,
+    symbol
   })
 }
