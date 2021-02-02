@@ -7,13 +7,13 @@
         <li>
           <span class="l">{{ $t('total') }}{{ $t('bidamount') }}</span>
           <span class="r"
-            ><span class="c1">{{ total.openAmt }}</span> KRW</span
+            ><span class="c1">{{ total.openAmt | toFixed | commaFilter }}</span> KRW</span
           >
         </li>
         <li>
           <span class="l">{{ $t('total') }}{{ $t('evaluationamount') }}</span>
           <span class="r"
-            ><span class="c1">{{ total.evalAmt }}</span> KRW</span
+            ><span class="c1">{{ total.evalAmt | toFixed | commaFilter }}</span> KRW</span
           >
         </li>
       </ul>
@@ -21,14 +21,14 @@
         <li>
           <span class="l">{{ $t('total') }}{{ $t('profitorloss') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.evalPl > 0, blue: total.evalPl < 0 }">{{ total.evalPl }}</span>
+            <span class="c2" :class="{ red: total.evalPl > 0, blue: total.evalPl < 0 }">{{ total.evalPl | toFixed | commaFilter }}</span>
             <span class="c8">KRW</span>
           </span>
         </li>
         <li>
           <span class="l">{{ $t('total') }}{{ $t('profitrate') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.evalPlRt > 0, blue: total.evalPlRt < 0 }">{{ total.evalPlRt }}</span>
+            <span class="c2" :class="{ red: total.evalPlRt > 0, blue: total.evalPlRt < 0 }">{{ total.evalPlRt | toFixed2 | commaFilter }}</span>
             <span class="c8">%</span>
           </span>
         </li>
@@ -37,20 +37,20 @@
         <li>
           <span class="l">{{ $t('obtained') }}KRW</span>
           <span class="r"
-            ><span class="c1">{{ total.totalKRW }}</span> KRW</span
+            ><span class="c1">{{ total.totalKRW | toFixed | commaFilter }}</span> KRW</span
           >
         </li>
         <li>
           <span class="l">{{ $t('obtained') }}KDP</span>
           <span class="r"
-            ><span class="c1">{{ total.totalKDP }}</span> KRW</span
+            ><span class="c1">{{ total.totalKDP | toFixed | commaFilter }}</span> KRW</span
           >
         </li>
       </ul>
       <div class="total_div">
         <span class="l">{{ $t('totalassets') }}</span>
         <span class="r"
-          ><span class="c2">{{ total.totalAmt }}</span> KRW</span
+          ><span class="c2">{{ total.totalAmt | toFixed | commaFilter }}</span> KRW</span
         >
       </div>
     </div>
@@ -94,10 +94,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(coins, index) in walletList" :key="index">
+        <tr v-for="(coins, index) in walletList" v-show="coins.symbol !== 'KRW'" :key="index">
           <td class="tl">
             <p>
+              <!--
               <img :src="require(`~/assets/images/coin/${coins.symbol}.png`)" width="20" style="vertical-align: middle; margin-right: 5px" :alt="coins.symbol" /> {{ coins.symbolName }}
+              -->
               <span class="c_n">{{ coins.symbol }}</span>
             </p>
           </td>
@@ -108,20 +110,20 @@
           </td>
           <td class="tr">
             <a href="javascript:void(0)" @click="editWindowOpen(coins.symbol)">
-              {{ coins.argPrice }}<span class="c_n">KRW</span>
+              {{ coins.argPrice | toFixed | commaFilter }}<span class="c_n">KRW</span>
               <img style="vertical-align: -2px; margin-left: 10px" src="~/assets/images/icon_set.png" :alt="`$t('averagepurchaseprice')`" />
               <span v-show="coins.editFlag == 0" class="editText">{{ $t('averageprice') }} {{ $t('modify') }}</span>
               <span v-show="coins.editFlag == 1" class="editText blue">{{ $t('averageprice') }} {{ $t('modified') }}</span>
             </a>
           </td>
-          <td class="tr">{{ coins.openAmt }}<span class="c_n">KRW</span></td>
-          <td class="tr">{{ coins.evalAmt }}<span class="c_n">KRW</span></td>
+          <td class="tr">{{ coins.openAmt | toFixed | commaFilter }}<span class="c_n">KRW</span></td>
+          <td class="tr">{{ coins.evalAmt | toFixed | commaFilter }}<span class="c_n">KRW</span></td>
           <td class="tr">
             <p>
               <span class="c1" :class="{ red: coins.evalPlRt > 0, blue: coins.evalPlRt < 0 }">{{ coins.evalPlRt }}</span> <span class="c_n">%</span>
             </p>
             <p>
-              <span class="c1" :class="{ red: coins.evalPl > 0, blue: coins.evalPl < 0 }">{{ coins.evalPl }}</span> <span class="c_n">KRW</span>
+              <span class="c1" :class="{ red: coins.evalPl > 0, blue: coins.evalPl < 0 }">{{ coins.evalPl | toFixed | commaFilter }}</span> <span class="c_n">KRW</span>
             </p>
           </td>
           <td>
