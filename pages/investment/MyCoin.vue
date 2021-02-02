@@ -97,7 +97,9 @@
         <tr v-for="(coins, index) in walletList" v-show="coins.symbol !== 'KRW'" :key="index">
           <td class="tl">
             <p>
+              <!--
               <img :src="require(`~/assets/images/coin/${coins.symbol}.png`)" width="20" style="vertical-align: middle; margin-right: 5px" :alt="coins.symbol" /> {{ coins.symbolName }}
+              -->
               <span class="c_n">{{ coins.symbol }}</span>
             </p>
           </td>
