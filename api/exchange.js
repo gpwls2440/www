@@ -1,4 +1,4 @@
-import { axiosPost } from './config'
+import { axiosPost, axiosGet } from './config'
 
 // 체결추이
 export const tickList = (symbol = '') => {
@@ -12,8 +12,8 @@ export const transactionList = (sessionId, uid, startDt, endDt, tranTp, instCd, 
   return axiosPost('/auth/transactionHistory', {
     sessionId,
     uid,
-    startDt,
-    endDt,
+    startDt: startDt.replace(/[-]/g, ''),
+    endDt: endDt.replace(/[-]/g, ''),
     tranTp,
     instCd,
     page,

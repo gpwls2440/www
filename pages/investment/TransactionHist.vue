@@ -5,10 +5,10 @@
       <div>
         {{ $t('checkperiod') }}
         <div class="box">
-          <vue-pikaday v-model="startDt" style="width: 90px" :options="options" :value="startDt" />
+          <vue-pikaday v-model="startDt" style="width: 90px" :options="options" />
         </div>
         -
-        <div class="box"><vue-pikaday v-model="endDt" style="width: 90px" :options="options" :value="endDt" /></div>
+        <div class="box"><vue-pikaday v-model="endDt" style="width: 90px" :options="options" /></div>
         <a :class="{ on: setVal == '1' }" class="btn_mon" @click="setDate(1, 'days')">{{ $t('today') }}</a>
         <a :class="{ on: setVal == '7' }" class="btn_mon" @click="setDate(7, 'days')">1{{ $t('week') }}</a>
         <a :class="{ on: setVal == '30' }" class="btn_mon" @click="setDate(1, 'months')">1{{ $t('month') }}</a>
@@ -17,7 +17,7 @@
         <a :class="{ on: setVal == '360' }" class="btn_mon" @click="setDate(12, 'months')">1{{ $t('year') }}</a>
         <div class="box">
           <select v-model="tranTp" class="form-control" name="tranTp">
-            <option value="0">구분</option>
+            <option value="">구분</option>
             <option value="1">매수체결</option>
             <option value="2">매도체결</option>
             <option value="3">입금</option>
@@ -56,8 +56,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="ml in items" :key="ml">
-          <td>{{ ml.dateTime }}</td>
+        <tr v-for="(ml, index) in items" :key="index">
+          <td>{{ ml.dateTime | dateAndTimeFilter }}</td>
           <td>
             {{ ml.instCd }}
             <img
@@ -72,17 +72,17 @@
           <td class="tr2">
             <span :class="{ red: ml.tranTp == 'TB', blue: ml.tranTp == 'TS' }">{{ ml.tranTpText }}</span>
           </td>
-          <td class="tr2">{{ ml.tranPrc }}</td>
+          <td class="tr2">{{ ml.tranPrc | toFixed | commaFilter }}</td>
           <td class="tr2">{{ ml.tranQty }}</td>
-          <td class="tr2">{{ ml.tranAmt }}</td>
-          <td class="tr2">{{ ml.sendFee }}</td>
+          <td class="tr2">{{ ml.tranAmt | toFixed | commaFilter }}</td>
+          <td class="tr2">{{ ml.sendFee | toFixed2 | commaFilter }}</td>
           <td class="tr2">
-            {{ ml.tranFee }}
+            {{ ml.tranFee | toFixed2 | commaFilter }}
             <span v-show="ml.tranFee != 0 && ml.instCd.length > 6" class="c_n">KDP</span>
             <span v-show="ml.tranFee != 0 && ml.instCd.length <= 6" class="c_n">KRW</span>
           </td>
           <td class="tr2">
-            <span :class="{ red: ml.plAmt > 0, blue: ml.plAmt < 0 }">{{ ml.plAmt }}</span>
+            <span :class="{ red: ml.plAmt > 0, blue: ml.plAmt < 0 }">{{ ml.plAmt | toFixed | commaFilter }}</span>
             <span v-show="ml.plAmt != 0" class="c_n">KRW</span>
           </td>
         </tr>
@@ -92,7 +92,7 @@
       </tbody>
     </table>
     <!-- // table_type_h3 -->
-    <pagination v-if="records > 0" v-model="page1" :records="records" :per-page="pageSize" @paginate="setPage"></pagination>
+    <pagination v-model="page1" :records="records" :per-page="pageSize" @paginate="setPage"></pagination>
     <!-- 
     <div class="page_btn">
       <ul v-if="pager.pages.length" class="pagination">
@@ -146,7 +146,7 @@ export default {
         format: 'YYYY-MM-DD'
       },
       items: [],
-      tranTp: '0',
+      tranTp: '',
       instCd: '',
       page1: 1,
       pageSize: 10,
@@ -156,22 +156,21 @@ export default {
   computed: {
     ...mapGetters(['getSessionId', 'getUid'])
   },
-  created() {
+  created() {},
+  mounted() {
     this.startDt = this.$moment(new Date()).format('YYYY-MM-DD')
     this.endDt = this.$moment(new Date()).format('YYYY-MM-DD')
-  },
-  mounted() {
     this.goSearch()
   },
   methods: {
     setDate(val, gb) {
-      const vm = this
-      vm.startDt = vm.$moment(vm.endDt).subtract(val, gb).format('YYYY-MM-DD')
+      this.startDt = this.$moment(this.endDt).subtract(val, gb).format('YYYY-MM-DD')
+      console.log('this.startDt1: ' + this.startDt)
     },
     goSearch() {
       const vm = this
       transactionList(vm.getSessionId, vm.getUid, vm.startDt, vm.endDt, vm.tranTp, vm.instCd, vm.page1, vm.pageSize).then(res => {
-        this.items = res.data
+        vm.items = res.data
       })
     },
     setPage(page) {
