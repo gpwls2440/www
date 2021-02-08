@@ -24,34 +24,37 @@
         <ul v-if="getUserLevel > 1" class="ex_price1">
           <li class="left">
             <p v-if="market == 'KRW'" class="st1">
-              {{ $t('assets') }} : <span class="pointColor">{{ amountInfo.amount == null ? '0' : amountInfo.amount }}</span>
+              {{ $t('assets') }} : <span class="pointColor">{{ amountInfo.amount | toFixed | commaFilter }}</span>
               {{ market }}
               <br />
-              {{ $t('availableamount') }} : <span class="pointColor">{{ amountInfo.ordrAbleAmount == null ? '0' : amountInfo.orderAbleAmount }}</span>
+              {{ $t('availableamount') }} : <span class="pointColor">{{ amountInfo.ordrAbleAmount | toFixed | commaFilter }}</span>
               {{ market }}
             </p>
             <p v-if="market != 'KRW'" class="st1">
-              {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletAmountInfo.openQty == null ? '0' : walletAmountInfo.openQty }}</span>
+              {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletAmountInfo.openQty | toFixed8 | commaFilter }}</span>
               {{ market }}
               <br />
               {{ $t('availableamount') }} :
-              <span class="pointColor"> {{ walletAmountInfo.ableQty == null ? '0' : walletAmountInfo.ableQty }}</span>
+              <span class="pointColor"> {{ walletAmountInfo.ableQty | toFixed8 | commaFilter }}</span>
               {{ market }}
               <br />
+              <!--
               {{ $t('transferfee') }} :
               <span class="pointColor" :class="{ blue: walletAmountInfo.ableQty > buyFee, red: walletAmountInfo.ableQty < buyFee }"> {{ buyFee }}</span>
               {{ market }}
+              -->
             </p>
           </li>
           <li class="right">
             <p class="st1">
-              {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletInfo.openQty == null ? '0' : walletInfo.openQty }}</span>
+              {{ $t('quantityretained') }} : <span class="pointColor"> {{ walletInfo.openQty | toFixed8 }}</span>
               {{ symbol }}
               <br />
               {{ $t('maxaskamount') }} :
-              <span class="pointColor"> {{ walletInfo.ableQty == null ? '0' : walletInfo.ableQty }}</span>
+              <span class="pointColor"> {{ walletInfo.ableQty | toFixed8 | commaFilter }}</span>
               {{ symbol }}
               <br />
+              <!--
               {{ $t('transferfee') }} :
               <span
                 v-if="
@@ -97,6 +100,7 @@
                 <span class="pointColor" :class="{ blue: walletInfoETH.ableQty > sellFee, red: walletInfoETH.ableQty < sellFee }"> {{ sellFee }}</span>
                 ETH
               </span>
+              -->
             </p>
           </li>
         </ul>
@@ -203,7 +207,7 @@
             {{ market }}<span class="wm">/</span>
             <span v-show="market == 'KRW'">
               {{ $t('PriceUnit') }}
-              <span class="black fw300">{{ tickSize }}</span> KRW
+              <span class="black fw300">{{ tickSize | toFixed }}</span> KRW
               <span class="wm">/</span>
             </span>
             {{ $t('fee') }}
@@ -331,6 +335,7 @@ export default {
   methods: {
     getOrderAsset() {
       const vm = this
+      // const symbol = getSymbol(vm.getSymbolMarket)
       orderAsset(vm.getSessionId, vm.getUid, vm.getSymbolMarket).then(res => {
         vm.amountInfo = res.data.amountInfo
         vm.orderMaxBuy = vm.amountInfo.ordrAbleAmount
@@ -338,7 +343,7 @@ export default {
         vm.walletAmountInfo = res.data.walletAmountInfo
         vm.walletInfo = res.data.walletInfo
         vm.market = res.data.market
-        vm.feeRate = vm.walletAmountInfo.feeRate
+        vm.feeRate = vm.walletInfo.feeRate
       })
     },
     notworking() {
