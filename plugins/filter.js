@@ -131,8 +131,9 @@ Vue.filter('toFixMarket', function () {
 
 Vue.filter('toFixed8', function (value) {
   if (value) {
-    if (value === '0') {
-      return 0
+    if (value.includes(',')) {
+      const oriVal = value.replace(/,/g, '')
+      return Number(oriVal).toFixed(8)
     } else {
       return Number(value).toFixed(8)
     }
@@ -141,13 +142,23 @@ Vue.filter('toFixed8', function (value) {
 
 Vue.filter('toFixed2', function (value) {
   if (value) {
-    return Number(value).toFixed(2)
+    if (value.includes(',')) {
+      const oriVal = value.replace(/,/g, '')
+      return Number(oriVal).toFixed(2)
+    } else {
+      return Number(value).toFixed(2)
+    }
   }
 })
 
 Vue.filter('toFixed', function (value) {
   if (value) {
-    return Number(value).toFixed(0)
+    if (value.includes(',')) {
+      const oriVal = value.replace(/,/g, '')
+      return Number(oriVal).toFixed(0)
+    } else {
+      return Number(value).toFixed(0)
+    }
   }
 })
 
