@@ -48,7 +48,7 @@
                     <div class="right">
                       <span class="red">{{ coinInfo.highestPrice }}</span>
                       <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
-                      <p class="gray">({{ coinInfo.highestDate }})</p>
+                      <p class="gray">({{ coinInfo.highestDate | yyyymmddFilter2 }})</p>
                     </div>
                   </div>
                   <div class="row_l">
@@ -56,7 +56,7 @@
                     <div class="right">
                       <span class="blue">{{ coinInfo.lowestPrice }}</span>
                       <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
-                      <p class="gray">({{ coinInfo.lowestDate }})</p>
+                      <p class="gray">({{ coinInfo.lowestDate | yyyymmddFilter2 }})</p>
                     </div>
                   </div>
 
