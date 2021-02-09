@@ -109,7 +109,7 @@
             </p>
           </td>
           <td class="tr">
-            <a href="javascript:void(0)" @click="editWindowOpen(coins.symbol)">
+            <a href="javascript:void(0)" @click="editWindowOpen(coins)">
               {{ coins.argPrice | toFixed | commaFilter }}<span class="c_n">KRW</span>
               <img style="vertical-align: -2px; margin-left: 10px" src="~/assets/images/icon_set.png" :alt="`$t('averagepurchaseprice')`" />
               <span v-show="coins.editFlag == 0" class="editText">{{ $t('averageprice') }} {{ $t('modify') }}</span>
@@ -136,14 +136,19 @@
     <div v-if="walletList.legnth == 0" style="text-align: center; padding: 20px; font-size: 13px">
       {{ $t('nothavecoin') }}
     </div>
+    <AveragePriceEdit v-if="showModal" :ini="iniInfo" @close="showModal = false"></AveragePriceEdit>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import AveragePriceEdit from './AveragePriceEdit'
 import { myCoins } from '~/api/balance'
 export default {
   name: 'MyCoin',
+  components: {
+    AveragePriceEdit
+  },
   data() {
     return {
       total: {
@@ -156,7 +161,9 @@ export default {
       },
       walletList: [],
       symbol: ' ',
-      type: '2'
+      type: '2',
+      showModal: false,
+      iniInfo: {}
     }
   },
   computed: {
@@ -200,6 +207,10 @@ export default {
           vm.total.evalPlRt = (vm.total.evalPl / vm.total.openAmt) * 100
         }
       })
+    },
+    editWindowOpen(item) {
+      this.showModal = true
+      this.iniInfo = item
     }
   }
 }
