@@ -4,12 +4,14 @@
     <div class="left_top" @click="onBlock('')">
       <p class="st1">{{ $t('totalassets') }}</p>
       <p class="st2">
-        ￦<span>{{ totalQty.dpoAmt }}</span>
+        ￦<span>{{ totalAmt | toFixed | commaFilter }}</span>
       </p>
+      <!--
       <p v-show="totalQty.dpoPdngAmt != 0" class="st3" :class="{ red: totalQty.dpoPdngAmt > 0, blue: totalQty.dpoPdngAmt < 0 }">
         (<span>{{ totalQty.dpoPdngAmt }}</span
         >)
       </p>
+      -->
     </div>
     <span class="small_btn ableCoin" :class="{ on: viewMode == 1 }" @click="setMode()">
       {{ $t('retainedcoin') }}
@@ -28,15 +30,18 @@
           <li v-for="(coins, index) in walletList" v-show="tokenViewFlag || coins.coinType != '2'" :key="index" :class="{ active: coins.symbol == curSymbol.symbol, token: coins.coinType == '2' }">
             <a href="javascript:void(0);" @click="onBlock(coins.symbol, coins.coinType)">
               <span class="st1">
+                <!--
                 <img :src="require(`~/assets/images/coin/${coins.symbol}.png`)" :alt="`${coins.symbol}`" />
+                -->
                 <span class="ml5">{{ coins.symbolName }}</span
                 ><span class="gray">({{ coins.symbol }})</span>
               </span>
               <span class="st2">
-                <span class="ml5">{{ coins.dpoQty | toFixed2 }}</span>
+                <span v-if="coins.symbol == 'KRW'" class="ml5">{{ coins.dpoQty | toFixed | commaFilter }}</span>
+                <span v-else class="ml5">{{ coins.dpoQty | toFixed8 | commaFilter }}</span>
               </span>
               <span v-show="coins.symbol != 'KRW'" class="st2 won_price">
-                <span>{{ coins.dpoQty | toFixed }}</span>
+                <span>{{ coins.dpoQty | toFixed | calcPrice(coins.lastPrice, coins.dpoQty) }}</span>
                 <span>KRW</span>
               </span>
             </a>
@@ -60,10 +65,8 @@ export default {
   name: 'MyCoins',
   data() {
     return {
-      totalQty: {
-        dpoPdngAmt: '1000',
-        dpoAmt: '1,000'
-      },
+      totalQty: {},
+      totalAmt: 0,
       viewMode: '0',
       tokenViewFlag: '1',
       walletList: [],
@@ -101,6 +104,9 @@ export default {
       const vm = this
       myCoins(vm.symbol, '2', vm.getSessionId, vm.getUid).then(res => {
         vm.walletList = res.data
+        vm.walletList.forEach(function (item, index, arr) {
+          vm.totalAmt += Number(item.dpoQty)
+        })
       })
     }
   }

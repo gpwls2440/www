@@ -296,7 +296,8 @@ export default {
       },
       walletRcpyList: {
         length: ''
-      }
+      },
+      showCoin: ''
     }
   }
 }
