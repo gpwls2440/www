@@ -22,26 +22,26 @@
         <li style="width: 270px">
           <span class="l">{{ $t('total') }}{{ $t('purchaseamount') }}</span>
           <span class="r"
-            ><span class="c1">{{ total.buyAmt }}</span> KRW</span
+            ><span class="c1">{{ total.buyAmt | commaFilter }}</span> KRW</span
           >
         </li>
         <li style="width: 270px">
           <span class="l">{{ $t('total') }}{{ $t('ask') }}{{ $t('price') }}</span>
           <span class="r"
-            ><span class="c1">{{ total.sellAmt }}</span> KRW</span
+            ><span class="c1">{{ total.sellAmt | commaFilter }}</span> KRW</span
           >
         </li>
         <li>
           <span class="l">{{ $t('returnoninvestment') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.profitAmt > 0, blue: total.profitAmt < 0 }">{{ total.profitAmt }}</span>
+            <span class="c2" :class="{ red: total.profitAmt > 0, blue: total.profitAmt < 0 }">{{ total.profitAmt | commaFilter }}</span>
             <span class="c8">KRW</span>
           </span>
         </li>
         <li style="width: 150px">
           <span class="l">{{ $t('profitrate') }}</span>
           <span class="r">
-            <span class="c2" :class="{ red: total.rate > 0, blue: total.rate < 0 }">{{ total.rate }}</span>
+            <span class="c2" :class="{ red: total.rate > 0, blue: total.rate < 0 }">{{ total.rate | toFixed2 }}</span>
             <span class="c8">%</span>
           </span>
         </li>
@@ -66,18 +66,18 @@
           <th>{{ $t('profitrate') }}(%)</th>
         </tr>
       </thead>
-      <tbody v-for="ml in boardList" :key="ml">
+      <tbody v-for="(ml, index) in boardList" :key="index">
         <tr>
           <td class="tr1">{{ ml.symbol }}</td>
           <td class="tr1">
-            <span>{{ ml.buyAmt }}</span> <span class="c_n">KRW</span>
+            <span>{{ ml.buyAmt | commaFilter }}</span> <span class="c_n">KRW</span>
           </td>
           <td class="tr1">
-            <span>{{ ml.sellAmt }}</span> <span class="c_n">KRW</span>
+            <span>{{ ml.sellAmt | commaFilter }}</span> <span class="c_n">KRW</span>
           </td>
           <td class="tr1">
             <p>
-              <span class="c1" :class="{ red: ml.profitAmt > 0, blue: ml.profitAmt < 0 }">{{ ml.profitAmt }}</span> <span class="c_n">KRW</span>
+              <span class="c1" :class="{ red: ml.profitAmt > 0, blue: ml.profitAmt < 0 }">{{ ml.profitAmt | commaFilter }}</span> <span class="c_n">KRW</span>
             </p>
           </td>
           <td class="tr1">
@@ -92,6 +92,8 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { profitList } from '~/api/exchange'
 export default {
   name: 'TransactionProfit',
   components: {},
@@ -101,10 +103,13 @@ export default {
         pages: ''
       },
       total: {
-        profitAmt: ''
+        buyAmt: 0, // 총 매수
+        sellAmt: 0, // 총 매도
+        profitAmt: 0, // 손익
+        rate: 0 // 수익률
       },
-      startDt: null,
-      endDt: null,
+      startDt: '20210105',
+      endDt: '20210205',
       options: {
         format: 'YYYY-MM-DD'
       },
@@ -112,11 +117,28 @@ export default {
       boardList: []
     }
   },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUid'])
+  },
+  mounted() {
+    this.goSearch()
+  },
   methods: {
     setDate(val, gb) {
       this.startDt = this.$moment(this.endDt).subtract(val, gb).format('YYYY-MM-DD')
     },
-    goSearch() {}
+    goSearch() {
+      const vm = this
+      profitList(vm.getSessionId, vm.getUid, vm.startDt, vm.endDt).then(res => {
+        vm.boardList = res.data
+        vm.boardList.forEach(function (v, i, o) {
+          vm.total.buyAmt += Number(o[i].buyAmt)
+          vm.total.sellAmt += Number(o[i].sellAmt)
+        })
+        vm.total.profitAmt = Number(vm.total.sellAmt) - Number(vm.total.buyAmt)
+        vm.total.rate = (Number(vm.total.profitAmt) / Number(vm.total.buyAmt)) * 100
+      })
+    }
   }
 }
 </script>

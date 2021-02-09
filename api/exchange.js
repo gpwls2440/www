@@ -29,3 +29,22 @@ export const nonTransactionList = (sessionId, uid, symbol) => {
     symbol
   })
 }
+
+// 투자손익
+export const profitList = (sessionId, uid, startDt, endDt) => {
+  return axiosPost('/auth/profitList', {
+    sessionId,
+    uid,
+    startDt: startDt.replace(/[-]/g, ''),
+    endDt: endDt.replace(/[-]/g, '')
+  })
+}
+
+// 거래소 - 거래내역
+export const exTransactionList = (sessionId, uid, symbol) => {
+  return axiosPost('/auth/matchingList', {
+    sessionId,
+    uid,
+    symbol
+  })
+}

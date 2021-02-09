@@ -137,6 +137,7 @@ Vue.filter('toFixMarket', function () {
 
 Vue.filter('toFixed8', function (value) {
   if (value) {
+    value = value.toString()
     if (value.includes(',')) {
       const oriVal = value.replace(/,/g, '')
       return Number(oriVal).toFixed(8)
@@ -148,6 +149,7 @@ Vue.filter('toFixed8', function (value) {
 
 Vue.filter('toFixed2', function (value) {
   if (value) {
+    value = value.toString()
     if (value.includes(',')) {
       const oriVal = value.replace(/,/g, '')
       return Number(oriVal).toFixed(2)
@@ -159,6 +161,7 @@ Vue.filter('toFixed2', function (value) {
 
 Vue.filter('toFixed', function (value) {
   if (value) {
+    value = value.toString()
     if (value.includes(',')) {
       const oriVal = value.replace(/,/g, '')
       return Number(oriVal).toFixed(0)
