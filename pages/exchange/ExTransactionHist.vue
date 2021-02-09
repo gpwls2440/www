@@ -57,9 +57,9 @@
             <tr v-for="(ml, index) in matchingList" :key="index">
               <td class="st1 tl">
                 <span class="wColor">{{ ml.instCd }} / {{ ml.instCd }}</span>
-                <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.byslTp }}</span
+                <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.byslTp | buySellType }}</span
                 ><br />
-                <p class="gray">{{ ml.mtchTime }}</p>
+                <p class="gray">{{ ml.mtchTime | dateAndTimeFilter }}</p>
               </td>
               <td>
                 <span :class="{ red: ml.byslTp == 'B', blue: ml.byslTp == 'S' }">{{ ml.mtchQty }}</span> {{ ml.instCd }}
@@ -119,9 +119,9 @@
             </tr>
             <tr v-for="(mr, index) in matchingReady" :key="index">
               <td class="tc">
-                <span class="st1">{{ mr.ordrTime }}</span>
+                <span class="st1">{{ mr.ordrTime | dateAndTimeFilter }}</span>
               </td>
-              <td class="tc" :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp }}</td>
+              <td class="tc" :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp | buySellType }}</td>
               <td>
                 {{ mr.ordrPrc }}
                 <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
@@ -144,24 +144,30 @@
 <script>
 import { mapGetters } from 'vuex'
 import { coinInfo } from '~/api/coin'
-import { repUnComma, repComma } from '~/plugins/util'
+import { repUnComma, repComma, getSymbol } from '~/plugins/util'
+import { exTransactionList, nonTransactionList } from '~/api/exchange'
 export default {
   name: 'TransactionHist',
   data() {
     return {
       tab: '1',
       market: 'KRW',
-      matchingList: [
-        {
-          instCd: ''
-        }
-      ],
+      matchingList: [],
       oriSimbol: '',
       matchingReady: []
     }
   },
   computed: {
-    ...mapGetters(['getSessionId', 'getUserLevel', 'getSymbolMarket'])
+    ...mapGetters(['getSessionId', 'getUid', 'getUserLevel', 'getSymbolMarket'])
+  },
+  watch: {
+    tab() {
+      if (this.tab === '2') {
+        this.getExTransactionList()
+      } else if (this.tab === '3') {
+        this.getNonTransactionList()
+      }
+    }
   },
   created() {
     this.getCoinInfo()
@@ -171,7 +177,7 @@ export default {
       const { am4core, am4charts } = this.$am4core()
       const chart = am4core.create('depth_chart', am4charts.XYChart)
       chart.dataSource.url = 'http://localhost:8080/exchange/coinInfo'
-      chart.dataSource.reloadFrequency = 30000
+      // chart.dataSource.reloadFrequency = 30000
       chart.dataSource.adapter.add('parsedData', function (data) {
         // Function to process (sort and calculate cummulative volume)
         function processData(list, type, desc) {
@@ -248,7 +254,7 @@ export default {
       const xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
       xAxis.dataFields.category = 'value'
       // xAxis.renderer.grid.template.location = 0;
-      xAxis.renderer.minGridDistance = 50
+      xAxis.renderer.minGridDistance = 70
       xAxis.title.text = 'Price'
 
       const yAxis = chart.yAxes.push(new am4charts.ValueAxis())
@@ -262,7 +268,7 @@ export default {
       series.stroke = am4core.color('#0f0')
       series.fill = series.stroke
       series.fillOpacity = 0.1
-      series.tooltipText = '매수: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{bidsvolume}[/]'
+      series.tooltipText = '매수: [bold]{categoryX}[/]\n누적량: [bold]{valueY}[/]\n수량: [bold]{bidsvolume}[/]'
 
       const series2 = chart.series.push(new am4charts.StepLineSeries())
       series2.dataFields.categoryX = 'value'
@@ -271,7 +277,7 @@ export default {
       series2.stroke = am4core.color('#f00')
       series2.fill = series2.stroke
       series2.fillOpacity = 0.1
-      series2.tooltipText = '매도: [bold]{categoryX}[/]\n수량: [bold]{valueY}[/]\n누적량: [bold]{asksvolume}[/]'
+      series2.tooltipText = '매도: [bold]{categoryX}[/]\n누적량: [bold]{valueY}[/]\n수량: [bold]{asksvolume}[/]'
 
       const series3 = chart.series.push(new am4charts.ColumnSeries())
       series3.dataFields.categoryX = 'value'
@@ -302,6 +308,20 @@ export default {
         vm.coinInfo = res.data.coinInfo
         vm.askInfoList = vm.coinInfo.askInfoList
         vm.bidInfoList = vm.coinInfo.bidInfoList
+      })
+    },
+    getExTransactionList() {
+      const vm = this
+      const symbol = getSymbol(vm.getSymbolMarket)
+      exTransactionList(vm.getSessionId, vm.getUid, symbol).then(res => {
+        vm.matchingList = res.data
+      })
+    },
+    getNonTransactionList() {
+      const vm = this
+      const symbol = getSymbol(vm.getSymbolMarket)
+      nonTransactionList(vm.getSessionId, vm.getUid, symbol).then(res => {
+        vm.matchingReady = res.data
       })
     }
   }

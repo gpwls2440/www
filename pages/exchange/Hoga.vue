@@ -143,7 +143,8 @@ export default {
         vm.market = res.data.market
         vm.symbol = res.data.symbol
       })
-    }
+    },
+    setPrice() {}
   }
 }
 </script>

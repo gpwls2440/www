@@ -5,7 +5,14 @@ export const repComma = num => {
 
 export const repUnComma = num => {
   num = String(num)
-  return num.replace(/[^\d]+/g, '')
+  const dotIndex = num.indexOf('.')
+  if (dotIndex > -1) {
+    const convertVal = num.substring(0, dotIndex).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    const remainingVal = num.substring(dotIndex)
+    return `${convertVal}${remainingVal}`
+  } else {
+    return num.replace(/[^\d]+/g, '')
+  }
 }
 
 export const getSymbol = value => {
