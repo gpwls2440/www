@@ -25,34 +25,37 @@
       <ul v-if="getUserLevel > 1" class="ex_price1">
         <li class="left" style="width: 48%; text-align: left">
           <p v-if="market == 'KRW'" class="st1">
-            {{ $t('assets') }} : <span class="blue">{{ amountInfo.amount }}</span>
+            {{ $t('assets') }} : <span class="blue">{{ amountInfo.amount | toFixed | commaFilter }}</span>
             {{ market }}
             <br />
-            {{ $t('availableamount') }} : <span class="blue">{{ amountInfo.ordrAbleAmount }}</span>
+            {{ $t('availableamount') }} : <span class="blue">{{ amountInfo.ordrAbleAmount | toFixed | commaFilter }}</span>
             {{ market }}
           </p>
           <p v-if="market != 'KRW'" class="st1" :title="`보유수량 : {{ walletAmountInfo.openQty }} {{ market  }}`">
-            {{ $t('quantityretained') }} : <span class="blue"> {{ walletAmountInfo.openQty }}</span>
+            {{ $t('quantityretained') }} : <span class="blue"> {{ walletAmountInfo.openQty | toFixed8 | commaFilter }}</span>
             {{ market }}
             <br />
             {{ $t('availableamount') }} :
-            <span class="blue"> {{ walletAmountInfo.ableQty }}</span>
+            <span class="blue"> {{ walletAmountInfo.ableQty | toFixed8 | commaFilter }}</span>
             {{ market }}
             <br />
+            <!--
             {{ $t('transferfee') }} :
             <span class="pointColor" :class="{ blue: walletAmountInfo.ableQty > buyFee, red: walletAmountInfo.ableQty < buyFee }"> {{ buyFee }}</span>
             {{ market }}
+            -->
           </p>
         </li>
         <li class="right" style="width: 48%; text-align: left">
           <p class="st1" :title="`보유수량 : {{ walletInfo.openQty }} {{ market  }}`">
-            {{ $t('quantityretained') }} : <span class="blue"> {{ walletInfo.openQty }}</span>
+            {{ $t('quantityretained') }} : <span class="blue"> {{ walletInfo.openQty | toFixed8 | commaFilter }}</span>
             {{ symbol }}
             <br />
             {{ $t('maxaskamount') }} :
-            <span class="blue"> {{ walletInfo.ableQty }}</span>
+            <span class="blue"> {{ walletInfo.ableQty | toFixed8 | commaFilter }}</span>
             {{ symbol }}
             <br />
+            <!--
             {{ $t('transferfee') }} :
             <span
               v-if="
@@ -96,6 +99,7 @@
               <span class="pointColor" :class="{ blue: walletInfoETH.ableQty > sellFee, red: walletInfoETH.ableQty < sellFee }"> {{ sellFee }}</span>
               ETH <span class="warning"></span>
             </span>
+            -->
           </p>
         </li>
       </ul>
@@ -201,7 +205,7 @@
           {{ $t('minamount') }} <span class="white fw300"> {{ minPrice }} </span> {{ market }}<span class="wm">/</span>
           <span v-show="market == 'KRW'">
             {{ $t('PriceUnit') }}
-            <span class="white fw300">{{ tickSize }}</span> KRW
+            <span class="white fw300">{{ tickSize | toFixed }}</span> KRW
             <span class="wm">/</span>
           </span>
           {{ $t('fee') }}
@@ -253,11 +257,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="mr in matchingReady" :key="mr">
+          <tr v-for="(mr, index) in matchingList" :key="index">
             <td class="tc">
               <span class="st1">{{ mr.ordrTime }}</span>
             </td>
-            <td class="tc" :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp }}</td>
+            <td class="tc" :class="{ red: mr.byslTp == 'B', blue: mr.byslTp == 'S' }">{{ mr.byslTp | buySellType }}</td>
             <td>
               {{ mr.ordrPrc }}
               <p v-if="market != 'KRW'" class="won_price">{{ basicPrice }}<span>KRW</span></p>
@@ -283,7 +287,7 @@
           {{ $t('isrequired') }}
         </p>
       </div>
-      <table v-show="userLevel > 1" class="table_type_h1">
+      <table v-show="getUserLevel > 1" class="table_type_h1">
         <colgroup>
           <col style="width: * %" />
           <col style="width: 15%" />
@@ -301,12 +305,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="mcL in matchingList" :key="mcL">
+          <tr v-for="(mcL, index) in matchingReady" :key="index">
             <th>{{ mcL.instCd }} / {{ mcL.instCd }}</th>
-            <td style="text-align: center" :class="{ red: mcL.byslTp == 'B', blue: mcL.byslTp == 'S' }">{{ mcL.byslTp }}</td>
+            <td style="text-align: center" :class="{ red: mcL.byslTp == 'B', blue: mcL.byslTp == 'S' }">{{ mcL.byslTp | buySellType }}</td>
             <td>{{ mcL.mtchPrc }}</td>
             <td>{{ mcL.mtchQty }}</td>
-            <td>{{ mcL.mtchTime }}</td>
+            <td>{{ mcL.mtchTime | dateAndTimeFilter }}</td>
           </tr>
         </tbody>
       </table>
@@ -320,6 +324,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import { coinInfo } from '~/api/coin'
+import { orderAsset, sendFee } from '~/api/balance'
+import { exTransactionList, nonTransactionList } from '~/api/exchange'
+import { getMarket, getSymbol } from '~/plugins/util'
 import Modal from '~/components/Modal'
 export default {
   name: 'Order',
@@ -330,12 +337,9 @@ export default {
     return {
       tab: '1',
       market: 'KRW',
-      amountInfo: {
-        amount: '100,000,000',
-        ordrAbleAmount: '20,000,000'
-      },
-      buyFee: '0.001',
-      sellFee: '0.001',
+      amountInfo: {},
+      buyFee: '',
+      sellFee: '',
       walletInfo: {
         openQty: '',
         ableQty: ''
@@ -349,29 +353,32 @@ export default {
       buyQty: '',
       buyPrice: '',
       oriSimbol: '',
-      minPrice: '10,000',
-      tickSize: '1,000',
-      feeRate: '0.1',
-      matchingList: [
-        {
-          ordrTime: '',
-          byslTp: '',
-          ordrPrc: '',
-          ordrQty: '',
-          remnQty: ''
-        }
-      ],
+      minPrice: '',
+      tickSize: '',
+      feeRate: '',
+      matchingList: [],
       oriSymbol: 'BTC',
       basicPrice: '',
       showModal: false,
-      text: ''
+      text: '',
+      matchingReady: []
     }
   },
   computed: {
-    ...mapGetters(['getUserLevel', 'getSessionId'])
+    ...mapGetters(['getUserLevel', 'getSessionId', 'getUid', 'getSymbolMarket'])
+  },
+  watch: {
+    tab() {
+      if (this.tab === '3') {
+        this.getExTransactionList()
+      } else if (this.tab === '4') {
+        this.getNonTransactionList()
+      }
+    }
   },
   mounted() {
     this.getCoinInfo()
+    this.getOrderAsset()
   },
   methods: {
     tabChange(tab) {
@@ -386,8 +393,8 @@ export default {
       const vm = this
       coinInfo(vm.getSymbolMarket).then(res => {
         vm.buyPrice = res.data.coinInfo.lastPrice
-        console.log('vm.buyPrice: ' + vm.buyPrice)
         vm.sellPrice = res.data.coinInfo.lastPrice
+        vm.tickSize = res.data.coinInfo.tickSize
       })
     },
     goOrder(orderType, priceType) {
@@ -395,6 +402,45 @@ export default {
         this.showModal = true
         this.text = '로그인 후 거래가 가능합니다.'
       }
+    },
+    getOrderAsset() {
+      const vm = this
+      orderAsset(vm.getSessionId, vm.getUid, vm.getSymbolMarket).then(res => {
+        vm.amountInfo = res.data.amountInfo
+        vm.orderMaxBuy = vm.amountInfo.ordrAbleAmount
+        vm.minPrice = vm.amountInfo.minPrice
+        vm.walletAmountInfo = res.data.walletAmountInfo
+        vm.walletInfo = res.data.walletInfo
+        vm.market = res.data.market
+        vm.feeRate = vm.walletInfo.feeRate
+      })
+    },
+    getSendFee() {
+      const vm = this
+      const symbol = getSymbol(vm.getSymbolMarket)
+      const market = getMarket(vm.getSymbolMarket)
+      if (market !== 'KRW') {
+        sendFee(symbol, vm.procType, vm.calcType, vm.gasLimit, vm.gwei).then(res => {
+          vm.buyFee = res.data.fee
+        })
+      }
+      sendFee(symbol, vm.procType, vm.calcType, vm.gasLimit, vm.gwei).then(res => {
+        vm.sellFee = res.data.fee
+      })
+    },
+    getExTransactionList() {
+      const vm = this
+      const symbol = getSymbol(vm.getSymbolMarket)
+      exTransactionList(vm.getSessionId, vm.getUid, symbol).then(res => {
+        vm.matchingList = res.data
+      })
+    },
+    getNonTransactionList() {
+      const vm = this
+      // const symbol = getSymbol(vm.getSymbolMarket)
+      nonTransactionList(vm.getSessionId, vm.getUid, 'LTC').then(res => {
+        vm.matchingReady = res.data
+      })
     }
   }
 }
