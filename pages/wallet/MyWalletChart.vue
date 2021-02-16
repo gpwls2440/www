@@ -22,11 +22,14 @@
         <div class="wlt1ConLeft1">
           <!-- wlt1ConLeft -->
           <div class="wlt1ConLeftGraph">
+            <!--
             <div class="chartjs-size-monitor">
               <div class="chartjs-size-monitor-expand"></div>
               <div class="chartjs-size-monitor-shrink"></div>
             </div>
             <canvas id="myCoinChart" class="myCoinChart chartjs-render-monitor" width="500" height="500"></canvas>
+            -->
+            <DoughnutChart></DoughnutChart>
             <img id="total0" src="~/assets/images/total0.png" style="display: none; width: 500px" />
           </div>
           <div v-show="curSymbol.symbol != ''" class="wlt1ConLeftText">
@@ -90,12 +93,17 @@
 </template>
 
 <script>
+import DoughnutChart from './DoughnutChart'
 export default {
   name: 'MyWalletChart',
+  components: {
+    DoughnutChart
+  },
   data() {
     return {
       curSymbol: {
-        in: ''
+        in: '',
+        symbol: ''
       },
       totalQty: {
         dpoPdngAmt: ''
