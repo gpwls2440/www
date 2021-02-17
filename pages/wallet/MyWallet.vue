@@ -249,7 +249,7 @@
       </div>
       <!-- // deposit_area5 -->
       <div id="deposit_area4_loading">
-        <img src="/assets/js/plugins/loader/images/ownageLoader/loader2.gif" />
+        <img src="~/assets/images/loader2.gif" />
       </div>
       <div v-show="curSymbol.symbol != ''" class="deposit_area4 mCustomScrollbar">
         <ul>

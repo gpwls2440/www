@@ -22,14 +22,7 @@
         <div class="wlt1ConLeft1">
           <!-- wlt1ConLeft -->
           <div class="wlt1ConLeftGraph">
-            <!--
-            <div class="chartjs-size-monitor">
-              <div class="chartjs-size-monitor-expand"></div>
-              <div class="chartjs-size-monitor-shrink"></div>
-            </div>
-            <canvas id="myCoinChart" class="myCoinChart chartjs-render-monitor" width="500" height="500"></canvas>
-            -->
-            <DoughnutChart></DoughnutChart>
+            <DoughnutChart :symbol-name="symbolName" :coin-eval="coinEval"></DoughnutChart>
             <img id="total0" src="~/assets/images/total0.png" style="display: none; width: 500px" />
           </div>
           <div v-show="curSymbol.symbol != ''" class="wlt1ConLeftText">
@@ -71,7 +64,7 @@
           <div v-show="curSymbol.symbol == ''" class="wlt1ConLeftText" style="top: 320px">
             <h2 class="wlt1ConLeftTextH2">
               <span class="wColor ng-binding" style="color: #222222; font-size: 26px; margin-top: 20px">
-                <span count-up start-val="0" end-val="totalQty.dpoAmt"></span>
+                <span>{{ totalAmt | toFixed | commaFilter }}</span>
                 <span>KRW</span>
               </span>
             </h2>
@@ -98,6 +91,24 @@ export default {
   name: 'MyWalletChart',
   components: {
     DoughnutChart
+  },
+  props: {
+    symbolName: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    coinEval: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    totalAmt: {
+      type: Number,
+      default: 0
+    }
   },
   data() {
     return {

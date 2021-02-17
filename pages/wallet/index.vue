@@ -5,8 +5,8 @@
       <!-- contents -->
       <div class="con_layout5">
         <!-- con_layout5 -->
-        <MyCoins></MyCoins>
-        <MyWalletChart></MyWalletChart>
+        <MyCoins :wallet-list="walletList" :total-amt="totalAmt"></MyCoins>
+        <MyWalletChart :symbol-name="symbolName" :coin-eval="coinEval" :total-amt="totalAmt"></MyWalletChart>
         <MyWallet></MyWallet>
       </div>
     </div>
@@ -14,10 +14,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import MyCoins from './MyCoins'
 import MyWalletChart from './MyWalletChart'
 import MyWallet from './MyWallet'
+import { myCoins } from '~/api/balance'
 import '@/assets/css/wallet.css'
+import { calcPrice } from '~/plugins/util'
 
 export default {
   // middleware: 'authenticated',
@@ -27,7 +30,33 @@ export default {
     MyWallet
   },
   data() {
-    return {}
+    return {
+      symbol: '',
+      walletList: [],
+      totalAmt: 0,
+      symbolName: [],
+      coinEval: []
+    }
+  },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUid'])
+  },
+  mounted() {
+    this.getMyCoins()
+  },
+  methods: {
+    getMyCoins() {
+      const vm = this
+      myCoins(vm.symbol, '2', vm.getSessionId, vm.getUid).then(res => {
+        vm.walletList = res.data
+        vm.walletList.forEach(function (item, index, arr) {
+          vm.totalAmt += Number(item.dpoQty)
+          vm.symbolName.push(arr[index].symbolName)
+          const coinEval = calcPrice(arr[index].lastPrice, arr[index].dpoQty)
+          vm.coinEval.push(coinEval.toString())
+        })
+      })
+    }
   }
 }
 </script>
@@ -98,15 +127,15 @@ export default {
 }
 
 .viewRight.on {
-  background: url('/assets/img/btn_on.png') center center no-repeat;
+  /*background: url('../../assets/images/') center center no-repeat;*/
 }
 
 .viewRight.off {
-  background: url('/assets/img/btn_off.png') center center no-repeat;
+  /*background: url('../../assets/images/btn_off.png') center center no-repeat;*/
 }
 
 .warning {
-  background: url('/assets/img/icon_pkmark.png') no-repeat;
+  /*background: url('../../assets/images/icon_pkmark.png') no-repeat;*/
   display: inline-block;
   width: 20px;
   height: 20px;

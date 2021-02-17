@@ -20,13 +20,6 @@
       <div class="bk_list">
         <!-- bk_list -->
         <ul class="">
-          <!--
-          <li
-            v-show="tokenViewFlag || coins.coinType != '2'"
-            v-for="coins in walletList | orderBy:['order','symbol'] | filter:viewItem "
-            :class="{ active: coins.symbol == curSymbol.symbol, token: coins.coinType == '2' }"
-          >
-          -->
           <li v-for="(coins, index) in walletList" v-show="tokenViewFlag || coins.coinType != '2'" :key="index" :class="{ active: coins.symbol == curSymbol.symbol, token: coins.coinType == '2' }">
             <a href="javascript:void(0);" @click="onBlock(coins.symbol, coins.coinType)">
               <span class="st1">
@@ -60,16 +53,25 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { myCoins } from '~/api/balance'
 export default {
   name: 'MyCoins',
+  props: {
+    walletList: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    totalAmt: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       totalQty: {},
-      totalAmt: 0,
       viewMode: '0',
       tokenViewFlag: '1',
-      walletList: [],
       curSymbol: {
         symbol: '',
         name: '',
@@ -93,21 +95,9 @@ export default {
   computed: {
     ...mapGetters(['getSessionId', 'getUid'])
   },
-  mounted() {
-    this.getMyCoins()
-  },
   methods: {
     setMode() {
       this.viewMode = '1'
-    },
-    getMyCoins() {
-      const vm = this
-      myCoins(vm.symbol, '2', vm.getSessionId, vm.getUid).then(res => {
-        vm.walletList = res.data
-        vm.walletList.forEach(function (item, index, arr) {
-          vm.totalAmt += Number(item.dpoQty)
-        })
-      })
     }
   }
 }
