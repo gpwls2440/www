@@ -173,7 +173,7 @@ Vue.filter('toFixed', function (value) {
 
 Vue.filter('calcPrice', function (input, val1) {
   const basic = Number(repUnComma(input))
-  const price = Number(val1)
+  const price = Number(repUnComma(val1))
   let out = Number(price) * Number(basic)
   out = Math.round(out)
   return repComma(out)
