@@ -51,9 +51,6 @@
     </div>
     <!-- // gray_box_h1 -->
     <h3><img src="~/assets/images/008/ico_008001_2.png" alt="" />{{ $t('editYourPassword') }}</h3>
-
-    <input id="passCheck" type="hidden" name="passCheck" value="N" />
-    <input id="passCheck1" type="hidden" name="passCheck1" value="N" />
     <div id="pwModiDiv" class="gray_box_h1">
       <div class="mem_table_h1">
         <table>
@@ -71,7 +68,7 @@
               <th>
                 <label for="">{{ $t('currentPassword') }}</label>
               </th>
-              <td><input id="oriuserpswd" type="password" name="oriuserpswd" :placeholder="$t('enterYourCurrentPassword')" style="width: 92%" /></td>
+              <td><input id="oriuserpswd" v-model="oriuserpswd" type="password" name="oriuserpswd" :placeholder="$t('enterYourCurrentPassword')" style="width: 92%" /></td>
             </tr>
             <tr>
               <th>
@@ -89,10 +86,10 @@
                     :placeholder="$t('enterYourNewPassword')"
                     style="width: 92%"
                     maxlength="20"
-                    @input="chkPw(password)"
+                    @input="chkPw(newPwd)"
                   />
                 </div>
-                <p id="pwCheckText" class="txt3">
+                <p id="pwCheckText" class="txt3" :class="{ red: passCheck == 'N', blue: passCheck == 'Y' }">
                   {{ $t('passwordGuide') }}
                 </p>
               </td>
@@ -102,8 +99,8 @@
                 <label for="">{{ $t('confirmPassword') }}</label>
               </th>
               <td>
-                <input id="rereuserpswd" type="password" name="reuserpswd" oninput="chkPw1(this.value)" :placeholder="$t('enterYourPasswordAgain')" style="width: 92%" maxlength="20" />
-                <p id="pwCheckText1" class="t_wa">＊{{ $t('enterSamePassword') }}</p>
+                <input id="reuserpswd" v-model="rePwd" type="password" name="reuserpswd" :placeholder="$t('enterYourPasswordAgain')" style="width: 92%" maxlength="20" @input="confirmPwd(rePwd)" />
+                <p id="pwCheckText1" class="t_wa" :class="{ red: rePassCheck == 'N', blue: rePassCheck == 'Y' }">＊{{ $t('enterSamePassword') }}</p>
               </td>
             </tr>
           </tbody>
@@ -111,7 +108,7 @@
       </div>
     </div>
     <div class="tc">
-      <button class="but_black" type="button" onclick="goUpdatePw();">{{ $t('changePassword') }}</button>
+      <button class="but_black" @click="goUpdatePw()">{{ $t('changePassword') }}</button>
     </div>
     <modal v-if="showModal" @close="showModal = false">
       <p slot="body">{{ text }}</p>
@@ -124,7 +121,7 @@ import VueClipboard from 'vue-clipboard2'
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import Modal from '~/components/Modal'
-import { userInfo } from '~/api/user'
+import { userInfo, chkPwd } from '~/api/user'
 
 Vue.use(VueClipboard, { global: false })
 
@@ -138,7 +135,11 @@ export default {
       showModal: false,
       userInfo: {},
       clipboardTxt: '',
-      newPwd: ''
+      oriuserpswd: '',
+      newPwd: '',
+      rePwd: '',
+      passCheck: '',
+      rePassCheck: ''
     }
   },
   computed: {
@@ -174,15 +175,33 @@ export default {
     chkPw(str) {
       const regPwd = /^.*(?=.{8,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/
       if (!regPwd.test(str)) {
-        $('#passCheck').val('N')
-        $('#pwCheckText').text("{{i18n 'Between8And20Digits'}}")
-        $('#pwCheckText').removeClass('blue')
-        $('#pwCheckText').addClass('red')
+        this.passCheck = 'N'
+        $('#pwCheckText').text(this.$i18n.t('Between8And20Digits'))
       } else {
-        $('#passCheck').val('Y')
-        $('#pwCheckText').text("{{i18n 'securePassword'}}")
-        $('#pwCheckText').removeClass('red')
-        $('#pwCheckText').addClass('blue')
+        this.passCheck = 'Y'
+        $('#pwCheckText').text(this.$i18n.t('securePassword'))
+      }
+    },
+    confirmPwd(str) {
+      if (str !== this.newPwd) {
+        this.rePassCheck = 'N'
+      } else {
+        this.rePassCheck = 'Y'
+        $('#pwCheckText1').text(this.$i18n.t('signUpPWChksub1'))
+      }
+    },
+    goUpdatePw() {
+      const vm = this
+      if (this.oriuserpswd === '' || this.newPwd === '' || this.rePwd === '') {
+        this.showModal = true
+        this.text = '비밀번호를 입력해주세요'
+      } else if (this.passCheck === 'N' || this.rePassCheck === 'N') {
+        this.showModal = true
+        this.text = '비밀번호를 확인해주세요'
+      } else {
+        chkPwd(vm.oriuserpswd, vm.getSessionId, vm.getUid).then(res => {
+          console.log('res.data ' + res.data)
+        })
       }
     }
   }

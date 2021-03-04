@@ -6,7 +6,7 @@
       <div class="con_layout5">
         <!-- con_layout5 -->
         <MyCoins :wallet-list="walletList" :total-amt="totalAmt"></MyCoins>
-        <MyWalletChart :symbol-name="symbolName" :coin-eval="coinEval" :total-amt="totalAmt"></MyWalletChart>
+        <MyWalletChart :tot-symbol="totSymbol" :coin-eval="coinEval" :total-amt="totalAmt"></MyWalletChart>
         <MyWallet></MyWallet>
       </div>
     </div>
@@ -34,7 +34,7 @@ export default {
       symbol: '',
       walletList: [],
       totalAmt: 0,
-      symbolName: [],
+      totSymbol: [],
       coinEval: []
     }
   },
@@ -51,7 +51,7 @@ export default {
         vm.walletList = res.data
         vm.walletList.forEach(function (item, index, arr) {
           vm.totalAmt += Number(item.dpoQty)
-          vm.symbolName.push(arr[index].symbolName)
+          vm.totSymbol.push(arr[index].symbol)
           const coinEval = calcPrice(arr[index].lastPrice, arr[index].dpoQty)
           vm.coinEval.push(coinEval.toString())
         })

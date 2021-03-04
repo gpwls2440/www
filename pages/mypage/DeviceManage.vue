@@ -169,7 +169,7 @@ p.del_title {
 }
 
 .warning {
-  background: url('/assets/img/icon_pkmark.png') no-repeat;
+  background: url('../../assets/images/icon_pkmark.png') no-repeat;
   display: inline-block;
   width: 20px;
   height: 20px;

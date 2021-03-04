@@ -4,7 +4,9 @@
     <no-ssr>
       <div class="top_area">
         <p class="tit">
+          <!--
           <span class="b1"><img :src="require(`~/assets/images/coin/${symbol}.png`)" :alt="symbol" style="width: 32px" /></span>
+          -->
           <a class="w_area_btn" @mouseover="classActived = true" @mouseout="classActived = false">
             <span class="st1">{{ coinName }}</span> <span class="st2">{{ symbol }}/{{ market }} </span>
             <span class="b2"><img src="~/assets/images/arr_btn.png" alt="" /></span>
@@ -83,11 +85,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 // import { widget as Widget } from '../../public/lib/tv/charting_library/charting_library.min.js'
+import mixinRealSise from '@/mixins/mixinRealSise'
 import { coinList, coinInfo } from '~/api/coin'
 // import DataFeed from '~/api/datafeed'
 
 export default {
   name: 'Chart',
+  mixins: [mixinRealSise],
   data() {
     return {
       coinName: '',
@@ -110,6 +114,10 @@ export default {
   watch: {
     getSymbolMarket() {
       this.getCoinInfo()
+      this.connect()
+    },
+    realCoinInfo() {
+      this.coinInfo = this.realCoinInfo
     }
   },
   /*

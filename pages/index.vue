@@ -94,7 +94,9 @@
                     <tr v-for="(coin, index) in coinInfoList" :key="index" class="coinList" @click="goMarket(coin.symbol, coin.market)">
                       <td :title="coin.coinName">
                         <div style="width: 50px; float: left; margin-left: 20px; padding-top: 5px">
+                          <!--
                           <img :src="require(`~/assets/images/coin/${coin.symbol}.png`)" style="width: 60%; vertical-align: middle" :alt="coin.symbol" />
+                          -->
                         </div>
                         <div style="float: left; font-size: 16px; text-align: left; margin-left: 10px; line-height: 1.2">
                           {{ coin.coinName }}<br />
@@ -102,7 +104,8 @@
                         </div>
                       </td>
                       <td class="pdw" :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">
-                        {{ coin.lastPrice }}<span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice }}<span> KRW</span></span>
+                        {{ coin.lastPrice }}
+                        <span v-if="coin.market != 'KRW'" class="won_price">{{ coin.basicPrice }}<span> KRW</span></span>
                       </td>
                       <td :class="{ red: coin.updnSign == '1', blue: coin.updnSign == '-1' }">{{ coin.updnRate }} %</td>
                       <td class="sec2 red">
@@ -202,6 +205,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import mixinRealSise from '@/mixins/mixinRealSise'
 import MainPopupModal from '../components/MainPopupModal'
 import { coinList, favCoinList } from '~/api/coin'
 import { mainNotiTitle } from '~/api/etc'
@@ -214,10 +218,11 @@ export default {
     SwiperSlide,
     MainPopupModal
   },
+  mixins: [mixinRealSise],
   data() {
     return {
       noticeInfoList: [],
-      showModal: true,
+      showModal: false,
       notiMainTitleList: [],
       swiperOption: {
         centeredSlides: true,
@@ -242,7 +247,9 @@ export default {
       return this.$refs.mySwiper.$swiper
     }
   },
-  created() {},
+  created() {
+    console.log('this.realCoinInfo.lastPrice: ' + this.realCoinInfo.lastPrice)
+  },
   mounted() {
     this.ticker()
     this.getCoinList()

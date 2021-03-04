@@ -21,7 +21,7 @@
         <!-- bk_list -->
         <ul class="">
           <li v-for="(coins, index) in walletList" v-show="tokenViewFlag || coins.coinType != '2'" :key="index" :class="{ active: coins.symbol == curSymbol.symbol, token: coins.coinType == '2' }">
-            <a href="javascript:void(0);" @click="onBlock(coins.symbol, coins.coinType)">
+            <a href="javascript:void(0);" @click="onBlock(coins)">
               <span class="st1">
                 <!--
                 <img :src="require(`~/assets/images/coin/${coins.symbol}.png`)" :alt="`${coins.symbol}`" />
@@ -53,6 +53,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import EventBus from '../eventBus'
 export default {
   name: 'MyCoins',
   props: {
@@ -89,7 +90,8 @@ export default {
         KdaPointQty: 0
       },
       tokenCount: '',
-      symbol: ''
+      symbol: '',
+      coinType: ''
     }
   },
   computed: {
@@ -97,7 +99,14 @@ export default {
   },
   methods: {
     setMode() {
-      this.viewMode = '1'
+      if (this.viewMode === '0') {
+        this.viewMode = '1'
+      } else {
+        this.viewMode = '0'
+      }
+    },
+    onBlock(item) {
+      EventBus.$emit('walletItem', item)
     }
   }
 }

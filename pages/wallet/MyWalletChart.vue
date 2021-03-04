@@ -9,20 +9,20 @@
     </div>
     <!-- // center_top -->
     <div class="center_gm">
-      <p v-show="curSymbol.symbol != ''" class="st1">
-        <img v-if="curSymbol.symbol != ''" class="circle" :src="`~/assets/images/coin/${curSymbol.symbol}.png`" alt="" width="30" />
-        {{ curSymbol.name }}
-        <span class="gray">({{ curSymbol.symbol }})</span>
+      <p v-show="symbol != ''" class="st1">
+        <img v-if="symbol != ''" class="circle" :src="require(`~/assets/images/coin/${symbol}.png`)" alt="" width="30" />
+        {{ symbolName }}
+        <span class="gray">({{ symbol }})</span>
         <span class="small_btn allCoin" @click="onBlock('')">
           {{ $t('totalassets') }}
         </span>
       </p>
-      <p v-show="curSymbol.symbol == ''" class="st1" style="font-size: 24px; font-weight: bold">{{ $t('myassets') }}</p>
+      <p v-show="symbol == ''" class="st1" style="font-size: 24px; font-weight: bold">{{ $t('myassets') }}</p>
       <div class="gm">
         <div class="wlt1ConLeft1">
           <!-- wlt1ConLeft -->
           <div class="wlt1ConLeftGraph">
-            <DoughnutChart :symbol-name="symbolName" :coin-eval="coinEval"></DoughnutChart>
+            <DoughnutChart :tot-symbol="totSymbol" :coin-eval="coinEval"></DoughnutChart>
             <img id="total0" src="~/assets/images/total0.png" style="display: none; width: 500px" />
           </div>
           <div v-show="curSymbol.symbol != ''" class="wlt1ConLeftText">
@@ -86,14 +86,16 @@
 </template>
 
 <script>
+import EventBus from '../eventBus'
 import DoughnutChart from './DoughnutChart'
+
 export default {
   name: 'MyWalletChart',
   components: {
     DoughnutChart
   },
   props: {
-    symbolName: {
+    totSymbol: {
       type: Array,
       default() {
         return []
@@ -112,6 +114,8 @@ export default {
   },
   data() {
     return {
+      symbol: '',
+      symbolName: '',
       curSymbol: {
         in: '',
         symbol: ''
@@ -121,6 +125,15 @@ export default {
       },
       showCoin: false
     }
+  },
+  created() {
+    EventBus.$on(
+      'walletItem',
+      function (payload) {
+        this.symbol = payload.symbol
+        this.symbolName = payload.symbolName
+      }.bind(this)
+    )
   }
 }
 </script>

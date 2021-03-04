@@ -9,8 +9,9 @@ export const userInfo = (sessionId, uid) => {
 }
 
 // 마이페이지 > 비밀번호 수정 > 비밀번호 체크
-export const chkPwd = (sessionId, uid) => {
+export const chkPwd = (oriuserpswd, sessionId, uid) => {
   return axiosPost('/mypage/checkPw', {
+    oriuserpswd,
     sessionId,
     uid
   })

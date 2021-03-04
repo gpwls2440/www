@@ -42,7 +42,7 @@ import AccessInfo from './AccessInfo'
 import DeviceManage from './DeviceManage'
 
 export default {
-  middleware: 'authenticated',
+  // middleware: 'authenticated',
   components: {
     MemberInfo,
     AuthManage,

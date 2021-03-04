@@ -1,16 +1,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Doughnut } from 'vue-chartjs'
-import { myCoins } from '~/api/balance'
-import { calcPrice } from '~/plugins/util'
 
 export default {
   name: 'DoughnutChart',
   extends: Doughnut,
   plugins: [],
   props: {
-    /*
-    symbolName: {
+    totSymbol: {
       type: Array,
       default() {
         return []
@@ -22,14 +19,11 @@ export default {
         return []
       }
     }
-  */
   },
   data() {
     return {
       symbol: '',
       walletList: [],
-      symbolName: [],
-      coinEval: [],
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
@@ -44,21 +38,24 @@ export default {
           fontSize: 20,
           fontFamily: 'Arial'
         },
-        percentageInnerCutout: 70,
+        cutoutPercentage: 70, // thickness
         tooltips: {
           callbacks: {
             label(tooltipItem, data) {
-              // const dataLabel = data.labels[tooltipItem.index]
-              const value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString()
-              return value
+              return data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
             }
           }
         }
-      },
-      chartData: {
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['getSessionId', 'getUid']),
+    chartData() {
+      return {
         hoverBackgroundColor: 'red',
         hoverBorderWidth: 5,
-        labels: this.symbolName,
+        labels: this.totSymbol,
         datasets: [
           {
             label: 'Data One',
@@ -69,20 +66,12 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapGetters(['getSessionId', 'getUid'])
+  watch: {
+    chartData() {
+      this.$data._chart.update()
+    }
   },
-  created() {
-    const vm = this
-    myCoins(vm.symbol, '2', vm.getSessionId, vm.getUid).then(res => {
-      vm.walletList = res.data
-      vm.walletList.forEach(function (item, index, arr) {
-        vm.symbolName.push(arr[index].symbolName)
-        const coinEval = calcPrice(arr[index].lastPrice, arr[index].dpoQty)
-        vm.coinEval.push(coinEval)
-      })
-    })
-  },
+  created() {},
   mounted() {
     this.renderChart(this.chartData, this.chartOptions)
   }
